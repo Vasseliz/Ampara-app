@@ -4,6 +4,7 @@
   border: 1px solid #e5e7eb;
   overflow: hidden;
   transition: border-color 0.2s ease, transform 0.15s ease;
+  padding-bottom: 1rem;
 }
 
 .note-card:hover {

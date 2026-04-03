@@ -21,7 +21,6 @@ body {
 .cofre__container {
   width: 100%;
   min-height: 100svh;
-  background-color: #fdfdfc; 
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
