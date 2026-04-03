@@ -1,0 +1,76 @@
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.itemWrapper:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.iconContainer {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ECF7F0; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #428A5A; 
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0 0 4px 0;
+}
+
+.dosage {
+  font-size: 12px;
+  color: #666666;
+  margin: 0;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #888888;
+  margin-top: 4px;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.titleIcon {
+  color: #428A5A;
+}
+
+.list {
+  background-color: #FAFAFA;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
