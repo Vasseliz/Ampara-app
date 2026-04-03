@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Lock, ChevronDown, BookText } from "lucide-react";
 import "./Cofre.css";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
-import { Button } from "../../shared/atoms/Button";
+import Button from "../../shared/atoms/button/Button";
 
 const Cofre = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Cofre = () => {
 
   return (
     <div className="cofre">
-      <div className="cofre__container">
+      <div className="page-container cofre__container">
         <PageHeader
           title="O Cofre"
           iconTitle={BookText}

@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Pill } from 'lucide-react';
 import styles from './Medicamentos.module.css';
+import { PageHeader } from '../../shared/molecules/PageHeader/PageHeader';
 
 import { TodayMedCard } from './components/TodayMedCard/TodayMedCard';
 import { AdherenceChart } from './components/AdherenceChart/AdherenceChart';
@@ -48,15 +49,16 @@ export function MedicamentosScreen() {
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia("(pointer: coarse)").matches;
 
   return (
-    <div className={styles.pageContainer}>
+    <div className="page-container">
       <div className={`${styles.pullToRefreshContainer} ${isRefreshing ? styles.refreshing : ''}`}>
         <Loader2 className={styles.spinner} size={24} />
       </div>
 
-      <header>
-        <h1 className={styles.pageTitle}>Medicamentos</h1>
-        <p className={styles.pageSubtitle}>Acompanhe seus medicamentos prescritos pelo seu médico</p>
-      </header>
+      <PageHeader
+        title="Medicamentos"
+        subtitle="Acompanhe seus medicamentos prescritos pelo seu médico"
+        icon={Pill}
+      />
 
       <section className={styles.section}>
         {dailyMeds.map(med => (

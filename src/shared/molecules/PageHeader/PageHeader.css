@@ -24,6 +24,7 @@
 }
 
 .page-header__icon--side {
+  display: none;
   color: gold;
 }
 
@@ -61,4 +62,10 @@
   justify-content: flex-end;
   font-size: 0.8rem;
   color: gray;
+}
+
+@media (min-width: 768px) {
+  .page-header__icon--side {
+    display: block;
+  }
 }
