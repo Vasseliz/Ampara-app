@@ -1,0 +1,53 @@
+.nav-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.nav-card:hover {
+  border-color: #9da0a4;
+  transform: translateY(-1px);
+}
+
+.nav-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.nav-card__icon-wrap {
+  width: 2rem;
+  height: 2rem;
+  background-color: #f0f5f2;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-card__icon {
+  width: 1rem;
+  height: 1rem;
+  color: #51996d;
+}
+
+.nav-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.nav-card__desc {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0;
+}

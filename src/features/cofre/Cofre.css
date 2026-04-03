@@ -13,8 +13,6 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-/*Inicio do codigo do header*/
-
 .app-layout {
   min-height: 100svh;
   display: flex;
@@ -31,53 +29,6 @@ body {
   flex-direction: column;
   gap: 1.5rem;
 }
-
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0.25rem ;
-  border-bottom: 1px solid #51996d; ;
- 
-}
-
-.header-icon {
-  width: 4rem;
- 
-}
-
-.header-title-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
-.header-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #111827;
-  letter-spacing: -0.02rem;
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin: 0;
-}
-
-.title-icon {
-  margin-bottom: 2px;
-}
-
-.header-status {
-  width: 4rem;
-  display: flex;
-  justify-content: flex-end;
-  font-size: 0.8rem;
-  color: gray;
-  
-}
-/*Fim do codigo do header*/
 
 /* Privacidade */
 .container_privacy-banner {
@@ -170,23 +121,6 @@ body {
 .Card_diario-counter {
   font-size: 0.75rem;
   color: #6b7280;
-}
-
-.Card_diario-btn {
-  background-color: #51996d; 
-  color: #ffffff;
-  font-weight: 700;
-  font-size: .9rem;
-  padding: 0.65rem 1.75rem;
-  border-radius: 1.2rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.Card_diario-btn:hover {
-  background-color: #3f7c55; 
 }
 
 
