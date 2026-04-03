@@ -1,0 +1,53 @@
+
+.pageContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  background-color: transparent; 
+  box-sizing: border-box;
+}
+
+
+.pullToRefreshContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0; 
+  overflow: hidden;
+  color: #428A5A;
+}
+
+.refreshing {
+  height: 50px;
+  transition: height 0.3s ease;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0 0 4px 0;
+  text-align: center;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: #666666;
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
