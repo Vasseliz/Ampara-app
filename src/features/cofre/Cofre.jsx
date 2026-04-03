@@ -1,31 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, ChevronDown, BookText } from "lucide-react";
+import { Lock, ChevronDown, BookText, Pointer } from "lucide-react";
 import "./Cofre.css";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
 import Button from "../../shared/atoms/button/Button";
+import { getTodayFormatted } from "./utils/datas";
+import notasAntigas from "./utils/notasAntigas";
 
 const Cofre = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [texto, setTexto] = useState("");
+  const [notas, setNotas] = useState(notasAntigas);
+  const [expandidaNotaId, setexpandidaNotaId] = useState(null);
+
+  function handleChevron(noteId) {
+    setexpandidaNotaId((current) => (current === noteId ? null : noteId));
+  }
+
+  function handleDeleteNotas(noteId) {
+    setNotas((currentNotes) => currentNotes.filter((note) => note.id !== noteId));
+    setexpandidaNotaId((current) => (current === noteId ? null : current));
+  }
 
   function handleIconClick() {
     navigate("/");
   }
 
-  const notasAntigas = [
-    {
-      id: 1,
-      date: "Quarta-Feira, 02 De Abril",
-      content:
-        "Hoje foi um dia difícil. Mas consegui respirar e lembrar do que conversamos na sessão. Estou tentando.",
-    },
-    {
-      id: 2,
-      date: "Terça-Feira, 01 De Abril",
-      content: "Ganhei na loteria. Fiquei muito rico.",
-    },
-  ];
+  function handleSaveNote() {
+    if (texto.trim() === "") return;
+
+    const novaNota = {
+      id: notas.length + 1,
+      date: getTodayFormatted(),
+      content: texto,
+    };
+
+    setNotas([novaNota, ...notas]);
+    setTexto("");
+    alert("Nota salva no Cofre!");
+  }
+
+  const hoje = getTodayFormatted();
 
   return (
     <div className="cofre">
@@ -34,7 +49,7 @@ const Cofre = () => {
           title="O Cofre"
           iconTitle={BookText}
           icon={Lock}
-          comment={`${notasAntigas.length} notas salvas`}
+          comment={`${notas.length} notas salvas`}
           handleIcon={handleIconClick}
         />
 
@@ -49,9 +64,7 @@ const Cofre = () => {
         <div className="cofre__note-card">
           <div className="cofre__note-card__date-row">
             <span className="cofre__note-card__today-tag">Hoje</span>
-            <span className="cofre__note-card__date-text">
-              Quinta-Feira, 02 De Abril
-            </span>
+            <span className="cofre__note-card__date-text">{hoje}</span>
           </div>
 
           <textarea
@@ -65,7 +78,7 @@ const Cofre = () => {
             <span className="cofre__note-card__counter">
               {texto.length} caracteres
             </span>
-            <Button variant="primary" size="md">
+            <Button variant="primary" size="md" onClick={handleSaveNote}>
               Guardar no Cofre
             </Button>
           </div>
@@ -78,14 +91,31 @@ const Cofre = () => {
           </div>
 
           <div className="cofre__annotations__list">
-            {notasAntigas.map((note) => (
+            {notas.map((note) => (
               <div key={note.id} className="cofre__annotations__item">
                 <div className="cofre__annotations__item-header">
                   <h3 className="cofre__annotations__item-title">
                     {note.date}
                   </h3>
-                  <ChevronDown size={18} color="#4b5563" />
+                  <ChevronDown
+                    size={18}
+                    color="#4b5563"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleChevron(note.id)}
+                  />
                 </div>
+                {expandidaNotaId === note.id && (
+                  <div className="cofre__annotations__item-actions">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => handleDeleteNotas(note.id)}
+                      style={{ backgroundColor: "firebrick", color: "#fff" }}
+                    >
+                      Apagar
+                    </Button>
+                  </div>
+                )}
                 <p className="cofre__annotations__item-text">{note.content}</p>
               </div>
             ))}

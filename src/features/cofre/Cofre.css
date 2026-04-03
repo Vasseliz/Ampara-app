@@ -161,6 +161,7 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid #e5e7eb;
+  max-height: 500px;
 }
 
 .cofre__annotations__item:hover {
@@ -173,6 +174,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.cofre__annotations__item-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
 }
 
 .cofre__annotations__item-title {
