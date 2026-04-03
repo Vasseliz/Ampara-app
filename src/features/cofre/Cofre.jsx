@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Lock, ChevronDown, BookText } from 'lucide-react';
 import './Cofre.css';
 import { PageHeader } from '../../shared/molecules/PageHeader/PageHeader';
-import { Button } from '../../shared/atoms/Button';
+import { Button } from '../../shared/atoms/button/Button';
 
 const Cofre = () => {
   const [texto, setTexto] = useState('');
