@@ -1,4 +1,4 @@
-import { Lock, FileText } from "lucide-react";
+import { Lock, FileText, Pill } from "lucide-react";
 import { PageHeader } from "../shared/molecules/PageHeader/PageHeader";
 import { NavigationCard } from "../shared/molecules/navigationCard/NavigationCard";
 import { InfoBanner } from "../shared/atoms/InfoBanner/InfoBanner";
@@ -21,8 +21,14 @@ const cards = [
     title: "Prontuário",
     description: "Acesse e gerencie prontuários clínicos com organização.",
   },
-
-  
+  {
+    to: "/medicamentos",
+    icon: Pill,
+    tag: "Paciente",
+    tagVariant: "paciente",
+    title: "Medicamentos",
+    description: "Acompanhe seus medicamentos prescritos pelo seu médico.",
+  },
 ];
 
 export default function Home() {
