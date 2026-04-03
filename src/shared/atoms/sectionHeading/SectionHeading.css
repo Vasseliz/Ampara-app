@@ -1,0 +1,23 @@
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0 0.25rem;
+}
+
+.section-heading__border {
+  width: 3px;
+  height: 1.2rem;
+  background-color: #51996d;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+.section-heading__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111827;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
