@@ -1,0 +1,32 @@
+.select {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.select__field {
+  width: 100%;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.6rem 2.25rem 0.6rem 0.85rem;
+  font-size: 0.875rem;
+  color: #374151;
+  font-family: inherit;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.select__field:focus {
+  outline: none;
+  border-color: #51996d;
+}
+
+.select__icon {
+  position: absolute;
+  right: 0.75rem;
+  pointer-events: none; 
+  color: #6b7280;
+}

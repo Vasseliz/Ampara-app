@@ -90,7 +90,7 @@ body {
   padding: 1rem;
   color: #374151;
   border: 1px solid #c7c9cc;
-  resize: none;
+  resize: vertical;
   font-family: inherit;
   font-size: 0.95rem;
   line-height: 1.6;
@@ -195,12 +195,9 @@ body {
 
 
 @media (min-width: 600px) {
-  .cofre__container {
-    max-width: 420px;
+  .app-container {
     min-height: auto;
     height: 880px;
-    max-height: 95vh;
-    border-radius: 2.25rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     overflow-y: auto;
     border: 10px solid #ffffff;

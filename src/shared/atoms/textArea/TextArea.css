@@ -1,0 +1,35 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  min-height: 5rem;
+}
+
+.textarea__control {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  color: #111827;
+  font-family: inherit;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.textarea__control:focus {
+  outline: none;
+  border-color: #51996d;
+  box-shadow: 0 0 0 2px rgba(81, 153, 109, 0.18);
+}
+
+.form-field__textarea {
+  resize: vertical;
+}
+
+.textarea__counter {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  align-self: flex-end;
+}
