@@ -1,5 +1,3 @@
-
-
 *{
   box-sizing: border-box;
   margin: 0;
@@ -13,14 +11,14 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.app-layout {
+.cofre {
   min-height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.app-container {
+.cofre__container {
   width: 100%;
   min-height: 100svh;
   background-color: #fdfdfc; 
@@ -30,9 +28,7 @@ body {
   gap: 1.5rem;
 }
 
-/* Privacidade */
-.container_privacy-banner {
-
+.cofre__privacy-banner {
   background-color: #f0f5f2; 
   border-radius: 0.8rem;
   padding: 0.8rem;
@@ -41,7 +37,8 @@ body {
   gap: 0.75rem;
   border: 1px solid #e5e7eb;
 }
-.container_privacy-text {
+
+.cofre__privacy-text {
   font-size: 0.85rem;
   color: #4b5563;
   margin: 0;
@@ -49,7 +46,7 @@ body {
 }
 
 /* Card Principal (Nova Nota) */
-.card_diario {
+.cofre__note-card {
   background-color: #fcfdf9; 
   border-radius: 1.25rem;
   padding: 1.25rem;
@@ -61,14 +58,13 @@ body {
   border: 1px solid #e5e7eb;
 }
 
-.card_diario-datas {
+.cofre__note-card__date-row {
   display: flex;
   align-items: center;
   gap: 0.65rem;
 }
 
-.card_diario-hoje {
-  /* Novo verde da imagem */
+.cofre__note-card__today-tag {
   background-color: #51996d; 
   color: #ffffff;
   font-size: 0.75rem;
@@ -79,14 +75,14 @@ body {
   letter-spacing: 0.05em;
 }
 
-.card_diario-text {
+.cofre__note-card__date-text {
   color: #111827;
   font-weight: 600;
   font-size: 0.9rem;
 }
 
 /* Textarea */
-.Card_diario-textarea {
+.cofre__note-card__textarea {
   width: 100%;
   height: 9rem;
   background-color: #ffffff;
@@ -100,55 +96,51 @@ body {
   line-height: 1.6;
 }
 
-.nCard_diario-textarea::placeholder {
+.cofre__note-card__textarea::placeholder {
   color: #9ca3af;
 }
 
-.Card_diario-textarea:focus {
+.cofre__note-card__textarea:focus {
   outline: none;
   border-color: #51996d;
   box-shadow: 0 0 0 1px #51996d;
 }
 
 /* Footer do Textarea */
-.Card_diario-footer {
+.cofre__note-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 0.5rem;
 }
 
-.Card_diario-counter {
+.cofre__note-card__counter {
   font-size: 0.75rem;
   color: #6b7280;
 }
 
-
-.Card_anotacao {
+.cofre__annotations {
   margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  
 }
 
-.Card_anotacao-wrapper {
+.cofre__annotations__header {
   display: flex;
   align-items: center;
   gap: 0.65rem;
   padding: 0 0.25rem;
-
-  
 }
 
-.Card_anotacao-border {
+.cofre__annotations__border {
   width: 3px;
   height: 1.2rem;
   background-color: #51996d; 
   border-radius: 1rem;
 }
 
-.Card_anotacao-titulo {
+.cofre__annotations__title {
   font-size: 0.85rem;
   font-weight: 700;
   color: #111827;
@@ -157,13 +149,13 @@ body {
   margin: 0;
 }
 
-.Card_anotacao-notas {
+.cofre__annotations__list {
   display: flex;
   flex-direction: column;
   gap: .6rem;
 }
 
-.Card_anotacao-nota {
+.cofre__annotations__item {
   background-color: #ffffff;
   border-radius: 1rem;
   padding: 1.25rem;
@@ -172,27 +164,25 @@ body {
   border: 1px solid #e5e7eb;
 }
 
-.Card_anotacao-nota:hover {
+.cofre__annotations__item:hover {
   background-color: #fdfdfc;
   border-color: #9da0a4;
   transform: translateY(-1px);
 }
 
-.Card_anotacao-nota-wrapper {
+.cofre__annotations__item-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
 }
 
-.Card_anotacao-nota-titulo {
+.cofre__annotations__item-title {
   color: #111827;
   font-weight: 600;
   font-size: 0.9rem;
-
 }
 
-.Card_anotacao-nota-text {
+.cofre__annotations__item-text {
   font-size: 0.9rem;
   color: #4b5563;
   line-height: 1.6;
@@ -205,7 +195,7 @@ body {
 
 
 @media (min-width: 600px) {
-  .app-container {
+  .cofre__container {
     max-width: 420px;
     min-height: auto;
     height: 880px;
@@ -216,10 +206,10 @@ body {
     border: 10px solid #ffffff;
   }
   
-  .app-container::-webkit-scrollbar {
+  .cofre__container::-webkit-scrollbar {
     width: 6px;
   }
-  .app-container::-webkit-scrollbar-thumb {
+  .cofre__container::-webkit-scrollbar-thumb {
     background-color: #e5e7eb;
     border-radius: 4px;
   }

@@ -21,35 +21,34 @@ const Cofre = () => {
   ];
 
   return (
-    <div className="app-layout">
-      <div className="app-container">
+    <div className="cofre">
+      <div className="cofre__container">
 
         <PageHeader title="O Cofre" iconTitle={BookText} icon={Lock} comment={`${notasAntigas.length} notas salvas`} />
 
-        <div className="container_privacy-banner">
+        <div className="cofre__privacy-banner">
           <Lock size={16} color="gold" className="icon-shrink" />
-          <p className="container_privacy-text">
+          <p className="cofre__privacy-text">
             Somente você lê isso. Nem seu terapeuta tem acesso.
           </p>
         </div>
 
         {/* Card Principal - Nova Nota */}
-        <div className="card_diario">
-          <div className="card_diario-datas">
-            <span className="card_diario-hoje">Hoje</span>
-            <span className="card_diario-text">Quinta-Feira, 02 De Abril</span>
+        <div className="cofre__note-card">
+          <div className="cofre__note-card__date-row">
+            <span className="cofre__note-card__today-tag">Hoje</span>
+            <span className="cofre__note-card__date-text">Quinta-Feira, 02 De Abril</span>
           </div>
           
           <textarea
-            className="Card_diario-textarea"
+            className="cofre__note-card__textarea"
             placeholder="Como você está se sentindo hoje? Este espaço é só seu..."
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            
           />
           
-          <div className="Card_diario-footer">
-            <span className="Card_diario-counter">
+          <div className="cofre__note-card__footer">
+            <span className="cofre__note-card__counter">
               {texto.length} caracteres
             </span>
             <Button variant="primary" size="md">
@@ -59,20 +58,20 @@ const Cofre = () => {
         </div>
 
       
-        <div className="Card_anotacao">
-          <div className="Card_anotacao-wrapper">
-            <div className="Card_anotacao-border"></div>
-            <h2 className="Card_anotacao-titulo">Anotações Anteriores</h2>
+        <div className="cofre__annotations">
+          <div className="cofre__annotations__header">
+            <div className="cofre__annotations__border"></div>
+            <h2 className="cofre__annotations__title">Anotações Anteriores</h2>
           </div>
 
-          <div className="Card_anotacao-notas">
+          <div className="cofre__annotations__list">
             {notasAntigas.map((note) => (
-              <div key={note.id} className="Card_anotacao-nota">
-                <div className="Card_anotacao-nota-wrapper">
-                  <h3 className="Card_anotacao-nota-titulo">{note.date}</h3>
+              <div key={note.id} className="cofre__annotations__item">
+                <div className="cofre__annotations__item-header">
+                  <h3 className="cofre__annotations__item-title">{note.date}</h3>
                   <ChevronDown size={18} color="#4b5563" />
                 </div>
-                <p className="Card_anotacao-nota-text">{note.content}</p>
+                <p className="cofre__annotations__item-text">{note.content}</p>
               </div>
             ))}
           </div>
