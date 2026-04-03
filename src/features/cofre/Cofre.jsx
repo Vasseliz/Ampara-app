@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Lock, ChevronDown, BookText } from 'lucide-react';
 import './Cofre.css';
+import { PageHeader } from '../../shared/molecules/PageHeader/PageHeader';
+import { Button } from '../../shared/atoms/Button';
 
 const Cofre = () => {
   const [texto, setTexto] = useState('');
@@ -21,22 +23,8 @@ const Cofre = () => {
   return (
     <div className="app-layout">
       <div className="app-container">
-        
-        {/* Cabeçalho */}
-        <header className="header">
-          <div className="header-icon">
-            <Lock size={25} color="gold" />
-          </div>
-          <div className="header-title-container">
-            <h1 className="header-title">
-              <BookText size={20} color="#1f2937" className="title-icon" />
-              O Cofre
-            </h1>
-          </div>
-          <div className="header-status">
-            <span>3 notas</span>
-          </div>
-        </header>
+
+        <PageHeader title="O Cofre" iconTitle={BookText} icon={Lock} comment={`${notasAntigas.length} notas salvas`} />
 
         <div className="container_privacy-banner">
           <Lock size={16} color="gold" className="icon-shrink" />
@@ -64,9 +52,9 @@ const Cofre = () => {
             <span className="Card_diario-counter">
               {texto.length} caracteres
             </span>
-            <button className="Card_diario-btn">
+            <Button variant="primary" size="md">
               Guardar no Cofre
-            </button>
+            </Button>
           </div>
         </div>
 
