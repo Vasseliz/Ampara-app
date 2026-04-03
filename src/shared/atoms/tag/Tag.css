@@ -1,0 +1,25 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag--default {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.tag--paciente {
+  background-color: #51996d;
+  color: #ffffff;
+}
+
+.tag--profissional {
+  background-color: #3f6b9e;
+  color: #ffffff;
+}
