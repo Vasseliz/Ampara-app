@@ -105,7 +105,7 @@ export function Prontuario({ patientName = "Paciente", onBack }) {
 
     return (
         <div className="app-layout">
-            <div className="app-container">
+            <div className="page-container">
                 <PageHeader
                     title="Prontuário"
                     iconTitle={FileText}
