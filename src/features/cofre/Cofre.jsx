@@ -60,7 +60,7 @@ const Cofre = () => {
           </p>
         </div>
 
-        {/* Card Principal - Nova Nota */}
+      
         <div className="cofre__note-card">
           <div className="cofre__note-card__date-row">
             <span className="cofre__note-card__today-tag">Hoje</span>
