@@ -1,0 +1,12 @@
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\bin\Debug\net8.0\Ampara.Dominio.deps.json
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\bin\Debug\net8.0\Ampara.Dominio.dll
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\bin\Debug\net8.0\Ampara.Dominio.pdb
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.AssemblyInfoInputs.cache
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.AssemblyInfo.cs
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.csproj.CoreCompileInputs.cache
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.sourcelink.json
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.dll
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\refint\Ampara.Dominio.dll
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\Ampara.Dominio.pdb
+C:\dev\MindCare\Ampara\backend\Ampara.Dominio\obj\Debug\net8.0\ref\Ampara.Dominio.dll
