@@ -39,7 +39,7 @@ public class EntrarCasoDeUso
         var exp = tokens.ExpiraEmSegundos > 0 ? tokens.ExpiraEmSegundos : 3600;
         _cookies.DefinirCookiesAutenticacao(tokens.TokenAcesso, tokens.TokenRenovacao, exp);
 
-        return new ResultadoEntrada("/dashboard", papel);
+        return new ResultadoEntrada("/", papel);
     }
 
     private static Guid? TentarObterSubDoJwt(string tokenAcesso)

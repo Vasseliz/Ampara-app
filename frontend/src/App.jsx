@@ -29,6 +29,7 @@ function App() {
           </Route>
 
           <Route path="/profissional" element={<ProfissionalRoute />}>
+            <Route index element={<Navigate to="prontuario" replace />} />  {/* precisa ser ajustado depois, isso é so enquanto não temos um layout com home diferente par profissional e paciente */}
             <Route path="prontuario" element={<Prontuario />} />
           </Route>
 

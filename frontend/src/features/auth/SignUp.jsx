@@ -13,18 +13,6 @@ import { AuthShell } from "../../shared/molecules/auth/AuthShell";
 import "./Auth.css";
 import "./SignUp.css";
 
-async function mockSignUp({ role, firstName, lastName, email, password, registrationId }) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (email === "erro@teste.com") {
-                reject(new Error("Este e-mail já está cadastrado."));
-            } else {
-                resolve({ user: { id: "mock-id", email, role } });
-            }
-        }, 1400);
-    });
-}
-
 const ROLES = [
     { id: "patient", label: "Sou paciente", description: "Acompanhe sua saúde mental", Icon: User },
     { id: "professional", label: "Sou profissional", description: "Psicólogo, psiquiatra ou terapeuta", Icon: Stethoscope },
@@ -84,11 +72,45 @@ export default function Signup() {
         if (!isValid) return;
         setLoading(true);
         try {
-            await mockSignUp({ role, ...form });
+            const registrationId =
+                role === "professional" && form.registrationId.trim()
+                    ? form.registrationId.trim()
+                    : null;
+
+            const base = import.meta.env.VITE_API_URL ?? "";
+            const res = await fetch(`${base}/auth/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                    role,
+                    firstName: form.firstName.trim(),
+                    lastName: form.lastName.trim(),
+                    email: form.email.trim(),
+                    password: form.password,
+                    registrationId,
+                }),
+            });
+            const text = await res.text();
+            let data = {};
+            if (text) {
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    data = {};
+                }
+            }
+            if (!res.ok) {
+                const err = new Error(data.message || "Falha no cadastro");
+                err.body = data;
+                throw err;
+            }
+
             toast.success("Conta criada com sucesso!");
             setTimeout(() => navigate("/login"), 600);
         } catch (err) {
-            toast.error(err.message || "Erro ao criar conta.");
+            const msg = err.body?.message || err.message || "Erro ao criar conta.";
+            toast.error(msg);
         } finally {
             setLoading(false);
         }
