@@ -40,7 +40,9 @@ public static class ConfiguracaoApi
         }
 
         app.UseCors();
-        app.UseHttpsRedirection();
+         if (!app.Environment.IsDevelopment())
+            app.UseHttpsRedirection();
+
         app.UseMiddleware<MiddlewareAutenticacao>();
         app.UseAuthorization();
         app.MapControllers();

@@ -12,17 +12,37 @@ public class AutenticacaoController : ControllerBase
     private readonly RegistrarCasoDeUso _registrar;
     private readonly IAutenticacaoExternaServico _authExterna;
     private readonly ICookieSessaoServico _cookies;
+    private readonly IResolucaoSessaoPedido _sessao;
 
     public AutenticacaoController(
         EntrarCasoDeUso entrar,
         RegistrarCasoDeUso registrar,
         IAutenticacaoExternaServico authExterna,
-        ICookieSessaoServico cookies)
+        ICookieSessaoServico cookies,
+        IResolucaoSessaoPedido sessao)
     {
         _entrar = entrar;
         _registrar = registrar;
         _authExterna = authExterna;
         _cookies = cookies;
+        _sessao = sessao;
+    }
+
+    [HttpGet("me")]
+    public async Task<IActionResult> SessaoAtual(CancellationToken ct)
+    {
+        var token = _cookies.ObterTokenAcesso();
+        var r = await _sessao.ResolverAsync(token, ct);
+        return r.Tipo switch
+        {
+            ResolucaoSessaoTipo.TokenInvalidoOuAusente => Unauthorized(),
+            ResolucaoSessaoTipo.SemPerfilLocal => StatusCode(403, new
+            {
+                message = "Sessão válida, mas não há perfil local vinculado a este usuário.",
+            }),
+            ResolucaoSessaoTipo.Autenticado => Ok(new { id = r.Id!.Value.ToString(), role = r.Papel }),
+            _ => Unauthorized(),
+        };
     }
 
     [HttpPost("login")]
@@ -31,7 +51,11 @@ public class AutenticacaoController : ControllerBase
         var resultado = await _entrar.ExecutarAsync(corpo.Email, corpo.Password, ct);
         if (resultado == null)
             return Unauthorized();
-        return Ok(new { redirectTo = resultado.RedirecionarPara, role = resultado.Papel });
+        return Ok(new
+        {
+            redirectTo = resultado.RedirecionarPara,
+            role = resultado.Papel,
+        });
     }
 
     [HttpPost("register")]

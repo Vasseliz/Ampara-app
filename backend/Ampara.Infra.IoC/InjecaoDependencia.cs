@@ -36,6 +36,9 @@ public static class InjecaoDependencia
             opts.SegredoJwt = s["SegredoJwt"] ?? s["JwtSecret"] ?? "";
         });
 
+        services.AddMemoryCache();
+        services.AddHttpClient(nameof(ValidadorJwtSupabaseServico));
+
         services.Configure<OpcoesCookieAutenticacao>(opts =>
         {
             var s = configuration.GetSection(OpcoesCookieAutenticacao.Secao);
@@ -45,6 +48,7 @@ public static class InjecaoDependencia
                 opts.Seguro = seguroPt;
             else if (bool.TryParse(s["Secure"], out var seguroEn))
                 opts.Seguro = seguroEn;
+            opts.SameSite = s["SameSite"] ?? opts.SameSite;
             if (int.TryParse(s["MinutosExpiracaoAcesso"], out var minAcesso))
                 opts.MinutosExpiracaoAcesso = minAcesso;
             else if (int.TryParse(s["AccessExpirationMinutes"], out var minEn))
@@ -71,6 +75,8 @@ public static class InjecaoDependencia
 
         services.AddScoped<IAutenticacaoExternaServico, ServicoSupabaseAutenticacao>();
         services.AddScoped<ICookieSessaoServico, ServicoCookiesSessao>();
+        services.AddScoped<IValidadorJwtSupabase, ValidadorJwtSupabaseServico>();
+        services.AddScoped<IResolucaoSessaoPedido, ResolucaoSessaoPedidoServico>();
         services.AddScoped<IPerfilRepositorio, PerfilRepositorio>();
         services.AddScoped<ICofreRepositorio, CofreRepositorio>();
         services.AddScoped<IMedicamentosRepositorio, MedicamentosRepositorio>();

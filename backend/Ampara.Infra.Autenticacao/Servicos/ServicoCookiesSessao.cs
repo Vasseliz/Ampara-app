@@ -19,8 +19,10 @@ public class ServicoCookiesSessao : ICookieSessaoServico
     public void DefinirCookiesAutenticacao(string tokenAcesso, string tokenRenovacao, int expiracaoSegundos)
     {
         var ctx = _http.HttpContext ?? throw new InvalidOperationException("HttpContext ausente.");
-        var sameSite = SameSiteMode.Strict;
+        var sameSite = ParseSameSite(_cfg.SameSite);
         var seguro = _cfg.Seguro;
+        if (sameSite == SameSiteMode.None)
+            seguro = true;
 
         var opcoesAcesso = new CookieOptions
         {
@@ -51,9 +53,25 @@ public class ServicoCookiesSessao : ICookieSessaoServico
         ctx.Response.Cookies.Delete(_cfg.NomeRenovacao, opcoes);
     }
 
-    public string? ObterTokenAcesso() =>
-        _http.HttpContext?.Request.Cookies[_cfg.NomeSessao];
+    public string? ObterTokenAcesso()
+    {
+        var req = _http.HttpContext?.Request;
+        return req == null ? null : LeitorTokenRequisicao.ObterTokenAcesso(req, _cfg.NomeSessao);
+    }
 
     public string? ObterTokenRenovacao() =>
         _http.HttpContext?.Request.Cookies[_cfg.NomeRenovacao];
+
+    private static SameSiteMode ParseSameSite(string? valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor))
+            return SameSiteMode.None;
+        return valor.Trim().ToLowerInvariant() switch
+        {
+            "strict" => SameSiteMode.Strict,
+            "lax" => SameSiteMode.Lax,
+            "none" => SameSiteMode.None,
+            _ => SameSiteMode.None,
+        };
+    }
 }

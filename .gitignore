@@ -21,6 +21,7 @@ dist-ssr
 [Ll]og/
 [Ll]ogs/
 *.user
+*.csproj.user
 *.userosscache
 *.rsuser
 *.suo
