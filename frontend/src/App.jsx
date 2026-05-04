@@ -6,36 +6,42 @@ import Home from "./pages/Home";
 import { MedicamentosScreen as Medicamentos } from "./features/medicamentos/Medicamentos";
 import { PacienteRoute } from "./routes/PacienteRoute";
 import { ProfissionalRoute } from "./routes/ProfissionalRoute";
+import { RequireAuth } from "./routes/RequireAuth";
 import { DashboardLayout } from "./shared/layout/DashboardLayout/DashboardLayout";
 import { Toaster } from "./shared/atoms/toast/Toast";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/SignUp";
+import { AuthProvider } from "./contexts/AuthContext";
 
 
 function App() {
   return (
     <BrowserRouter>
+      <AuthProvider>
         <Toaster />
 
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Signup />} />
-        <Route element={<DashboardLayout />}>
 
-          <Route element={<PacienteRoute />}>
-            <Route path="/cofre" element={<Cofre />} />
-            <Route path="/medicamentos" element={<Medicamentos />} />
+        <Route element={<RequireAuth />}>
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Home />} />
+
+            <Route element={<PacienteRoute />}>
+              <Route path="/cofre" element={<Cofre />} />
+              <Route path="/medicamentos" element={<Medicamentos />} />
+            </Route>
+
+            <Route path="/profissional" element={<ProfissionalRoute />}>
+              <Route index element={<Navigate to="prontuario" replace />} />
+              <Route path="prontuario/:pacienteId?" element={<Prontuario />} />
+            </Route>
           </Route>
-
-          <Route path="/profissional" element={<ProfissionalRoute />}>
-            <Route index element={<Navigate to="prontuario" replace />} />  {/* precisa ser ajustado depois, isso é so enquanto não temos um layout com home diferente par profissional e paciente */}
-            <Route path="prontuario" element={<Prontuario />} />
-          </Route>
-
         </Route>
 
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

@@ -1,11 +1,24 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 export function PacienteRoute() {
-  const isPaciente = true; // temporario enquanto não implementamos a autenticação
+    const { user, loading } = useAuth();
 
-  if (!isPaciente) {
-    return <Navigate to="/" />;
-  }
+    if (loading) {
+        return (
+            <div style={{ padding: "2rem", textAlign: "center", color: "#6b7280", fontSize: "0.9rem" }}>
+                Carregando…
+            </div>
+        );
+    }
 
-  return <Outlet />;
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+
+    if (user.role !== "patient") {
+        return <Navigate to="/" replace />;
+    }
+
+    return <Outlet />;
 }

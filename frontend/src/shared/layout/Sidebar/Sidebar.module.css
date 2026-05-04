@@ -93,6 +93,16 @@
   color: #333333;
 }
 
+.logoutButton {
+  border: none;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+}
+
 .footer {
   padding: 16px 12px 0 12px;
   border-top: 1px solid #EBEBEB;

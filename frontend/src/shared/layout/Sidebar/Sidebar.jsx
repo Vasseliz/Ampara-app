@@ -12,10 +12,14 @@ import {
 import { useAuth } from '../../../contexts/AuthContext';
 import styles from './Sidebar.module.css';
 
-const mainLinks = [
+const linksPaciente = [
   { to: '/', label: 'Início', Icon: Home },
   { to: '/cofre', label: 'Cofre', Icon: Lock },
   { to: '/medicamentos', label: 'Medicamentos', Icon: Pill },
+];
+
+const linksProfissional = [
+  { to: '/', label: 'Início', Icon: Home },
   { to: '/profissional/prontuario', label: 'Prontuário', Icon: FileText },
 ];
 
@@ -43,7 +47,10 @@ function NavItem({ to, label, Icon, end = false, onClick }) {
 
 export function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
-  const { refresh } = useAuth();
+  const { user, refresh } = useAuth();
+
+  const mainLinks =
+    user?.role === 'professional' ? linksProfissional : linksPaciente;
 
   async function handleLogout() {
     try {
