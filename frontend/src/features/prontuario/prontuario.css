@@ -45,6 +45,20 @@
   gap: 0.6rem;
 }
 
+.prontuario__select-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.35rem;
+}
+
+.prontuario__hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0.35rem 0 0;
+}
+
 
 
 .prontuario__new-btn-row {

@@ -30,11 +30,15 @@ export function NoteForm({ open, onClose, onSave, initialData }) {
         setForm((prev) => ({ ...prev, [field]: value }));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!form.sessionDate || !form.content.trim()) return;
-        onSave(form);
-        onClose();
+        try {
+            await onSave?.(form);
+            onClose();
+        } catch {
+            /* toast no pai */
+        }
     }
 
     function handleOverlayClick(e) {
