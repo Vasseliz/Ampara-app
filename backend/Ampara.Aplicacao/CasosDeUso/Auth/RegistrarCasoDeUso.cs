@@ -31,9 +31,6 @@ public class RegistrarCasoDeUso
             throw new ExcecaoAplicacao(409, msg);
         }
 
-        if (papel == "professional" && string.IsNullOrWhiteSpace(entrada.RegistroProfissional))
-            throw new ExcecaoAplicacao(400, "registrationId é obrigatório para profissionais.");
-
         var perfil = new Perfil
         {
             Id = sup.UsuarioId.Value,
