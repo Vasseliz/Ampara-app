@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 import { toast } from "../../../shared/atoms/toast/Toast";
 
 export function useLogin() {
     const navigate = useNavigate();
+    const { refresh } = useAuth();
     const [loading, setLoading] = useState(false);
 
     async function login({ email, password }) {
@@ -32,10 +34,8 @@ export function useLogin() {
             }
 
             toast.success("Bem-vindo de volta!");
-            const role =
-                typeof data?.role === "string" ? data.role.trim().toLowerCase() : "";
-            const to = role === "professional" ? "/profissional" : "/";
-            navigate(to, { replace: true });
+            await refresh();
+            navigate("/", { replace: true });
             return { ok: true };
         } catch (err) {
             const msg =

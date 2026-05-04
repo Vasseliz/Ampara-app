@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../../../contexts/AuthContext';
+import { fetchComSessao } from '../../api/fetchComSessao';
 import styles from './Sidebar.module.css';
 
 const linksPaciente = [
@@ -54,9 +55,8 @@ export function Sidebar({ isOpen, onClose }) {
 
   async function handleLogout() {
     try {
-      await fetch(`${API}/auth/logout`, {
+      await fetchComSessao(`${API}/auth/logout`, {
         method: 'POST',
-        credentials: 'include',
       });
     } catch {
       /* segue */
