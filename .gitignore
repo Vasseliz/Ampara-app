@@ -7,19 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Frontend (Vite / Node)
 node_modules
 dist
 dist-ssr
 *.local
 
+# .NET — saída de build (não versionar)
+**/bin/
+**/obj/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.user
+*.userosscache
+*.rsuser
+*.suo
+*.cache
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
 .DS_Store
-*.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
-.vs/
