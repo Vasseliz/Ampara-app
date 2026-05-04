@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Home,
   Lock,
@@ -9,19 +9,21 @@ import {
   HeartPulse,
   X,
 } from 'lucide-react';
+import { useAuth } from '../../../contexts/AuthContext';
 import styles from './Sidebar.module.css';
 
 const mainLinks = [
-  { to: '/',             label: 'Início',       Icon: Home     },
-  { to: '/cofre',        label: 'Cofre',        Icon: Lock     },
-  { to: '/medicamentos', label: 'Medicamentos', Icon: Pill     },
+  { to: '/', label: 'Início', Icon: Home },
+  { to: '/cofre', label: 'Cofre', Icon: Lock },
+  { to: '/medicamentos', label: 'Medicamentos', Icon: Pill },
   { to: '/profissional/prontuario', label: 'Prontuário', Icon: FileText },
 ];
 
 const footerLinks = [
   { to: '/configuracoes', label: 'Configurações', Icon: Settings },
-  { to: '/sair',          label: 'Sair',           Icon: LogOut  },
 ];
+
+const API = import.meta.env.VITE_API_URL;
 
 function NavItem({ to, label, Icon, end = false, onClick }) {
   return (
@@ -40,14 +42,33 @@ function NavItem({ to, label, Icon, end = false, onClick }) {
 }
 
 export function Sidebar({ isOpen, onClose }) {
+  const navigate = useNavigate();
+  const { refresh } = useAuth();
+
+  async function handleLogout() {
+    try {
+      await fetch(`${API}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch {
+      /* segue */
+    }
+    try {
+      await refresh();
+    } catch {
+      /* segue para login mesmo se a rede falhar */
+    }
+    navigate('/login', { replace: true });
+    onClose?.();
+  }
+
   return (
     <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-      {/* Botão fechar do mobile */}
-      <button className={styles.closeButton} onClick={onClose} aria-label="Fechar menu">
+      <button className={styles.closeButton} onClick={onClose} aria-label="Fechar menu" type="button">
         <X size={20} />
       </button>
 
-      {/* Logo */}
       <NavLink to="/" className={styles.logo} onClick={onClose}>
         <div className={styles.logoIcon}>
           <HeartPulse size={18} strokeWidth={2} />
@@ -55,7 +76,6 @@ export function Sidebar({ isOpen, onClose }) {
         <p className={styles.logoText}>Ampara</p>
       </NavLink>
 
-      {/* Links principais */}
       <nav className={styles.nav}>
         {mainLinks.map(({ to, label, Icon }) => (
           <NavItem
@@ -69,11 +89,18 @@ export function Sidebar({ isOpen, onClose }) {
         ))}
       </nav>
 
-      {/* Rodapé */}
       <footer className={styles.footer}>
         {footerLinks.map(({ to, label, Icon }) => (
           <NavItem key={to} to={to} label={label} Icon={Icon} onClick={onClose} />
         ))}
+        <button
+          type="button"
+          className={`${styles.navItem} ${styles.logoutButton}`}
+          onClick={handleLogout}
+        >
+          <LogOut className={styles.navIcon} size={18} strokeWidth={1.8} />
+          <span>Sair</span>
+        </button>
       </footer>
     </aside>
   );
