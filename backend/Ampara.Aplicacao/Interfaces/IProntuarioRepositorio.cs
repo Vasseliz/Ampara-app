@@ -6,7 +6,7 @@ public interface IProntuarioRepositorio
 {
     Task<bool> ExisteVinculoAsync(Guid profissionalId, Guid pacienteId, CancellationToken ct);
     Task<IReadOnlyList<NotaClinica>> ListarNotasAsync(
-        Guid profissionalId, Guid pacienteId, int mes, int ano, CancellationToken ct);
+        Guid profissionalId, Guid pacienteId, int? mes, int ano, CancellationToken ct);
     Task<NotaClinica> AdicionarNotaAsync(NotaClinica nota, CancellationToken ct);
     Task<NotaClinica?> ObterNotaDoProfissionalAsync(
         Guid notaId, Guid profissionalId, Guid pacienteId, CancellationToken ct);

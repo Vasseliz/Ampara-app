@@ -10,9 +10,9 @@ public class ObterNotasProntuarioCasoDeUso
     public ObterNotasProntuarioCasoDeUso(IProntuarioRepositorio repo) => _repo = repo;
 
     public async Task<IReadOnlyList<NotaClinicaSaida>> ExecutarAsync(
-        Guid profissionalId, Guid pacienteId, int mes, int ano, CancellationToken ct)
+        Guid profissionalId, Guid pacienteId, int? mes, int ano, CancellationToken ct)
     {
-        if (mes is < 1 or > 12)
+        if (mes.HasValue && (mes.Value < 1 || mes.Value > 12))
             throw new ExcecaoAplicacao(400, "month inválido.");
 
         if (!await _repo.ExisteVinculoAsync(profissionalId, pacienteId, ct))

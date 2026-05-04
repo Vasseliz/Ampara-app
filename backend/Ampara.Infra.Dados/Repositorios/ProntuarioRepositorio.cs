@@ -16,13 +16,18 @@ public class ProntuarioRepositorio : IProntuarioRepositorio
             v => v.ProfissionalId == profissionalId && v.PacienteId == pacienteId, ct);
 
     public async Task<IReadOnlyList<NotaClinica>> ListarNotasAsync(
-        Guid profissionalId, Guid pacienteId, int mes, int ano, CancellationToken ct) =>
-        await _db.NotasClinicas.AsNoTracking()
+        Guid profissionalId, Guid pacienteId, int? mes, int ano, CancellationToken ct)
+    {
+        var q = _db.NotasClinicas.AsNoTracking()
             .Where(n => n.ProfissionalId == profissionalId && n.PacienteId == pacienteId
-                        && n.DataSessao.Year == ano && n.DataSessao.Month == mes)
+                        && n.DataSessao.Year == ano);
+        if (mes.HasValue)
+            q = q.Where(n => n.DataSessao.Month == mes.Value);
+        return await q
             .OrderByDescending(n => n.DataSessao)
             .ThenByDescending(n => n.CriadoEm)
             .ToListAsync(ct);
+    }
 
     public async Task<NotaClinica> AdicionarNotaAsync(NotaClinica nota, CancellationToken ct)
     {

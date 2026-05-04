@@ -35,8 +35,17 @@ public class ProntuarioController : ControllerBase
         CancellationToken ct)
     {
         var profissionalId = User.IdUsuario();
-        if (!int.TryParse(month, out var mes) || !int.TryParse(year, out var ano))
-            return BadRequest(new { message = "Informe month e year válidos." });
+        if (!int.TryParse(year, out var ano))
+            return BadRequest(new { message = "Informe year válido." });
+
+        int? mes = null;
+        if (!string.IsNullOrEmpty(month) &&
+            !string.Equals(month, "all", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!int.TryParse(month, out var m) || m is < 1 or > 12)
+                return BadRequest(new { message = "Informe month válido ou \"all\"." });
+            mes = m;
+        }
 
         var notas = await _obter.ExecutarAsync(profissionalId, pacienteId, mes, ano, ct);
         return Ok(notas.Select(n => new
@@ -44,7 +53,7 @@ public class ProntuarioController : ControllerBase
             n.Id,
             sessionDate = n.DataSessao,
             sessionType = n.TipoSessao,
-            n.Conteudo,
+            content = n.Conteudo,
             nextSessionDate = n.ProximaSessao,
             createdAt = n.CriadoEm,
             updatedAt = n.AtualizadoEm
@@ -74,7 +83,7 @@ public class ProntuarioController : ControllerBase
             nota.Id,
             sessionDate = nota.DataSessao,
             sessionType = nota.TipoSessao,
-            nota.Conteudo,
+            content = nota.Conteudo,
             nextSessionDate = nota.ProximaSessao,
             createdAt = nota.CriadoEm,
             updatedAt = nota.AtualizadoEm
@@ -109,7 +118,7 @@ public class ProntuarioController : ControllerBase
             nota.Id,
             sessionDate = nota.DataSessao,
             sessionType = nota.TipoSessao,
-            nota.Conteudo,
+            content = nota.Conteudo,
             nextSessionDate = nota.ProximaSessao,
             createdAt = nota.CriadoEm,
             updatedAt = nota.AtualizadoEm
