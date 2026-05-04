@@ -82,6 +82,3 @@ src/
 
 3. Acesse `http://localhost:5173` no navegador
 
-## Desenvolvimento
-
-O projeto utiliza o React Compiler para otimização automática. Para aplicações em produção, considere migrar para TypeScript conforme recomendado na configuração do ESLint.
