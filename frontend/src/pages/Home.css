@@ -1,0 +1,49 @@
+.home-loading {
+  padding: 2rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.home-layout {
+  width: 100%;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.home-section {
+  padding-top: 1rem;
+}
+
+.home-section__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.home-section__border {
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.home-section__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
