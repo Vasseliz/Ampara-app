@@ -28,18 +28,12 @@
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
-
-.home-section__border {
-  flex: 1;
-  height: 1px;
-  background: #e5e7eb;
-}
-
 .home-section__title {
   font-size: 0.95rem;
   font-weight: 600;
   color: #374151;
   margin: 0;
+  flex: 1;
 }
 
 .home-cards {

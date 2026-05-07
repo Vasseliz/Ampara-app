@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Lock, FileText, Pill } from "lucide-react";
+import { Lock, FileText, Pill, MessageCircle } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { PageHeader } from "../shared/molecules/PageHeader/PageHeader";
 import { NavigationCard } from "../shared/molecules/navigationCard/NavigationCard";
@@ -23,6 +23,14 @@ const cardsPaciente = [
         title: "Medicamentos",
         description: "Acompanhe os medicamentos prescritos pelo seu médico.",
     },
+    {
+        to: "/chat",
+        icon: MessageCircle,
+        tag: "Compartilhado",
+        tagVariant: "paciente",
+        title: "Chat",
+        description: "Converse com seu profissional de saúde em um único canal.",
+    },
 ];
 
 const cardsProfissional = [
@@ -33,6 +41,14 @@ const cardsProfissional = [
         tagVariant: "profissional",
         title: "Prontuário",
         description: "Aceda e organize os prontuários dos seus pacientes.",
+    },
+    {
+        to: "/chat",
+        icon: MessageCircle,
+        tag: "Compartilhado",
+        tagVariant: "profissional",
+        title: "Chat",
+        description: "Converse com o paciente por um canal simples e centralizado.",
     },
 ];
 
@@ -73,7 +89,7 @@ export default function Home() {
                         }
                     />
                     <div className="home-section__label">
-                        <div className="home-section__border" />
+                        <div />
                         <h2 className="home-section__title">Acesso rápido</h2>
                     </div>
 

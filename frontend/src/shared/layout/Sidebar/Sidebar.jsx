@@ -3,6 +3,7 @@ import {
   Home,
   Lock,
   Pill,
+  MessageCircle,
   FileText,
   Settings,
   LogOut,
@@ -17,11 +18,13 @@ const linksPaciente = [
   { to: '/', label: 'Início', Icon: Home },
   { to: '/cofre', label: 'Cofre', Icon: Lock },
   { to: '/medicamentos', label: 'Medicamentos', Icon: Pill },
+  { to: '/chat', label: 'Chat', Icon: MessageCircle },
 ];
 
 const linksProfissional = [
   { to: '/', label: 'Início', Icon: Home },
   { to: '/profissional/prontuario', label: 'Prontuário', Icon: FileText },
+  { to: '/chat', label: 'Chat', Icon: MessageCircle },
 ];
 
 const footerLinks = [

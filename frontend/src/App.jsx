@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import "./App.css";
 import Cofre from "./features/cofre/Cofre";
+import Chat from "./features/chat/Chat";
 import { Prontuario } from "./features/prontuario/Prontuario";
 import Home from "./pages/Home";
 import { MedicamentosScreen as Medicamentos } from "./features/medicamentos/Medicamentos";
@@ -27,6 +28,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/chat" element={<Chat />} />
 
             <Route element={<PacienteRoute />}>
               <Route path="/cofre" element={<Cofre />} />
