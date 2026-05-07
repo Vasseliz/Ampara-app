@@ -29,6 +29,18 @@ public class PacientesRepositorio : IPacientesRepositorio
             .OrderByDescending(c => c.EnviadoEm)
             .ToListAsync(ct);
 
+    public async Task<IReadOnlyList<ConvitePaciente>> ListarConvitesPendentesDoPacienteAsync(
+        string email, CancellationToken ct)
+    {
+        var e = email.Trim().ToLowerInvariant();
+
+        return await _db.ConvitesPaciente.AsNoTracking()
+            .Include(c => c.Profissional)
+            .Where(c => c.Email == e && c.Status == StatusConvite.Pendente)
+            .OrderByDescending(c => c.EnviadoEm)
+            .ToListAsync(ct);
+    }
+
     public Task<bool> ExisteVinculoAtivoPorEmailAsync(Guid profissionalId, string email, CancellationToken ct)
     {
         var e = email.Trim().ToLowerInvariant();
@@ -54,6 +66,16 @@ public class PacientesRepositorio : IPacientesRepositorio
     public Task<ConvitePaciente?> ObterConviteDoProfissionalAsync(Guid conviteId, Guid profissionalId, CancellationToken ct) =>
         _db.ConvitesPaciente.FirstOrDefaultAsync(
             c => c.Id == conviteId && c.ProfissionalId == profissionalId, ct);
+
+    public Task<ConvitePaciente?> ObterConviteDoPacienteAsync(Guid conviteId, string email, CancellationToken ct)
+    {
+        var e = email.Trim().ToLowerInvariant();
+
+        return _db.ConvitesPaciente.Include(c => c.Profissional)
+            .FirstOrDefaultAsync(
+                c => c.Id == conviteId && c.Email == e && c.Status == StatusConvite.Pendente,
+                ct);
+    }
 
     public Task<ConvitePaciente?> ObterConvitePorTokenAsync(string token, CancellationToken ct) =>
         _db.ConvitesPaciente.Include(c => c.Profissional)

@@ -97,9 +97,11 @@ public static class InjecaoDependencia
         services.AddScoped<ExcluirNotaProntuarioCasoDeUso>();
         services.AddScoped<ListarPacientesCasoDeUso>();
         services.AddScoped<ListarConvitesPendentesCasoDeUso>();
+        services.AddScoped<ListarConvitesPacienteCasoDeUso>();
         services.AddScoped<ConvidarPacienteCasoDeUso>();
         services.AddScoped<CancelarConviteCasoDeUso>();
         services.AddScoped<AceitarConviteCasoDeUso>();
+        services.AddScoped<AceitarConvitePacienteAutenticadoCasoDeUso>();
 
         services.AddHttpContextAccessor();
 

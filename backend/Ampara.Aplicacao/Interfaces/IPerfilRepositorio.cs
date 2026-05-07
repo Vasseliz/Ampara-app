@@ -6,5 +6,6 @@ public interface IPerfilRepositorio
 {
     Task<string?> ObterPapelPorIdAsync(Guid id, CancellationToken ct);
     Task AdicionarAsync(Perfil perfil, CancellationToken ct);
+    Task<Perfil?> ObterPacientePorIdAsync(Guid id, CancellationToken ct);
     Task<Perfil?> ObterPacientePorEmailAsync(string emailNormalizado, CancellationToken ct);
 }

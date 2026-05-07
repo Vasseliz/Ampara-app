@@ -31,6 +31,10 @@ public class PerfilRepositorio : IPerfilRepositorio
         }
     }
 
+    public Task<Perfil?> ObterPacientePorIdAsync(Guid id, CancellationToken ct) =>
+        _db.Perfis.AsNoTracking()
+            .FirstOrDefaultAsync(p => p.Id == id && p.Papel == "patient", ct);
+
     public Task<Perfil?> ObterPacientePorEmailAsync(string emailNormalizado, CancellationToken ct)
     {
         var e = emailNormalizado.Trim().ToLowerInvariant();

@@ -1,34 +1,38 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Home,
   Lock,
+  Mail,
   Pill,
   MessageCircle,
   FileText,
+  Users,
   Settings,
   LogOut,
   HeartPulse,
   X,
-} from 'lucide-react';
-import { useAuth } from '../../../contexts/AuthContext';
-import { fetchComSessao } from '../../api/fetchComSessao';
-import styles from './Sidebar.module.css';
+} from "lucide-react";
+import { useAuth } from "../../../contexts/AuthContext";
+import { fetchComSessao } from "../../api/fetchComSessao";
+import styles from "./Sidebar.module.css";
 
 const linksPaciente = [
-  { to: '/', label: 'Início', Icon: Home },
-  { to: '/cofre', label: 'Cofre', Icon: Lock },
-  { to: '/medicamentos', label: 'Medicamentos', Icon: Pill },
-  { to: '/chat', label: 'Chat', Icon: MessageCircle },
+  { to: "/", label: "Início", Icon: Home },
+  { to: "/convites", label: "Convites", Icon: Mail },
+  { to: "/cofre", label: "Cofre", Icon: Lock },
+  { to: "/medicamentos", label: "Medicamentos", Icon: Pill },
+  { to: "/chat", label: "Chat", Icon: MessageCircle },
 ];
 
 const linksProfissional = [
-  { to: '/', label: 'Início', Icon: Home },
-  { to: '/profissional/prontuario', label: 'Prontuário', Icon: FileText },
-  { to: '/chat', label: 'Chat', Icon: MessageCircle },
+  { to: "/", label: "Início", Icon: Home },
+  { to: "/profissional/pacientes", label: "Pacientes", Icon: Users },
+  { to: "/profissional/prontuario", label: "Prontuário", Icon: FileText },
+  { to: "/chat", label: "Chat", Icon: MessageCircle },
 ];
 
 const footerLinks = [
-  { to: '/configuracoes', label: 'Configurações', Icon: Settings },
+  { to: "/configuracoes", label: "Configurações", Icon: Settings },
 ];
 
 const API = import.meta.env.VITE_API_URL;
@@ -40,7 +44,7 @@ function NavItem({ to, label, Icon, end = false, onClick }) {
       end={end}
       onClick={onClick}
       className={({ isActive }) =>
-        `${styles.navItem}${isActive ? ` ${styles.active}` : ''}`
+        `${styles.navItem}${isActive ? ` ${styles.active}` : ""}`
       }
     >
       <Icon className={styles.navIcon} size={18} strokeWidth={1.8} />
@@ -54,12 +58,12 @@ export function Sidebar({ isOpen, onClose }) {
   const { user, refresh } = useAuth();
 
   const mainLinks =
-    user?.role === 'professional' ? linksProfissional : linksPaciente;
+    user?.role === "professional" ? linksProfissional : linksPaciente;
 
   async function handleLogout() {
     try {
       await fetchComSessao(`${API}/auth/logout`, {
-        method: 'POST',
+        method: "POST",
       });
     } catch {
       /* segue */
@@ -69,13 +73,18 @@ export function Sidebar({ isOpen, onClose }) {
     } catch {
       /* segue para login mesmo se a rede falhar */
     }
-    navigate('/login', { replace: true });
+    navigate("/login", { replace: true });
     onClose?.();
   }
 
   return (
-    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-      <button className={styles.closeButton} onClick={onClose} aria-label="Fechar menu" type="button">
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
+      <button
+        className={styles.closeButton}
+        onClick={onClose}
+        aria-label="Fechar menu"
+        type="button"
+      >
         <X size={20} />
       </button>
 
@@ -93,7 +102,7 @@ export function Sidebar({ isOpen, onClose }) {
             to={to}
             label={label}
             Icon={Icon}
-            end={to === '/'}
+            end={to === "/"}
             onClick={onClose}
           />
         ))}
@@ -101,7 +110,13 @@ export function Sidebar({ isOpen, onClose }) {
 
       <footer className={styles.footer}>
         {footerLinks.map(({ to, label, Icon }) => (
-          <NavItem key={to} to={to} label={label} Icon={Icon} onClick={onClose} />
+          <NavItem
+            key={to}
+            to={to}
+            label={label}
+            Icon={Icon}
+            onClick={onClose}
+          />
         ))}
         <button
           type="button"

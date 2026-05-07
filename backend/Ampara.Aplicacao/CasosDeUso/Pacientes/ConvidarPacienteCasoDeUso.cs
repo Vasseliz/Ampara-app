@@ -10,15 +10,18 @@ namespace Ampara.Aplicacao.CasosDeUso.Pacientes;
 public class ConvidarPacienteCasoDeUso
 {
     private readonly IPacientesRepositorio _repo;
+    private readonly IPerfilRepositorio _perfis;
     private readonly OpcoesAplicacao _opcoes;
     private readonly ILogger<ConvidarPacienteCasoDeUso> _log;
 
     public ConvidarPacienteCasoDeUso(
         IPacientesRepositorio repo,
+        IPerfilRepositorio perfis,
         IOptions<OpcoesAplicacao> opcoes,
         ILogger<ConvidarPacienteCasoDeUso> log)
     {
         _repo = repo;
+        _perfis = perfis;
         _opcoes = opcoes.Value;
         _log = log;
     }
@@ -28,6 +31,10 @@ public class ConvidarPacienteCasoDeUso
         var normalizado = email.Trim().ToLowerInvariant();
         if (string.IsNullOrEmpty(normalizado))
             throw new ExcecaoAplicacao(400, "E-mail obrigatório.");
+
+        var paciente = await _perfis.ObterPacientePorEmailAsync(normalizado, ct);
+        if (paciente == null)
+            throw new ExcecaoAplicacao(404, "Não existe paciente cadastrado com este e-mail.");
 
         if (await _repo.ExisteVinculoAtivoPorEmailAsync(profissionalId, normalizado, ct))
             throw new ExcecaoAplicacao(409, "Paciente já vinculado.");
