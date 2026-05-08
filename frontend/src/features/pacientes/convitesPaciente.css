@@ -1,0 +1,149 @@
+.convites-paciente {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.convites-paciente__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+}
+
+.convites-paciente__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.convites-paciente__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.convites-paciente__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.convites-paciente__name {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: #111827;
+}
+
+.convites-paciente__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.85rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  background: #eef6f1;
+  color: #3f7c55;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.convites-paciente__badge--expired {
+  background: #fff7f5;
+  color: #b45309;
+}
+
+.convites-paciente__meta-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+
+.convites-paciente__meta-item {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  color: #4b5563;
+}
+
+.convites-paciente__meta-label {
+  display: block;
+  margin-bottom: 0.18rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.convites-paciente__meta-value {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: #111827;
+  word-break: break-word;
+}
+
+.convites-paciente__state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.convites-paciente__state--loading {
+  background: #f9fafb;
+}
+
+.convites-paciente__state--error {
+  border-color: #f3d1cb;
+  background: #fff7f5;
+}
+
+.convites-paciente__state-icon {
+  color: #b45309;
+}
+
+.convites-paciente__state-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.convites-paciente__state-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.convites-paciente__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.convites-paciente__pagination-text {
+  font-size: 0.86rem;
+  color: #4b5563;
+}
+
+@media (min-width: 720px) {
+  .convites-paciente__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

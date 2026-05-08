@@ -1,0 +1,76 @@
+@keyframes login-slide-up {
+  from { transform: translateY(32px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.login__sheet {
+  animation: login-slide-up 0.35s ease;
+}
+
+
+.login__forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -0.35rem;
+}
+
+.login__forgot {
+  font-size: 0.78rem;
+  color: #51996d;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login__forgot:hover {
+  text-decoration: underline;
+}
+
+.login__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #9ca3af;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.login__divider::before,
+.login__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+
+.login__remember {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.login__remember__box {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #d1d5db;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.login__remember__box--checked {
+  border-color: #51996d;
+  background: #51996d;
+  color: #fff;
+}
+
+.login__remember__text {
+  font-size: 0.82rem;
+  color: #6b7280;
+}
