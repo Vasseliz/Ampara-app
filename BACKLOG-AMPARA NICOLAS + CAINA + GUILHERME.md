@@ -23,8 +23,8 @@ Cada história indica **Responsável** e **Entrega**. Há previsão de **mais qu
 | História 2: Acompanhamento de Humor do Paciente pelo Profissional | Nicolas Vasseli | Entrega 2 |
 | História 3: Registro de Hábitos Diários pelo Paciente | Caina Vieira | Entrega 3 |
 | História 4: Acompanhamento de Hábitos do Paciente pelo Profissional | Caina Vieira | Entrega 4 |
-| *(a definir)* | — | — |
-| *(a definir)* | — | — |
+| História 5: Registro de medicamentos pelo Profissional | Guilherme Galante | Entrega 5 |
+| História 6: Visão geral do paciente pelo Profissional | Guilherme | Entrega 6 |
 
 ### História 1: Registro de Humor Diário pelo Paciente
 
@@ -88,6 +88,40 @@ Como profissional, quero acompanhar os hábitos do meu paciente ao longo do temp
 1. O profissional consegue visualizar os hábitos registrados pelo paciente em um período recente, com gráfico de evolução.
 2. O profissional consegue ver os registros mais recentes com data e os valores de cada hábito.
 3. Se o paciente ainda não tiver feito nenhum registro, o profissional vê uma mensagem clara informando isso.
+
+### História 5: Registro de medicamentos pelo Profissional
+- **Responsável:** Guilherme Galante
+- **Entrega:** Entrega 5
+
+**Narrativa**
+
+Como Psicólogo/Profissional, eu quero prescrever medicamentos com dosagens e horários para que o processo seja centralizado e facilite o acompanhamento do paciente.
+
+**Critérios de aceite**
+
+Dado que o profissional está no prontuário do paciente, quando clicar em "Nova Prescrição", então o sistema deve abrir um formulário com campos para: Nome do Medicamento, Dosagem, Frequência e Duração.
+
+Dado que o profissional preenche os dados, quando confirmar o envio, então os dados devem ser persistidos via API e um log de prescrição deve ser gerado.
+
+Dado que um campo obrigatório não foi preenchido, quando o profissional tentar salvar, então o front-end deve exibir uma mensagem de erro em tempo real (feedback visual).
+
+## História 6: Visão geral do paciente pelo Profissional
+
+Responsável: Guilherme Galante
+Entrega: Entrega 6
+
+**Narrativa**
+Como Profissional (Psicólogo/Psiquiatra), eu quero visualizar um Dashboard geral com os indicadores de rotina (hábitos) do meu paciente para que eu possa identificar oscilações de humor e comportamento antes mesmo da sessão começar.
+
+**Critérios de aceite**
+
+Dado que o profissional acessa o Dashboard de Monitoramento, quando houver dados inseridos pelo paciente, então o sistema deve exibir gráficos de evolução de humor, horas de sono e ingestão de água.
+
+Dado que o profissional precisa de detalhes temporais, quando ele filtrar por "Última Semana", então os cards e gráficos devem ser atualizados.
+
+Dado que o paciente ainda não realizou registros, quando o profissional abrir a visão geral, então o sistema deve exibir uma mensagem informando que não há dados disponíveis para o período.
+
+Dado que a ética profissional é prioritária, quando o profissional visualizar este Dashboard, então ele não deve ter acesso às anotações privadas do Cofre/Diário do paciente.
 
 ---
 
