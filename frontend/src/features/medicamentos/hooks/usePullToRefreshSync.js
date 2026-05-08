@@ -9,7 +9,7 @@ export function usePullToRefreshSync(onSync) {
       if (onSync) {
         await onSync();
       } else {
-        // Simulando a sincronização se nenhuma função for passada
+        
         await new Promise(resolve => setTimeout(resolve, 1500));
       }
     } finally {

@@ -1,5 +1,6 @@
 using Ampara.Aplicacao.CasosDeUso.Auth;
 using Ampara.Aplicacao.CasosDeUso.Cofre;
+using Ampara.Aplicacao.CasosDeUso.Chat;
 using Ampara.Aplicacao.CasosDeUso.Medicamentos;
 using Ampara.Aplicacao.CasosDeUso.Pacientes;
 using Ampara.Aplicacao.CasosDeUso.Prontuario;
@@ -102,6 +103,11 @@ public static class InjecaoDependencia
         services.AddScoped<CancelarConviteCasoDeUso>();
         services.AddScoped<AceitarConviteCasoDeUso>();
         services.AddScoped<AceitarConvitePacienteAutenticadoCasoDeUso>();
+
+        services.AddScoped<IMensagensRepositorio, MensagensRepositorio>();
+        services.AddScoped<ListarConversasChatCasoDeUso>();
+        services.AddScoped<ObterMensagensCasoDeUso>();
+        services.AddScoped<EnviarMensagemCasoDeUso>();
 
         services.AddHttpContextAccessor();
 

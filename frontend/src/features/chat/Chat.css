@@ -23,6 +23,37 @@
 	background-color: #fcfdf9;
 }
 
+.chat__conversation-picker {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	border: 1px solid #e5e7eb;
+	background-color: #ffffff;
+}
+
+.chat__conversation-label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: #374151;
+}
+
+.chat__conversation-select {
+	width: 100%;
+	min-height: 2.5rem;
+	padding: 0.55rem 0.7rem;
+	border: 1px solid #d1d5db;
+	border-radius: 0.6rem;
+	background: #fff;
+	color: #1f2937;
+	font-size: 0.95rem;
+}
+
+.chat__state {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #6b7280;
+}
+
 .chat__messages {
 	display: flex;
 	flex-direction: column;

@@ -119,6 +119,46 @@ namespace Ampara.Infra.Dados.Migracoes
                     b.ToTable("medicamentos", (string)null);
                 });
 
+            modelBuilder.Entity("Ampara.Dominio.Entidades.Mensagem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Conteudo")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("conteudo");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("criado_em");
+
+                    b.Property<bool>("EnviadoPeloPaciente")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enviado_pelo_paciente");
+
+                    b.Property<bool>("Lida")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("lida");
+
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("paciente_id");
+
+                    b.Property<Guid>("ProfissionalId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("profissional_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacienteId", "ProfissionalId");
+
+                    b.ToTable("mensagens", (string)null);
+                });
+
             modelBuilder.Entity("Ampara.Dominio.Entidades.NotaClinica", b =>
                 {
                     b.Property<Guid>("Id")
