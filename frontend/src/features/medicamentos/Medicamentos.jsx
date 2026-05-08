@@ -34,7 +34,7 @@ export function MedicamentosScreen() {
 
   const { isRefreshing, handleRefresh } = usePullToRefreshSync(handleSync);
 
-  // Marcar como completo
+
   const markAsTaken = useCallback((id) => {
     setDailyMeds(prev => prev.map(med => med.id === id ? { ...med, taken: true } : med));
     // fetch('/api/adesao', { method: 'POST', body: JSON.stringify({ id, taken: true }) })

@@ -3,6 +3,7 @@ using System;
 using Ampara.Infra.Dados.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ampara.Infra.Dados.Migracoes
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508003014_AdicionarMensagens")]
+    partial class AdicionarMensagens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,9 +137,9 @@ namespace Ampara.Infra.Dados.Migracoes
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("criado_em");
 
-                    b.Property<bool>("EnviadoPeloPaciente")
-                        .HasColumnType("boolean")
-                        .HasColumnName("enviado_pelo_paciente");
+                    b.Property<Guid>("DestinatarioId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("destinatario_id");
 
                     b.Property<bool>("Lida")
                         .ValueGeneratedOnAdd()
@@ -148,13 +151,15 @@ namespace Ampara.Infra.Dados.Migracoes
                         .HasColumnType("uuid")
                         .HasColumnName("paciente_id");
 
-                    b.Property<Guid>("ProfissionalId")
+                    b.Property<Guid>("RemetenteId")
                         .HasColumnType("uuid")
-                        .HasColumnName("profissional_id");
+                        .HasColumnName("remetente_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PacienteId", "ProfissionalId");
+                    b.HasIndex("DestinatarioId");
+
+                    b.HasIndex("RemetenteId");
 
                     b.ToTable("mensagens", (string)null);
                 });
@@ -362,6 +367,25 @@ namespace Ampara.Infra.Dados.Migracoes
                         .IsRequired();
 
                     b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Ampara.Dominio.Entidades.Mensagem", b =>
+                {
+                    b.HasOne("Ampara.Dominio.Entidades.Perfil", "Destinatario")
+                        .WithMany()
+                        .HasForeignKey("DestinatarioId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Ampara.Dominio.Entidades.Perfil", "Remetente")
+                        .WithMany()
+                        .HasForeignKey("RemetenteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Destinatario");
+
+                    b.Navigation("Remetente");
                 });
 
             modelBuilder.Entity("Ampara.Dominio.Entidades.NotaClinica", b =>
