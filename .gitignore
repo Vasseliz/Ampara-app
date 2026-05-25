@@ -46,3 +46,9 @@ artifacts/
 backend/**/bin/
 backend/**/obj/
 backend/.vs/
+
+# Cypress
+cypress.env.json
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
