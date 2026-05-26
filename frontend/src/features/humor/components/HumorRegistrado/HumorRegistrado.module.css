@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.score {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.rotulo {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.fatores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.fator {
+  padding: 0.3rem 0.7rem;
+  border-radius: 2rem;
+  background: #f0faf4;
+  color: #428A5A;
+  font-size: 0.75rem;
+  border: 1px solid #a7d7b8;
+}
+
+.anotacao {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+  text-align: center;
+  line-height: 1.5;
+}
