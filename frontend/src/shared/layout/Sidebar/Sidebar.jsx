@@ -4,6 +4,7 @@ import {
   Lock,
   Mail,
   Pill,
+  Smile,
   MessageCircle,
   FileText,
   Users,
@@ -21,6 +22,7 @@ const linksPaciente = [
   { to: "/convites", label: "Convites", Icon: Mail },
   { to: "/cofre", label: "Cofre", Icon: Lock },
   { to: "/medicamentos", label: "Medicamentos", Icon: Pill },
+  { to: "/humor", label: "Humor", Icon: Smile },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
 ];
 

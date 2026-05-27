@@ -17,6 +17,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<VinculoProfissionalPaciente> VinculosProfissionalPaciente => Set<VinculoProfissionalPaciente>();
     public DbSet<ConvitePaciente> ConvitesPaciente => Set<ConvitePaciente>();
     public DbSet<Mensagem> Mensagens => Set<Mensagem>();
+    public DbSet<RegistroHumor> RegistrosHumor => Set<RegistroHumor>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

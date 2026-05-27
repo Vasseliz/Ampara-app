@@ -73,11 +73,15 @@ export function Prontuario({ onBack }) {
                                 </p>
                             ) : null}
                         </div>
+                        <div style={{ minWidth: "120px" }}>
+                            <span className="prontuario__select-label">Mês</span>
                         <DateFilter
                             value={monthFilter}
                             onChange={setMonthFilter}
                             options={MONTH_OPTIONS}
                         />
+                          </div>
+
                         <div style={{ minWidth: "120px" }}>
                             <span className="prontuario__select-label">Ano</span>
                             <Select

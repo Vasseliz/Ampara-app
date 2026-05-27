@@ -1,6 +1,7 @@
 using Ampara.Aplicacao.CasosDeUso.Auth;
 using Ampara.Aplicacao.CasosDeUso.Cofre;
 using Ampara.Aplicacao.CasosDeUso.Chat;
+using Ampara.Aplicacao.CasosDeUso.Humor;
 using Ampara.Aplicacao.CasosDeUso.Medicamentos;
 using Ampara.Aplicacao.CasosDeUso.Pacientes;
 using Ampara.Aplicacao.CasosDeUso.Prontuario;
@@ -103,6 +104,11 @@ public static class InjecaoDependencia
         services.AddScoped<CancelarConviteCasoDeUso>();
         services.AddScoped<AceitarConviteCasoDeUso>();
         services.AddScoped<AceitarConvitePacienteAutenticadoCasoDeUso>();
+
+        services.AddScoped<IHumorRepositorio, HumorRepositorio>();
+        services.AddScoped<RegistrarHumorCasoDeUso>();
+        services.AddScoped<ObterHumorHojeCasoDeUso>();
+        services.AddScoped<ListarHistoricoHumorCasoDeUso>();
 
         services.AddScoped<IMensagensRepositorio, MensagensRepositorio>();
         services.AddScoped<ListarConversasChatCasoDeUso>();

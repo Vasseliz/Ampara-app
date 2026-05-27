@@ -1,0 +1,10 @@
+.section {
+  margin-top: 1.5rem;
+}
+
+.loading {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}

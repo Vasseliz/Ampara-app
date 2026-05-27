@@ -8,6 +8,7 @@ import Chat from "./features/chat/Chat";
 import { Prontuario } from "./features/prontuario/Prontuario";
 import Home from "./pages/Home";
 import { MedicamentosScreen as Medicamentos } from "./features/medicamentos/Medicamentos";
+import { Humor } from "./features/humor/Humor";
 import { PacienteRoute } from "./routes/PacienteRoute";
 import { ProfissionalRoute } from "./routes/ProfissionalRoute";
 import { RequireAuth } from "./routes/RequireAuth";
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/cofre" element={<Cofre />} />
                 <Route path="/convites" element={<ConvitesPaciente />} />
                 <Route path="/medicamentos" element={<Medicamentos />} />
+                <Route path="/humor" element={<Humor />} />
               </Route>
 
               <Route path="/profissional" element={<ProfissionalRoute />}>

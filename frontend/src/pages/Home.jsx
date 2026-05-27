@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Lock, FileText, Mail, Pill, MessageCircle, Users } from "lucide-react";
+import { Lock, FileText, Mail, Pill, Smile, MessageCircle, Users } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { PageHeader } from "../shared/molecules/PageHeader/PageHeader";
 import { NavigationCard } from "../shared/molecules/navigationCard/NavigationCard";
@@ -31,6 +31,14 @@ const cardsPaciente = [
     tagVariant: "paciente",
     title: "Medicamentos",
     description: "Acompanhe os medicamentos prescritos pelo seu médico.",
+  },
+  {
+    to: "/humor",
+    icon: Smile,
+    tag: "Paciente",
+    tagVariant: "paciente",
+    title: "Humor",
+    description: "Registre como você está se sentindo e acompanhe sua evolução.",
   },
   {
     to: "/chat",
