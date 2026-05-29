@@ -1,0 +1,51 @@
+.check {
+  --size: 20px;
+  position: relative;
+}
+
+.check input[type="checkbox"] {
+  display: none;
+}
+
+.check label {
+  display: block;
+  width: calc(2.2 * var(--size));
+  height: var(--size);
+  background: #d7d7d7;
+  border-radius: var(--size);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.35s ease-in-out;
+}
+
+.check input[type="checkbox"]:checked + label {
+  background: linear-gradient(90deg, rgb(144, 238, 144), rgb(125, 232, 125));
+}
+
+.check .toggle__slider {
+  width: calc(0.8 * var(--size));
+  height: calc(0.8 * var(--size));
+  background: linear-gradient(45deg, #dedede, #ffffff);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(0.1 * var(--size));
+  left: calc(0.1 * var(--size));
+  box-shadow: 0 6px 7px rgba(0, 0, 0, 0.3);
+  transition: left 0.35s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(0.55 * var(--size));
+}
+
+.check .toggle__slider::after {
+  content: "😢";
+}
+
+.check input[type="checkbox"]:checked ~ label .toggle__slider::after {
+  content: "😊";
+}
+
+.check input[type="checkbox"]:checked ~ label .toggle__slider {
+  left: calc(1.3 * var(--size));
+}

@@ -12,6 +12,8 @@ import {
   LogOut,
   HeartPulse,
   X,
+  Clover
+  
 } from "lucide-react";
 import { useAuth } from "../../../contexts/AuthContext";
 import { fetchComSessao } from "../../api/fetchComSessao";
@@ -24,6 +26,7 @@ const linksPaciente = [
   { to: "/medicamentos", label: "Medicamentos", Icon: Pill },
   { to: "/humor", label: "Humor", Icon: Smile },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
+   { to: "/habitos", label: "Habitos", Icon: Clover }
 ];
 
 const linksProfissional = [

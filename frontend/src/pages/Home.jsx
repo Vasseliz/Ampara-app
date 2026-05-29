@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Lock, FileText, Mail, Pill, Smile, MessageCircle, Users } from "lucide-react";
+import { Lock, FileText, Mail, Pill, Smile, MessageCircle, Users, Clover } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { PageHeader } from "../shared/molecules/PageHeader/PageHeader";
 import { NavigationCard } from "../shared/molecules/navigationCard/NavigationCard";
@@ -48,6 +48,14 @@ const cardsPaciente = [
     title: "Chat",
     description: "Converse com seu profissional de saúde em um único canal.",
   },
+  {
+    to: "/habitos",
+    icon: Clover,
+    tag: "Paciente",
+    tagVariant: "paciente",
+    title: "Habitos",
+    description: "Registre seus habitos diarios e acompanhe sua evolução.",
+  }
 ];
 
 const cardsProfissional = [
@@ -74,7 +82,7 @@ const cardsProfissional = [
     tagVariant: "profissional",
     title: "Chat",
     description: "Converse com o paciente por um canal simples e centralizado.",
-  },
+  }
 ];
 
 export default function Home() {

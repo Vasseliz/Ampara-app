@@ -16,8 +16,8 @@ export function useHumorHoje() {
       } else if (res.ok) {
         setData(await res.json());
       }
-    } catch {
-      /*  sessão expirada tratada pelo fetchComSessao */
+    } catch (err) {
+      console.log(err)
     } finally {
       setLoading(false);
     }

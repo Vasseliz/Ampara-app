@@ -1,0 +1,32 @@
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: whitesmoke;
+  border-radius: 8px;
+  height: 0.7rem;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: calc(-0.6rem / 2);
+  border: 3px solid lightgreen;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow:
+    1px 1px 0 0 rgba(144, 238, 144, 1),
+    1px -1px 0 0 rgba(144, 238, 144, 1),
+    -1px 1px 0 0 rgba(144, 238, 144, 1),
+    -1px -1px 0 0 rgba(144, 238, 144, 1);
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+}

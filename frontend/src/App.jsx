@@ -17,6 +17,7 @@ import { Toaster } from "./shared/atoms/toast/Toast";
 import Login from "./features/auth/Login";
 import Signup from "./features/auth/SignUp";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Habitos } from "./features/habitos/Habitos";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/convites" element={<ConvitesPaciente />} />
                 <Route path="/medicamentos" element={<Medicamentos />} />
                 <Route path="/humor" element={<Humor />} />
+                <Route path="/habitos" element={<Habitos />} />
               </Route>
 
               <Route path="/profissional" element={<ProfissionalRoute />}>
