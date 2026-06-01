@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
 import Button from "../../shared/atoms/button/Button";
+import { useSwipeGesture } from "../../shared/hooks/useSwipeGesture";
 import { useVisaoGeralPaciente } from "./hooks/useVisaoGeralPaciente";
 import styles from "./VisaoGeralPaciente.module.css";
 
@@ -118,13 +119,16 @@ export function VisaoGeralPaciente() {
   const { pacienteId } = useParams();
   const navigate = useNavigate();
   const { overview, loading, error, reload } = useVisaoGeralPaciente(pacienteId);
+  const swipeRef = useSwipeGesture({
+    onSwipeRight: () => navigate("/profissional/pacientes"),
+  });
 
   const patientName = overview
     ? `${overview.patient.firstName} ${overview.patient.lastName}`.trim() || overview.patient.email
     : "Paciente";
 
   return (
-    <div className="page-container">
+    <div className="page-container" ref={swipeRef}>
       <PageHeader
         title="Visão Geral"
         iconTitle={User}
