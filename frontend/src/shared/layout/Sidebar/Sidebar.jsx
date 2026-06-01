@@ -33,6 +33,7 @@ const linksProfissional = [
   { to: "/", label: "Início", Icon: Home },
   { to: "/profissional/pacientes", label: "Pacientes", Icon: Users },
   { to: "/profissional/prontuario", label: "Prontuário", Icon: FileText },
+  { to: "/profissional/medicamentos", label: "Medicamentos", Icon: Pill },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
 ];
 

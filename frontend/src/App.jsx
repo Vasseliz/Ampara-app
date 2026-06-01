@@ -4,10 +4,12 @@ import { AceitarConvitePaciente } from "./features/pacientes/AceitarConvitePacie
 import { ConvitesPaciente } from "./features/pacientes/ConvitesPaciente";
 import Cofre from "./features/cofre/Cofre";
 import { Pacientes } from "./features/pacientes/Pacientes";
+import { VisaoGeralPaciente } from "./features/pacientes/VisaoGeralPaciente";
 import Chat from "./features/chat/Chat";
 import { Prontuario } from "./features/prontuario/Prontuario";
 import Home from "./pages/Home";
 import { MedicamentosScreen as Medicamentos } from "./features/medicamentos/Medicamentos";
+import { MedicamentosProfissional } from "./features/medicamentos/MedicamentosProfissional";
 import { Humor } from "./features/humor/Humor";
 import { PacienteRoute } from "./routes/PacienteRoute";
 import { ProfissionalRoute } from "./routes/ProfissionalRoute";
@@ -46,6 +48,8 @@ function App() {
               <Route path="/profissional" element={<ProfissionalRoute />}>
                 <Route index element={<Navigate to="prontuario" replace />} />
                 <Route path="pacientes" element={<Pacientes />} />
+                <Route path="pacientes/:pacienteId" element={<VisaoGeralPaciente />} />
+                <Route path="medicamentos/:pacienteId?" element={<MedicamentosProfissional />} />
                 <Route
                   path="prontuario/:pacienteId?"
                   element={<Prontuario />}
