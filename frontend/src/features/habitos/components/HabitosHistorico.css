@@ -1,0 +1,53 @@
+.habitos-historico {
+  margin-top: 2rem;
+}
+
+.habitos-historico__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.habitos-historico__buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.habitos-historico__buttons button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.habitos-historico__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.habitos-historico__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.habitos-historico__icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.habitos-historico__label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.habitos-historico__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #059669;
+}

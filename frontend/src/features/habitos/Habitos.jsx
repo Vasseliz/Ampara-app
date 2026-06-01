@@ -10,6 +10,7 @@ import { useState } from "react";
 import Button from "../../shared/atoms/button/Button";
 import { useHabitosHoje, registrarHabito } from "./hooks/useHabitos";
 import { toast } from "../../shared/atoms/toast/Toast";
+import { HabitosHistorico } from "./components/HabitosHistorico";
 
 const Habitos = () => {
   const [done, setDone] = useState(false);
@@ -30,13 +31,13 @@ const Habitos = () => {
         agua: agua,
       });
       console.log({data,loading})
-      if (response.ok) return toast.success("Habitos registrado com sucesso!");
+      if (response.ok) return toast.success("Hábitos registrado com sucesso!");
       if (response.status === 409) {
-        return toast.error("Você já registrou habito hoje.");
-        
+        return toast.error("Você já registrou hábito hoje.");
+
       }
     } catch {
-      toast.error("Erro ao registrar habito Diario.");
+      toast.error("Erro ao registrar hábito Diário.");
     } finally {
       setSubmitting(false);
     }
@@ -62,7 +63,7 @@ const Habitos = () => {
       <PageHeader
         title="Habitos"
         icon={Clover}
-        subtitle="Registre seus Habitos Diarios"
+        subtitle="Registre seus Hábitos Diários"
         handleIcon={handleIconClick}
       />
       <section className="habitos__section-1">
@@ -160,10 +161,7 @@ const Habitos = () => {
           onClick={() => handleSubmission({ done, horas, qualidade, agua })}
         />
       </section>
-      <div className="habitos__footer">
-        <Smile size={40} color="#d1d5db" />
-        <p>Nenhum registro encontrado</p>
-      </div>
+    {data && <HabitosHistorico />}
     </div>
   );
 };

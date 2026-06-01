@@ -50,3 +50,31 @@ const registrarHabito = async ({
 };
 
 export { registrarHabito };
+
+const useHistoricoHabitos = (dias) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchComSessao(`${API}/habits/history?days=${dias}`);
+        if (!response.ok) {
+          throw new Error(`HTTP Error Status: ${response.status}`);
+        }
+        const dados = await response.json();
+        setData(dados.entries ?? []);
+      } catch (err) {
+        console.error("Erro: ", err.message);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [dias]);
+
+  return { data, loading };
+};
+
+export { useHistoricoHabitos };
