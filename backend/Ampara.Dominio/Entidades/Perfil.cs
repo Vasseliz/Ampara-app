@@ -18,4 +18,5 @@ public class Perfil
     public ICollection<VinculoProfissionalPaciente> VinculosComoPaciente { get; set; } = new List<VinculoProfissionalPaciente>();
     public ICollection<ConvitePaciente> ConvitesEnviados { get; set; } = new List<ConvitePaciente>();
     public ICollection<RegistroHumor> RegistrosHumor { get; set; } = new List<RegistroHumor>();
+    public ICollection<HabitoDiario> HabitosDiarios { get; set; } = new List<HabitoDiario>();
 }

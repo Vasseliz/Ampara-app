@@ -8,6 +8,8 @@ import { InfoBanner } from "../../shared/atoms/InfoBanner/InfoBanner";
 import { Toggle } from "../../shared/atoms/Toggle/Toggle";
 import { useState } from "react";
 import Button from "../../shared/atoms/button/Button";
+import { useHabitosHoje, registrarHabito } from "./hooks/useHabitos";
+import { toast } from "../../shared/atoms/toast/Toast";
 
 const Habitos = () => {
   const [done, setDone] = useState(false);
@@ -15,6 +17,30 @@ const Habitos = () => {
   const [qualidade, setQualidade] = useState(1);
   const [agua, setAgua] = useState(0);
   const navigate = useNavigate();
+  const { data, loading } = useHabitosHoje();
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmission = async ({ done, horas, qualidade, agua }) => {
+    setSubmitting(true);
+    try {
+      const response = await registrarHabito({
+        exercitou: done,
+        horasSono: horas,
+        qualidadeSono: qualidade,
+        agua: agua,
+      });
+      console.log({data,loading})
+      if (response.ok) return toast.success("Habitos registrado com sucesso!");
+      if (response.status === 409) {
+        return toast.error("Você já registrou habito hoje.");
+        
+      }
+    } catch {
+      toast.error("Erro ao registrar habito Diario.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleIconClick = () => {
     navigate("/");
@@ -127,7 +153,12 @@ const Habitos = () => {
             <span>4L</span>
           </div>
         </Card>
-        <Button variant="primary" fullWidth={true} children={"Registrar"}/>
+        <Button
+          variant="primary"
+          fullWidth={true}
+          children={"Registrar"}
+          onClick={() => handleSubmission({ done, horas, qualidade, agua })}
+        />
       </section>
       <div className="habitos__footer">
         <Smile size={40} color="#d1d5db" />
@@ -136,5 +167,4 @@ const Habitos = () => {
     </div>
   );
 };
-
 export { Habitos };

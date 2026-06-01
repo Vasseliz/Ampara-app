@@ -17,13 +17,15 @@ export function useHumorHoje() {
         setData(await res.json());
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     } finally {
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => { fetch_(); }, [fetch_]);
+  useEffect(() => {
+    fetch_();
+  }, [fetch_]);
 
   return { data, loading, refetch: fetch_ };
 }
@@ -43,8 +45,12 @@ export function useHistoricoHumor(dias) {
         }
       })
       .catch(() => {})
-      .finally(() => { if (!cancelado) setLoading(false); });
-    return () => { cancelado = true; };
+      .finally(() => {
+        if (!cancelado) setLoading(false);
+      });
+    return () => {
+      cancelado = true;
+    };
   }, [dias]);
 
   return { data, loading };
