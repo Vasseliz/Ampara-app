@@ -1,0 +1,20 @@
+{
+  "name": "Ampara",
+  "short_name": "Ampara",
+  "description": "Aplicativo de acompanhamento de saúde mental",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#7e14ff",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

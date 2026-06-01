@@ -15,7 +15,7 @@ Este backlog considera o frontend do Ampara enquanto o backend é tratado apenas
 
 ## Histórias de usuário
 
-Cada história indica **Responsável** e **Entrega**. Há previsão de **mais quatro** histórias de usuário neste documento (responsáveis e entregas serão preenchidos quando forem adicionadas).
+Cada história indica **Responsável** e **Entrega**. O backlog cobre **10 histórias de usuário** distribuídas em 10 entregas, incluindo as **histórias 7–10** propostas como próximas iterações sob responsabilidade de **Guilherme Galante**.
 
 | História | Responsável | Entrega |
 |----------|-------------|---------|
@@ -24,7 +24,8 @@ Cada história indica **Responsável** e **Entrega**. Há previsão de **mais qu
 | História 3: Registro de Hábitos Diários pelo Paciente | Caina Vieira | Entrega 3 |
 | História 4: Acompanhamento de Hábitos do Paciente pelo Profissional | Caina Vieira | Entrega 4 |
 | História 5: Registro de medicamentos pelo Profissional | Guilherme Galante | Entrega 5 |
-| História 6: Visão geral do paciente pelo Profissional | Guilherme | Entrega 6 |
+| História 6: Visão geral do paciente pelo Profissional | Guilherme Galante | Entrega 6 |
+
 
 ### História 1: Registro de Humor Diário pelo Paciente
 
@@ -105,10 +106,10 @@ Dado que o profissional preenche os dados, quando confirmar o envio, então os d
 
 Dado que um campo obrigatório não foi preenchido, quando o profissional tentar salvar, então o front-end deve exibir uma mensagem de erro em tempo real (feedback visual).
 
-## História 6: Visão geral do paciente pelo Profissional
+### História 6: Visão geral do paciente pelo Profissional
 
-Responsável: Guilherme Galante
-Entrega: Entrega 6
+- **Responsável:** Guilherme Galante
+- **Entrega:** Entrega 6
 
 **Narrativa**
 Como Profissional (Psicólogo/Psiquiatra), eu quero visualizar um Dashboard geral com os indicadores de rotina (hábitos) do meu paciente para que eu possa identificar oscilações de humor e comportamento antes mesmo da sessão começar.
@@ -122,6 +123,8 @@ Dado que o profissional precisa de detalhes temporais, quando ele filtrar por "�
 Dado que o paciente ainda não realizou registros, quando o profissional abrir a visão geral, então o sistema deve exibir uma mensagem informando que não há dados disponíveis para o período.
 
 Dado que a ética profissional é prioritária, quando o profissional visualizar este Dashboard, então ele não deve ter acesso às anotações privadas do Cofre/Diário do paciente.
+
+
 
 ---
 
@@ -164,9 +167,12 @@ Itens técnicos e de produto fora do escopo direto das histórias acima, mantend
 - **Entrega 2:** História 2 — Acompanhamento de Humor do Paciente pelo Profissional — **Nicolas Vasseli**
 - **Entrega 3:** História 3 — Registro de Hábitos Diários pelo Paciente — **Caina Vieira**
 - **Entrega 4:** História 4 — Acompanhamento de Hábitos do Paciente pelo Profissional — **Caina Vieira**
+- **Entrega 5:** História 5 — Registro de medicamentos pelo Profissional — **Guilherme Galante**
+- **Entrega 6:** História 6 — Visão geral do paciente pelo Profissional — 
 
 **Tarefas adicionais** *(numeração = itens 1–5 da lista acima)*
 
 - **Entrega 1 (foco fluxo crítico):** item 1 — testes de fluxos críticos (autenticação e roteamento), em paralelo à história do paciente quando fizer sentido no roadmap.
 - **Entrega 2 (foco estabilidade):** itens 2 e 3 — padronização da camada de API e validações/UX de formulários; alinhar com a história do profissional conforme dependências técnicas.
 - **Entrega 3 (foco experiência e pipeline):** itens 4 e 5 — feedback visual global e CI no frontend.
+

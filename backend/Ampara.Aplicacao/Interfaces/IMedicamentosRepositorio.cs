@@ -9,4 +9,8 @@ public interface IMedicamentosRepositorio
     Task UpsertRegistroDoDiaAsync(Guid medicamentoId, Guid pacienteId, DateOnly data, bool tomado, CancellationToken ct);
     Task<IReadOnlyList<RegistroMedicamento>> ListarRegistrosNoPeriodoAsync(
         Guid pacienteId, DateOnly inicio, DateOnly fim, CancellationToken ct);
+    Task<IReadOnlyList<Medicamento>> ListarPorPacienteAsync(Guid pacienteId, CancellationToken ct);
+    Task<Medicamento?> ObterPorIdAsync(Guid id, CancellationToken ct);
+    Task AdicionarAsync(Medicamento medicamento, CancellationToken ct);
+    Task AtualizarAsync(CancellationToken ct);
 }

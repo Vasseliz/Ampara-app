@@ -67,4 +67,8 @@
     cursor: pointer;
     color: #333333;
   }
+
+  .content {
+    padding-bottom: 4.5rem;
+  }
 }

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Mail, Trash2, TriangleAlert, UsersRound } from "lucide-react";
+import { Mail, Trash2, TriangleAlert, UsersRound, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../shared/atoms/button/Button";
 import { Card } from "../../shared/atoms/Card/Card";
 import { TextField } from "../../shared/atoms/form/TextField";
@@ -139,6 +140,7 @@ function TabelaPacientes({
 }
 
 export function Pacientes() {
+  const navigate = useNavigate();
   const {
     patients,
     invites,
@@ -325,6 +327,19 @@ export function Pacientes() {
               page={patientsPage}
               setPage={setPatientsPage}
               dateLabel="Data de vínculo"
+              actionLabel="Ações"
+              renderAction={(row) => (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="pacientes-table__action-button"
+                  onClick={() => navigate(`/profissional/pacientes/${row.id}`)}
+                >
+                  <Eye size={14} />
+                  Ver
+                </Button>
+              )}
             />
           </div>
         )}

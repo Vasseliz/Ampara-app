@@ -55,4 +55,22 @@ public class MedicamentosRepositorio : IMedicamentosRepositorio
         await _db.RegistrosMedicamento.AsNoTracking()
             .Where(r => r.PacienteId == pacienteId && r.Data >= inicio && r.Data <= fim)
             .ToListAsync(ct);
+
+    public async Task<IReadOnlyList<Medicamento>> ListarPorPacienteAsync(Guid pacienteId, CancellationToken ct) =>
+        await _db.Medicamentos.AsNoTracking()
+            .Where(m => m.PacienteId == pacienteId)
+            .OrderByDescending(m => m.Ativo)
+            .ThenBy(m => m.Horario)
+            .ToListAsync(ct);
+
+    public Task<Medicamento?> ObterPorIdAsync(Guid id, CancellationToken ct) =>
+        _db.Medicamentos.FirstOrDefaultAsync(m => m.Id == id, ct);
+
+    public async Task AdicionarAsync(Medicamento medicamento, CancellationToken ct)
+    {
+        _db.Medicamentos.Add(medicamento);
+        await _db.SaveChangesAsync(ct);
+    }
+
+    public Task AtualizarAsync(CancellationToken ct) => _db.SaveChangesAsync(ct);
 }
