@@ -86,6 +86,41 @@ Cypress.Commands.add("criarNotaApi", (pacienteId, payload) => {
 });
 
 
+Cypress.Commands.add("criarMedicamentoApi", (pacienteId, payload) => {
+  const apiUrl = Cypress.env("apiUrl");
+  return cy
+    .request({
+      method: "POST",
+      url: `${apiUrl}/medications/patients/${pacienteId}`,
+      body: payload,
+    })
+    .then((res) => {
+      expect(res.status).to.eq(201);
+      return cy.wrap(res.body.id, { log: false });
+    });
+});
+
+Cypress.Commands.add("limparMedicamentosDoPaciente", (pacienteId) => {
+  const apiUrl = Cypress.env("apiUrl");
+  return cy
+    .request({
+      method: "GET",
+      url: `${apiUrl}/medications/patients/${pacienteId}`,
+      failOnStatusCode: false,
+    })
+    .then((res) => {
+      if (res.status !== 200 || !Array.isArray(res.body)) return;
+      const ativos = res.body.filter((m) => m.active).map((m) => m.id);
+      ativos.forEach((id) => {
+        cy.request({
+          method: "DELETE",
+          url: `${apiUrl}/medications/${id}`,
+          failOnStatusCode: false,
+        });
+      });
+    });
+});
+
 Cypress.Commands.add("limparNotasDoPaciente", (pacienteId) => {
   const apiUrl = Cypress.env("apiUrl");
   const ano = new Date().getFullYear();

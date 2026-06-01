@@ -12,15 +12,27 @@ public class MedicamentosController : ControllerBase
     private readonly ObterMedicamentosCasoDeUso _obter;
     private readonly RegistrarTomadaMedicamentoCasoDeUso _tomar;
     private readonly ObterAdesaoCasoDeUso _adesao;
+    private readonly ListarMedicamentosDoPacienteCasoDeUso _listarPaciente;
+    private readonly CriarMedicamentoCasoDeUso _criar;
+    private readonly AtualizarMedicamentoCasoDeUso _atualizar;
+    private readonly RemoverMedicamentoCasoDeUso _remover;
 
     public MedicamentosController(
         ObterMedicamentosCasoDeUso obter,
         RegistrarTomadaMedicamentoCasoDeUso tomar,
-        ObterAdesaoCasoDeUso adesao)
+        ObterAdesaoCasoDeUso adesao,
+        ListarMedicamentosDoPacienteCasoDeUso listarPaciente,
+        CriarMedicamentoCasoDeUso criar,
+        AtualizarMedicamentoCasoDeUso atualizar,
+        RemoverMedicamentoCasoDeUso remover)
     {
         _obter = obter;
         _tomar = tomar;
         _adesao = adesao;
+        _listarPaciente = listarPaciente;
+        _criar = criar;
+        _atualizar = atualizar;
+        _remover = remover;
     }
 
     [HttpGet]
@@ -75,4 +87,72 @@ public class MedicamentosController : ControllerBase
             averageAdherence = r.MediaAdesao
         });
     }
+
+    [HttpGet("patients/{pacienteId:guid}")]
+    [RequerProfissional]
+    public async Task<IActionResult> ListarDoPaciente(Guid pacienteId, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var lista = await _listarPaciente.ExecutarAsync(profissionalId, pacienteId, ct);
+        return Ok(lista.Select(m => new
+        {
+            m.Id,
+            name = m.Nome,
+            dosage = m.Dosagem,
+            time = m.Horario,
+            observation = m.Observacao,
+            active = m.Ativo
+        }));
+    }
+
+    [HttpPost("patients/{pacienteId:guid}")]
+    [RequerProfissional]
+    public async Task<IActionResult> Criar(Guid pacienteId, [FromBody] CorpoMedicamento corpo, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var med = await _criar.ExecutarAsync(
+            profissionalId, pacienteId,
+            new EntradaMedicamento(corpo.Name, corpo.Dosage, corpo.Time, corpo.Observation),
+            ct);
+        return StatusCode(201, new
+        {
+            med.Id,
+            name = med.Nome,
+            dosage = med.Dosagem,
+            time = med.Horario,
+            observation = med.Observacao,
+            active = med.Ativo
+        });
+    }
+
+    [HttpPut("{id:guid}")]
+    [RequerProfissional]
+    public async Task<IActionResult> Atualizar(Guid id, [FromBody] CorpoMedicamento corpo, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var med = await _atualizar.ExecutarAsync(
+            profissionalId, id,
+            new EntradaMedicamento(corpo.Name, corpo.Dosage, corpo.Time, corpo.Observation),
+            ct);
+        return Ok(new
+        {
+            med.Id,
+            name = med.Nome,
+            dosage = med.Dosagem,
+            time = med.Horario,
+            observation = med.Observacao,
+            active = med.Ativo
+        });
+    }
+
+    [HttpDelete("{id:guid}")]
+    [RequerProfissional]
+    public async Task<IActionResult> Remover(Guid id, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        await _remover.ExecutarAsync(profissionalId, id, ct);
+        return NoContent();
+    }
+
+    public sealed record CorpoMedicamento(string Name, string Dosage, string Time, string? Observation);
 }

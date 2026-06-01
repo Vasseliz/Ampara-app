@@ -94,6 +94,10 @@ public static class InjecaoDependencia
         services.AddScoped<ObterMedicamentosCasoDeUso>();
         services.AddScoped<RegistrarTomadaMedicamentoCasoDeUso>();
         services.AddScoped<ObterAdesaoCasoDeUso>();
+        services.AddScoped<ListarMedicamentosDoPacienteCasoDeUso>();
+        services.AddScoped<CriarMedicamentoCasoDeUso>();
+        services.AddScoped<AtualizarMedicamentoCasoDeUso>();
+        services.AddScoped<RemoverMedicamentoCasoDeUso>();
         services.AddScoped<ObterNotasProntuarioCasoDeUso>();
         services.AddScoped<CriarNotaProntuarioCasoDeUso>();
         services.AddScoped<AtualizarNotaProntuarioCasoDeUso>();
@@ -105,6 +109,7 @@ public static class InjecaoDependencia
         services.AddScoped<CancelarConviteCasoDeUso>();
         services.AddScoped<AceitarConviteCasoDeUso>();
         services.AddScoped<AceitarConvitePacienteAutenticadoCasoDeUso>();
+        services.AddScoped<ObterVisaoGeralPacienteCasoDeUso>();
 
         services.AddScoped<IHumorRepositorio, HumorRepositorio>();
         services.AddScoped<RegistrarHumorCasoDeUso>();

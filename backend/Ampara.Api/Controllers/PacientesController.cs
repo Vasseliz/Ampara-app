@@ -16,6 +16,7 @@ public class PacientesController : ControllerBase
     private readonly CancelarConviteCasoDeUso _cancelar;
     private readonly AceitarConviteCasoDeUso _aceitar;
     private readonly AceitarConvitePacienteAutenticadoCasoDeUso _aceitarAutenticado;
+    private readonly ObterVisaoGeralPacienteCasoDeUso _visaoGeral;
 
     public PacientesController(
         ListarPacientesCasoDeUso listarPacientes,
@@ -24,7 +25,8 @@ public class PacientesController : ControllerBase
         ConvidarPacienteCasoDeUso convidar,
         CancelarConviteCasoDeUso cancelar,
         AceitarConviteCasoDeUso aceitar,
-        AceitarConvitePacienteAutenticadoCasoDeUso aceitarAutenticado)
+        AceitarConvitePacienteAutenticadoCasoDeUso aceitarAutenticado,
+        ObterVisaoGeralPacienteCasoDeUso visaoGeral)
     {
         _listarPacientes = listarPacientes;
         _listarConvites = listarConvites;
@@ -33,6 +35,7 @@ public class PacientesController : ControllerBase
         _cancelar = cancelar;
         _aceitar = aceitar;
         _aceitarAutenticado = aceitarAutenticado;
+        _visaoGeral = visaoGeral;
     }
 
     [HttpGet]
@@ -108,6 +111,54 @@ public class PacientesController : ControllerBase
     {
         var r = await _aceitar.ExecutarAsync(corpo.Token, ct);
         return Ok(new { professionalName = r.NomeProfissional, redirectTo = r.RedirecionarPara });
+    }
+
+    [HttpGet("{pacienteId:guid}/overview")]
+    [RequerProfissional]
+    public async Task<IActionResult> VisaoGeral(Guid pacienteId, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var dados = await _visaoGeral.ExecutarAsync(profissionalId, pacienteId, ct);
+        return Ok(new
+        {
+            patient = new
+            {
+                firstName = dados.Paciente.PrimeiroNome,
+                lastName = dados.Paciente.Sobrenome,
+                email = dados.Paciente.Email
+            },
+            medications = dados.Medicamentos.Select(m => new
+            {
+                m.Id,
+                name = m.Nome,
+                dosage = m.Dosagem,
+                time = m.Horario,
+                observation = m.Observacao,
+                active = m.Ativo
+            }),
+            mood = dados.Humor.Select(h => new
+            {
+                date = h.Data,
+                score = h.Pontuacao,
+                factors = h.Fatores,
+                note = h.Anotacao
+            }),
+            habits = dados.Habitos.Select(h => new
+            {
+                date = h.Data,
+                exercised = h.Exercitou,
+                sleepHours = h.HorasSono,
+                sleepQuality = h.QualidadeSono,
+                water = h.Agua
+            }),
+            lastNotes = dados.UltimasNotas.Select(n => new
+            {
+                n.Id,
+                sessionDate = n.DataSessao,
+                sessionType = n.TipoSessao,
+                content = n.Conteudo
+            })
+        });
     }
 
     public sealed record CorpoConvite(string Email);
