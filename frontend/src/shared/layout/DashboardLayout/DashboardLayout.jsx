@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Sidebar } from '../Sidebar/Sidebar';
-import { BottomNav } from '../BottomNav/BottomNav';
+
 import styles from './DashboardLayout.module.css';
 
 export function DashboardLayout() {
@@ -41,7 +41,7 @@ export function DashboardLayout() {
         <Outlet />
       </main>
 
-      <BottomNav />
+
     </div>
   );
 }
