@@ -12,15 +12,18 @@ public class HumorController : ControllerBase
     private readonly RegistrarHumorCasoDeUso _registrar;
     private readonly ObterHumorHojeCasoDeUso _hoje;
     private readonly ListarHistoricoHumorCasoDeUso _historico;
+    private readonly ListarHistoricoHumorDoPacienteCasoDeUso _historicoPaciente;
 
     public HumorController(
         RegistrarHumorCasoDeUso registrar,
         ObterHumorHojeCasoDeUso hoje,
-        ListarHistoricoHumorCasoDeUso historico)
+        ListarHistoricoHumorCasoDeUso historico,
+        ListarHistoricoHumorDoPacienteCasoDeUso historicoPaciente)
     {
         _registrar = registrar;
         _hoje = hoje;
         _historico = historico;
+        _historicoPaciente = historicoPaciente;
     }
 
     [HttpPost]
@@ -57,6 +60,26 @@ public class HumorController : ControllerBase
     {
         var pacienteId = User.IdUsuario();
         var lista = await _historico.ExecutarAsync(pacienteId, days, ct);
+        return Ok(new
+        {
+            entries = lista.Select(r => new
+            {
+                id = r.Id,
+                score = r.Pontuacao,
+                factors = r.Fatores,
+                notes = r.Anotacao,
+                date = r.Data.ToString("yyyy-MM-dd")
+            })
+        });
+    }
+
+    [HttpGet("patients/{pacienteId:guid}")]
+    [RequerProfissional]
+    public async Task<IActionResult> HistoricoDoPaciente(
+        Guid pacienteId, [FromQuery] int days = 30, CancellationToken ct = default)
+    {
+        var profissionalId = User.IdUsuario();
+        var lista = await _historicoPaciente.ExecutarAsync(profissionalId, pacienteId, days, ct);
         return Ok(new
         {
             entries = lista.Select(r => new
