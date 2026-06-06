@@ -115,6 +115,7 @@ public static class InjecaoDependencia
         services.AddScoped<RegistrarHumorCasoDeUso>();
         services.AddScoped<ObterHumorHojeCasoDeUso>();
         services.AddScoped<ListarHistoricoHumorCasoDeUso>();
+        services.AddScoped<ListarHistoricoHumorDoPacienteCasoDeUso>();
 
         services.AddScoped<IHabitosRepositorio, HabitosRepositorio>();
         services.AddScoped<RegistrarHabitoCasoDeUso>();

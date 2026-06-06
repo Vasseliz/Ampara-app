@@ -1,0 +1,218 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: none;
+  padding: 0.25rem 0;
+}
+
+.backLink:hover {
+  color: #374151;
+}
+
+.patientSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  max-width: 320px;
+}
+
+.selectorLabel {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.statValue {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.625rem;
+}
+
+.entryHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.entryInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.entryRotulo {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.entryDate {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+.fatores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.fator {
+  font-size: 0.75rem;
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.notes {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1rem;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.skeleton {
+  height: 4.5rem;
+  border-radius: 0.625rem;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.errorBox {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: #b91c1c;
+  padding: 1rem;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 640px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

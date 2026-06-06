@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import { MedicamentosScreen as Medicamentos } from "./features/medicamentos/Medicamentos";
 import { MedicamentosProfissional } from "./features/medicamentos/MedicamentosProfissional";
 import { Humor } from "./features/humor/Humor";
+import { HumorPaciente } from "./features/humor/HumorPaciente";
 import { PacienteRoute } from "./routes/PacienteRoute";
 import { ProfissionalRoute } from "./routes/ProfissionalRoute";
 import { RequireAuth } from "./routes/RequireAuth";
@@ -50,6 +51,7 @@ function App() {
                 <Route path="pacientes" element={<Pacientes />} />
                 <Route path="pacientes/:pacienteId" element={<VisaoGeralPaciente />} />
                 <Route path="medicamentos/:pacienteId?" element={<MedicamentosProfissional />} />
+                <Route path="humor/:pacienteId?" element={<HumorPaciente />} />
                 <Route
                   path="prontuario/:pacienteId?"
                   element={<Prontuario />}

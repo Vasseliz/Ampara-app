@@ -191,6 +191,9 @@ export function VisaoGeralPaciente() {
                     <Smile size={16} />
                     Humor (últimos 7 dias)
                   </h2>
+                  <Button variant="ghost" size="sm" onClick={() => navigate(`/profissional/humor/${pacienteId}`)}>
+                    Ver histórico completo
+                  </Button>
                 </div>
                 <MoodSection mood={overview.mood} />
               </div>
