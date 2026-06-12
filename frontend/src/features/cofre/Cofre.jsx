@@ -1,43 +1,38 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Lock, ChevronDown, BookText, Pointer } from "lucide-react";
+import { Lock, ChevronDown, BookText } from "lucide-react";
 import "./Cofre.css";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
 import Button from "../../shared/atoms/button/Button";
 import { getTodayFormatted } from "./utils/datas";
-import notasAntigas from "./utils/notasAntigas";
+import { useNotas, salvarNota, deletarNota } from "./hooks/useCofre";
+import { toast } from "../../shared/atoms/toast/Toast";
 
 const Cofre = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [texto, setTexto] = useState("");
-  const [notas, setNotas] = useState(notasAntigas);
   const [expandidaNotaId, setexpandidaNotaId] = useState(null);
+  const { data: notas, loading, setData: setNotas } = useNotas();
 
   function handleChevron(noteId) {
     setexpandidaNotaId((current) => (current === noteId ? null : noteId));
   }
 
-  function handleDeleteNotas(noteId) {
-    setNotas((currentNotes) => currentNotes.filter((note) => note.id !== noteId));
+  async function handleDeleteNotas(noteId) {
+    const response = await deletarNota(noteId);
+    if (!response.ok) return toast.error("Erro ao apagar nota.");
+    setNotas((current) => current.filter((note) => note.id !== noteId));
     setexpandidaNotaId((current) => (current === noteId ? null : current));
   }
 
-  function handleIconClick() {
-    navigate("/");
-  }
-
-  function handleSaveNote() {
+  async function handleSaveNote() {
     if (texto.trim() === "") return;
-
-    const novaNota = {
-      id: notas.length + 1,
-      date: getTodayFormatted(),
-      content: texto,
-    };
-
-    setNotas([novaNota, ...notas]);
+    const response = await salvarNota(texto.trim());
+    if (!response.ok) return toast.error("Erro ao salvar nota.");
+    const criada = await response.json();
+    setNotas((current) => [criada, ...current]);
     setTexto("");
-    alert("Nota salva no Cofre!");
+    toast.success("Nota salva no Cofre!");
   }
 
   const hoje = getTodayFormatted();
@@ -50,7 +45,7 @@ const Cofre = () => {
           iconTitle={BookText}
           icon={Lock}
           comment={`${notas.length} notas salvas`}
-          handleIcon={handleIconClick}
+          handleIcon={() => navigate("/")}
         />
 
         <div className="cofre__privacy-banner">
@@ -60,7 +55,6 @@ const Cofre = () => {
           </p>
         </div>
 
-      
         <div className="cofre__note-card">
           <div className="cofre__note-card__date-row">
             <span className="cofre__note-card__today-tag">Hoje</span>
@@ -91,11 +85,12 @@ const Cofre = () => {
           </div>
 
           <div className="cofre__annotations__list">
+            {loading && <p>Carregando...</p>}
             {notas.map((note) => (
               <div key={note.id} className="cofre__annotations__item">
                 <div className="cofre__annotations__item-header">
                   <h3 className="cofre__annotations__item-title">
-                    {note.date}
+                    {new Date(note.createdAt).toLocaleDateString("pt-BR")}
                   </h3>
                   <ChevronDown
                     size={18}
