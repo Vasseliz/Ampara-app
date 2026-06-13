@@ -1,0 +1,218 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.875rem;
+  border: 1px solid #e8e5e0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cardTitleIcon {
+  color: #428a5a;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.visibilityBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.625rem;
+  background: #e6f2ec;
+  color: #428a5a;
+  font-size: 0.73rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #c6e0ce;
+  white-space: nowrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.fieldLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.fieldLabelAccent {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #428a5a;
+}
+
+.chipGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+
+.chip:hover {
+  border-color: #428a5a;
+  color: #428a5a;
+  background: #f0faf4;
+}
+
+.chipSelected {
+  background: #428a5a;
+  border-color: #428a5a;
+  color: #fff;
+  font-weight: 500;
+}
+
+.chipSelected:hover {
+  background: #337048;
+  border-color: #337048;
+  color: #fff;
+}
+
+.chipCheck {
+  flex-shrink: 0;
+}
+
+.customChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.customChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.625rem;
+  background: #e6f2ec;
+  color: #428a5a;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #c6e0ce;
+}
+
+.customChipRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #428a5a;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.customChipRemove:hover {
+  opacity: 1;
+}
+
+.customInputRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.customInput {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: #374151;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s;
+  min-width: 0;
+}
+
+.customInput::placeholder {
+  color: #9ca3af;
+}
+
+.customInput:focus {
+  border-color: #428a5a;
+  box-shadow: 0 0 0 3px rgba(66, 138, 90, 0.12);
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.addBtn:hover {
+  background: #428a5a;
+  border-color: #428a5a;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1rem;
+    gap: 1.25rem;
+    border-radius: 0.75rem;
+  }
+
+  .chipGrid {
+    gap: 0.375rem;
+  }
+
+  .chip {
+    font-size: 0.775rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

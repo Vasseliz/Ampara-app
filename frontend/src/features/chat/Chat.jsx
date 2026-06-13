@@ -7,6 +7,7 @@ import { InfoBanner } from "../../shared/atoms/InfoBanner/InfoBanner";
 import { Card } from "../../shared/atoms/Card/Card";
 import Button from "../../shared/atoms/button/Button";
 import TextArea from "../../shared/atoms/textArea/TextArea";
+import { Select } from "../../shared/atoms/select/Select";
 import { toast } from "../../shared/atoms/toast/Toast";
 import { useConversas, useMensagens, enviarMensagem } from "./hooks/useChat";
 import "./Chat.css";
@@ -82,30 +83,30 @@ export default function Chat() {
         <InfoBanner text="Conversa compartilhada entre paciente e profissional." />
 
         <Card className="chat__conversation-picker">
-          <label className="chat__conversation-label" htmlFor="chat-conversa">
+          <label className="chat__conversation-label">
             Conversa
           </label>
           {loadingConversas ? (
             <p className="chat__state">Carregando conversas...</p>
           ) : conversas.length ? (
-            <select
-              id="chat-conversa"
-              className="chat__conversation-select"
+            <Select
               value={conversaAtual ? `${conversaAtual.pacienteId}|${conversaAtual.profissionalId}` : ""}
-              onChange={(e) => {
-                const [pId, prId] = e.target.value.split("|");
+              onChange={(val) => {
+                if (!val) { setConversaAtual(null); return; }
+                const [pId, prId] = val.split("|");
                 const selecionada = conversas.find(
                   (c) => String(c.pacienteId) === pId && String(c.profissionalId) === prId,
                 );
                 setConversaAtual(selecionada ?? null);
               }}
-            >
-              {conversas.map((c) => (
-                <option key={`${c.pacienteId}|${c.profissionalId}`} value={`${c.pacienteId}|${c.profissionalId}`}>
-                  {c.contactName || c.contactEmail}
-                </option>
-              ))}
-            </select>
+              options={[
+                { value: "", label: "Selecione uma conversa..." },
+                ...conversas.map((c) => ({
+                  value: `${c.pacienteId}|${c.profissionalId}`,
+                  label: c.contactName || c.contactEmail,
+                })),
+              ]}
+            />
           ) : (
             <p className="chat__state">Nenhuma conversa disponível para seu perfil.</p>
           )}

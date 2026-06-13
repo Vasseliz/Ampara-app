@@ -1,32 +1,112 @@
 .select {
   position: relative;
   width: 100%;
+}
+
+.select__trigger {
+  width: 100%;
   display: flex;
   align-items: center;
-}
-
-.select__field {
-  width: 100%;
-  background-color: #f9fafb;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 0.75rem;
-  padding: 0.6rem 2.25rem 0.6rem 0.85rem;
+  padding: 0.6rem 0.85rem;
   font-size: 0.875rem;
-  color: #374151;
   font-family: inherit;
-  appearance: none;
   cursor: pointer;
-  transition: border-color 0.15s ease;
-}
-
-.select__field:focus {
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
   outline: none;
-  border-color: #51996d;
+  color: #374151;
 }
 
-.select__icon {
-  position: absolute;
-  right: 0.75rem;
-  pointer-events: none; 
+.select__trigger:hover {
+  border-color: #9ca3af;
+  background: #fff;
+}
+
+.select__trigger--open {
+  border-color: #51996d;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(81, 153, 109, 0.12);
+}
+
+.select__trigger-placeholder {
+  color: #9ca3af;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select__trigger-value {
+  color: #111827;
+  font-weight: 500;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select__chevron {
   color: #6b7280;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.select__chevron--open {
+  transform: rotate(180deg);
+}
+
+.select__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.625rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+  overflow-y: auto;
+  max-height: 14rem;
+}
+
+.select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.575rem 0.75rem;
+  border-radius: 0.45rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.12s;
+  user-select: none;
+}
+
+.select__option:hover {
+  background: #f3f4f6;
+}
+
+.select__option--active {
+  background: #f0faf4;
+  color: #337048;
+  font-weight: 600;
+}
+
+.select__option--active:hover {
+  background: #e6f2ec;
+}
+
+.select__check {
+  color: #51996d;
+  flex-shrink: 0;
 }
