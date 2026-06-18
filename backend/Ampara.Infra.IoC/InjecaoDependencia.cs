@@ -3,6 +3,7 @@ using Ampara.Aplicacao.CasosDeUso.Habitos;
 using Ampara.Aplicacao.CasosDeUso.Cofre;
 using Ampara.Aplicacao.CasosDeUso.Chat;
 using Ampara.Aplicacao.CasosDeUso.Humor;
+using Ampara.Aplicacao.CasosDeUso.InformacoesClinicas;
 using Ampara.Aplicacao.CasosDeUso.Medicamentos;
 using Ampara.Aplicacao.CasosDeUso.Pacientes;
 using Ampara.Aplicacao.CasosDeUso.Prontuario;
@@ -85,6 +86,7 @@ public static class InjecaoDependencia
         services.AddScoped<IMedicamentosRepositorio, MedicamentosRepositorio>();
         services.AddScoped<IProntuarioRepositorio, ProntuarioRepositorio>();
         services.AddScoped<IPacientesRepositorio, PacientesRepositorio>();
+        services.AddScoped<IInformacoesClinicasRepositorio, InformacoesClinicasRepositorio>();
 
         services.AddScoped<EntrarCasoDeUso>();
         services.AddScoped<RegistrarCasoDeUso>();
@@ -110,6 +112,8 @@ public static class InjecaoDependencia
         services.AddScoped<AceitarConviteCasoDeUso>();
         services.AddScoped<AceitarConvitePacienteAutenticadoCasoDeUso>();
         services.AddScoped<ObterVisaoGeralPacienteCasoDeUso>();
+        services.AddScoped<ObterInformacaoClinicaCasoDeUso>();
+        services.AddScoped<SalvarInformacaoClinicaCasoDeUso>();
 
         services.AddScoped<IHumorRepositorio, HumorRepositorio>();
         services.AddScoped<RegistrarHumorCasoDeUso>();

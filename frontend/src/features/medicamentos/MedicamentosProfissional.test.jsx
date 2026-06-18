@@ -60,6 +60,15 @@ describe("MedicamentosProfissional", () => {
     expect(screen.getByLabelText("Nome do medicamento")).toBeInTheDocument();
   });
 
+  it("abre uma confirmacao visual antes de desativar um medicamento", () => {
+    renderPage();
+    fireEvent.click(screen.getByLabelText("Desativar"));
+
+    const dialog = screen.getByRole("dialog", { name: "Desativar medicamento?" });
+    expect(dialog).toHaveAccessibleDescription(/Fluoxetina/);
+    expect(screen.getByRole("button", { name: "Cancelar" })).toBeInTheDocument();
+  });
+
   it("valida campos obrigatórios antes de submeter", async () => {
     const { container } = renderPage();
     fireEvent.click(screen.getByText("Novo medicamento"));

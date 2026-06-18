@@ -18,18 +18,6 @@ import { InfoClinica } from "./InfoClinica";
 import Button from "../../shared/atoms/button/Button";
 import styles from "./VisaoGeralPaciente.module.css";
 
-const MOCK_ADHERENCE = [
-  { day: "sábado", value: 0 },
-  { day: "domingo", value: 0 },
-  { day: "segunda", value: 0 },
-  { day: "terça", value: 0 },
-  { day: "quarta", value: 0 },
-  { day: "quinta", value: 0 },
-  { day: "sexta", value: 0 },
-];
-
-const MOCK_OBSERVACOES = [];
-
 function KpiCard({ icon: Icon, iconBg, label, value }) {
   return (
     <div className={styles.kpiCard}>
@@ -73,16 +61,20 @@ function HumorSection({ mood }) {
   );
 }
 
-function AdherenceChart({ data }) {
+function AdherenceChart({ data = [], average }) {
+  const lastSevenDays = data.slice(-7);
+
   return (
     <div className={styles.card}>
       <div className={styles.cardTitleRow}>
         <Paperclip size={17} className={styles.cardTitleIcon} />
-        <h2 className={styles.cardTitle}>Adesão medicação (14 dias)</h2>
+        <h2 className={styles.cardTitle}>Adesão medicação (7 dias)</h2>
       </div>
       <div className={styles.adherenceHeader}>
         <span className={styles.adherenceLabel}>Adesão média</span>
-        <span className={styles.adherencePercent}>0%</span>
+        <span className={styles.adherencePercent}>
+          {average == null ? "Sem dados" : `${average}%`}
+        </span>
       </div>
       <div className={styles.chartArea}>
         <div className={styles.chartYAxis}>
@@ -95,15 +87,19 @@ function AdherenceChart({ data }) {
             <div key={v} className={styles.chartGridLine} />
           ))}
           <div className={styles.chartBars}>
-            {data.map((d) => (
-              <div key={d.day} className={styles.chartBarCol}>
+            {lastSevenDays.map((d) => (
+              <div
+                key={d.date}
+                className={styles.chartBarCol}
+                title={`${d.date}: ${d.value == null ? "sem registro" : `${d.value}%`}`}
+              >
                 <div className={styles.chartBarTrack}>
                   <div
                     className={styles.chartBarFill}
-                    style={{ height: `${d.value}%` }}
+                    style={{ height: `${d.value ?? 0}%` }}
                   />
                 </div>
-                <span className={styles.chartBarLabel}>{d.day}</span>
+                <span className={styles.chartBarLabel}>{d.label}</span>
               </div>
             ))}
           </div>
@@ -115,6 +111,13 @@ function AdherenceChart({ data }) {
 
 function ObservacoesSection({ observacoes }) {
   const hasData = observacoes && observacoes.length > 0;
+
+  function formatDate(iso) {
+    if (!iso) return "Data não informada";
+    const [year, month, day] = iso.split("-");
+    return year && month && day ? `${day}/${month}/${year}` : iso;
+  }
+
   return (
     <div className={`${styles.card} ${styles.cardFull}`}>
       <div className={styles.cardTitleRow}>
@@ -125,7 +128,10 @@ function ObservacoesSection({ observacoes }) {
         <div className={styles.obsList}>
           {observacoes.map((obs) => (
             <div key={obs.id} className={styles.obsItem}>
-              <span className={styles.obsDate}>{obs.date}</span>
+              <span className={styles.obsDate}>
+                {formatDate(obs.sessionDate)}
+                {obs.sessionType ? ` · ${obs.sessionType}` : ""}
+              </span>
               <p className={styles.obsText}>{obs.content}</p>
             </div>
           ))}
@@ -230,6 +236,8 @@ export function VisaoGeralPaciente() {
     const liters = total / habits.length / 1000;
     return `${liters.toFixed(1)}L`;
   }, [overview]);
+
+  const medicationAdherence = overview?.medicationAdherence;
 
   const initials = patientName
     .split(" ")
@@ -348,7 +356,13 @@ export function VisaoGeralPaciente() {
                 icon={Paperclip}
                 iconBg="rgba(81,153,109,0.12)"
                 label="Adesão medicação"
-                value="--%"
+                value={
+                  loading
+                    ? "--%"
+                    : medicationAdherence?.average == null
+                      ? "--%"
+                      : `${medicationAdherence.average}%`
+                }
               />
               <KpiCard
                 icon={Droplets}
@@ -366,10 +380,13 @@ export function VisaoGeralPaciente() {
 
             <div className={styles.mainGrid}>
               <HumorSection mood={overview?.mood} />
-              <AdherenceChart data={MOCK_ADHERENCE} />
+              <AdherenceChart
+                data={medicationAdherence?.data}
+                average={medicationAdherence?.average}
+              />
             </div>
 
-            <ObservacoesSection observacoes={MOCK_OBSERVACOES} />
+            <ObservacoesSection observacoes={overview?.lastNotes} />
           </>
         )}
       </div>
