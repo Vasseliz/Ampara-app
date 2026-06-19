@@ -184,7 +184,7 @@ function HabitosTab({ habits }) {
             <span className={styles.habitCell}>{h.sleepHours ?? "--"}h</span>
             <span className={styles.habitCell}>{h.sleepQuality ?? "--"}/5</span>
             <span className={styles.habitCell}>
-              {h.water != null ? `${(h.water / 1000).toFixed(1)}L` : "--"}
+              {h.water != null ? `${h.water}L` : "--"}
             </span>
           </div>
         ))}
@@ -222,7 +222,7 @@ export function VisaoGeralPaciente() {
     const habits = overview?.habits;
     if (!habits || habits.length === 0) return "--L";
     const total = habits.reduce((acc, h) => acc + (h.water ?? 0), 0);
-    const liters = total / habits.length / 1000;
+    const liters = total / habits.length;
     return `${liters.toFixed(1)}L`;
   }, [overview]);
 
