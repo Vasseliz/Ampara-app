@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pill, AlertCircle, Link } from 'lucide-react';
+import { Pill, Link } from 'lucide-react';
 import { Card } from '../../../../shared/atoms/Card/Card';
 import styles from './MedicationItem.module.css';
 
@@ -28,9 +28,11 @@ export function MyMedicationsList({ medications }) {
         </h3>
       </div>
       <div className={styles.list}>
-        {medications.map((med, index) => (
+        {medications.length === 0 ? (
+          <p>Nenhum medicamento ativo cadastrado.</p>
+        ) : medications.map((med) => (
           <MedicationItem 
-            key={index}
+            key={med.id}
             name={med.name}
             dosage={med.dosage}
             time={med.time}

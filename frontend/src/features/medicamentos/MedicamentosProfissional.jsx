@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Pill, Plus, Pencil, Trash2, TriangleAlert } from "lucide-react";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
@@ -26,6 +26,7 @@ export function MedicamentosProfissional() {
   } = useMedicamentosProfissional(pacienteId);
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [medicationToRemove, setMedicationToRemove] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ name: "", dosage: "", time: "", observation: "" });
   const [formErrors, setFormErrors] = useState({});
@@ -108,14 +109,36 @@ export function MedicamentosProfissional() {
     }
   }
 
-  async function handleRemove(med) {
-    if (!window.confirm(`Desativar "${med.name}"?`)) return;
+  function requestRemove(med) {
+    setMedicationToRemove(med);
+  }
+
+  function cancelRemove() {
+    if (!removingId) setMedicationToRemove(null);
+  }
+
+  async function confirmRemove() {
+    if (!medicationToRemove) return;
     try {
-      await remover(med.id);
+      await remover(medicationToRemove.id);
+      setMedicationToRemove(null);
     } catch {
       /* toast no hook */
     }
   }
+
+  useEffect(() => {
+    if (!medicationToRemove) return undefined;
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape" && !removingId) {
+        setMedicationToRemove(null);
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [medicationToRemove, removingId]);
 
   const activeCount = safeMedications.filter((m) => m.active).length;
 
@@ -202,7 +225,7 @@ export function MedicamentosProfissional() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleRemove(med)}
+                            onClick={() => requestRemove(med)}
                             disabled={removingId === med.id}
                             aria-label="Desativar"
                           >
@@ -278,6 +301,50 @@ export function MedicamentosProfissional() {
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      ) : null}
+
+      {medicationToRemove ? (
+        <div
+          className={styles.modal}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="remove-medication-title"
+          aria-describedby="remove-medication-description"
+        >
+          <div className={styles.modalBackdrop} onClick={cancelRemove} />
+          <div className={`${styles.modalContent} ${styles.confirmationContent}`}>
+            <div className={styles.warningIcon} aria-hidden="true">
+              <TriangleAlert size={24} />
+            </div>
+            <div className={styles.confirmationText}>
+              <h2 id="remove-medication-title" className={styles.confirmationTitle}>
+                Desativar medicamento?
+              </h2>
+              <p id="remove-medication-description" className={styles.confirmationDescription}>
+                <strong>{medicationToRemove.name}</strong> deixará de aparecer entre os
+                medicamentos ativos do paciente.
+              </p>
+            </div>
+            <div className={styles.modalActions}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={cancelRemove}
+                disabled={removingId === medicationToRemove.id}
+              >
+                Cancelar
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={confirmRemove}
+                disabled={removingId === medicationToRemove.id}
+              >
+                {removingId === medicationToRemove.id ? "Desativando..." : "Desativar"}
+              </Button>
+            </div>
           </div>
         </div>
       ) : null}

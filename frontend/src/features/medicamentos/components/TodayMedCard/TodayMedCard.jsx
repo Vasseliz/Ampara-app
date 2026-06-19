@@ -1,12 +1,18 @@
 import React from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion as Motion, useAnimation } from 'framer-motion';
 import { Clock, Check, ChevronRight } from 'lucide-react';
 import { useSwipeToComplete } from '../../hooks/useSwipeToComplete';
 import styles from './TodayMedCard.module.css';
 import { ProgressBar } from '../../../../shared/atoms/ProgressBar/ProgressBar';
 import { Card } from '../../../../shared/atoms/Card/Card';
 
-export function TodayMedCard({ medication, onComplete }) {
+export function TodayMedCard({
+  medication,
+  onComplete,
+  completedCount = 0,
+  totalCount = 1,
+  disabled = false,
+}) {
   const { isTaken, handleDragEnd } = useSwipeToComplete(onComplete, 80);
   const controls = useAnimation();
 
@@ -25,10 +31,17 @@ export function TodayMedCard({ medication, onComplete }) {
     <Card className={styles.todayCardWrapper}>
       <div className={styles.header}>
         <h3 className={styles.title}>Medicamentos de hoje</h3>
-        <span className={styles.progressText}>Progresso de hoje <strong style={{color: '#428A5A'}}>1/1</strong></span>
+        <span className={styles.progressText}>
+          Progresso de hoje{" "}
+          <strong style={{color: '#428A5A'}}>{completedCount}/{totalCount}</strong>
+        </span>
       </div>
       
-      <ProgressBar progress={completed ? 100 : 0} max={100} className={styles.progressBar} />
+      <ProgressBar
+        progress={totalCount ? (completedCount / totalCount) * 100 : 0}
+        max={100}
+        className={styles.progressBar}
+      />
       
       <div style={{marginTop: '16px', position: 'relative', overflow: 'hidden', borderRadius: '12px'}}>
         {!completed && (
@@ -38,9 +51,9 @@ export function TodayMedCard({ medication, onComplete }) {
         )}
 
         {/* Camada Deslizável */}
-        <motion.div
+        <Motion.div
           className={`${styles.medCard} ${completed ? styles.medCardCompleted : ''}`}
-          drag={completed ? false : "x"}
+          drag={completed || disabled ? false : "x"}
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={{ left: 0, right: 0.5 }}
           onDragEnd={onDragEnd}
@@ -58,20 +71,20 @@ export function TodayMedCard({ medication, onComplete }) {
           
           <div className={styles.actions}>
             {completed ? (
-              <motion.div 
+              <Motion.div 
                 initial={{ scale: 0 }} 
                 animate={{ scale: 1 }} 
                 className={styles.checkButton}
               >
                 <Check size={16} strokeWidth={3} />
-              </motion.div>
+              </Motion.div>
             ) : (
               <div className={styles.dragHandle}>
                 <ChevronRight size={16} color="#428A5A" />
               </div>
             )}
           </div>
-        </motion.div>
+        </Motion.div>
       </div>
     </Card>
   );

@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Mensagem> Mensagens => Set<Mensagem>();
     public DbSet<RegistroHumor> RegistrosHumor => Set<RegistroHumor>();
     public DbSet<HabitoDiario> HabitosDiarios => Set<HabitoDiario>();
+    public DbSet<InformacaoClinica> InformacoesClinicas => Set<InformacaoClinica>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

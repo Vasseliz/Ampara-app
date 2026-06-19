@@ -11,7 +11,7 @@ public class ObterAdesaoCasoDeUso
     public async Task<AdesaoSaida> ExecutarAsync(Guid pacienteId, CancellationToken ct)
     {
         var hoje = DateOnly.FromDateTime(DateTime.UtcNow);
-        var inicio = hoje.AddDays(-13);
+        var inicio = hoje.AddDays(-6);
         var registros = await _repo.ListarRegistrosNoPeriodoAsync(pacienteId, inicio, hoje, ct);
         var porDia = registros.GroupBy(r => r.Data).ToDictionary(g => g.Key, g => g.ToList());
 
