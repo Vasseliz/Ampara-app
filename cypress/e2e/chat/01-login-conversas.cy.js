@@ -1,11 +1,10 @@
 describe("Chat - Login e Conversas", () => {
   beforeEach(() => {
     cy.loginViaApi("profissional");
+    cy.visit("/chat");
   });
 
   it("carrega a pagina de chat e lista conversas", () => {
-    cy.visit("/chat");
-
     cy.contains("Chat").should("be.visible");
     cy.contains("Conversa compartilhada entre paciente e profissional").should(
       "be.visible"
