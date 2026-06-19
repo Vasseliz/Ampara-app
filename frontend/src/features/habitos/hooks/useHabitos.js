@@ -7,29 +7,31 @@ const useHabitosHoje = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchComSessao(`${API}/habits/today`);
-        if (!response.ok) {
-          throw new Error(`HTTP Error Status: ${response.status}`);
-        }
-
-        if (response.status === 204) {
-          return setData(null);
-        }
-        const dados = await response.json();
-        setData(dados);
-      } catch (err) {
-        console.error("Erro: ", err.message);
-      } finally {
-        setLoading(false);
+  const reload = async () => {
+    setLoading(true);
+    try {
+      const response = await fetchComSessao(`${API}/habits/today`);
+      if (!response.ok) {
+        throw new Error(`HTTP Error Status: ${response.status}`);
       }
-      return;
-    };
-    fetchData();
+      if (response.status === 204) {
+        setData(null);
+        return;
+      }
+      const dados = await response.json();
+      setData(dados);
+    } catch (err) {
+      console.error("Erro: ", err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    reload();
   }, []);
-  return { data, loading };
+
+  return { data, loading, reload };
 };
 
 export { useHabitosHoje };

@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Signup />} />
-          <Route path="/convite/aceitar" element={<AceitarConvitePaciente />} />
+          <Route path="/convite/aceitar" element={<AceitarConvitePaciente />} /> //implementação futura com serviço de disparo de email
 
           <Route element={<RequireAuth />}>
             <Route element={<DashboardLayout />}>

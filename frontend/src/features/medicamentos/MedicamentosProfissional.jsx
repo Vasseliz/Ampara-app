@@ -156,6 +156,7 @@ export function MedicamentosProfissional() {
         <div className={styles.patientSelector}>
           <span className={styles.selectorLabel}>Paciente</span>
           <Select
+            dataCy="select-paciente"
             value={pacienteId || ""}
             onChange={handlePatientChange}
             options={[

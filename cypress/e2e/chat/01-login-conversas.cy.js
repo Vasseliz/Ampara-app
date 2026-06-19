@@ -12,12 +12,19 @@ describe("Chat - Login e Conversas", () => {
   });
 
   it("seleciona uma conversa e carrega mensagens", () => {
-    cy.get(".select__trigger").click();
-    cy.get(".select__option").then(($options) => {
-      if ($options.length > 1) {
-        cy.get(".select__option").eq(1).click();
-        cy.contains(/mensagens/).should("be.visible");
-      }
-    });
+    cy.visit("/chat");
+
+    // Abre o Select customizado de conversa e escolhe a primeira conversa real.
+    cy.get('[data-cy="select-conversa"]').should("be.visible").click();
+    cy.get('[data-cy="select-conversa"]')
+      .parent()
+      .find('li[role="option"]')
+      .not('[data-value=""]')
+      .first()
+      .click();
+
+    // Com uma conversa selecionada, some o placeholder e a thread passa a mostrar
+    // mensagens ou o estado "Ainda nao ha mensagens nesta conversa.".
+    cy.contains("Selecione uma conversa para começar").should("not.exist");
   });
 });

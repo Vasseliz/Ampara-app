@@ -78,6 +78,7 @@ export function NoteForm({ open, onClose, onSave, initialData }) {
                             <label className="form-field__label">Tipo</label>
 
                             <Select
+                                dataCy="select-tipo-sessao"
                                 value={form.sessionType}
                                 onChange={(value) => handleChange("sessionType", value)}
                                 options={[

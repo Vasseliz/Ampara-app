@@ -25,6 +25,19 @@
   color: #FFFFFF;
 }
 
+.medList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.swipeRow {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
 .medCard {
   position: relative;
   z-index: 2;

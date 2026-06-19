@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Stethoscope, Plus, X, Save, Check } from "lucide-react";
 import Button from "../../shared/atoms/button/Button";
 import { Select } from "../../shared/atoms/select/Select";
+import { toast } from "../../shared/atoms/toast/Toast";
+import { useInfoClinica } from "./hooks/useInfoClinica";
 import styles from "./InfoClinica.module.css";
 
 const SEXO_OPTIONS = [
@@ -32,11 +34,19 @@ const DIAGNOSTICOS_PRINCIPAIS = [
 ];
 
 export function InfoClinica({ pacienteId }) {
+  const { info, loading, salvar } = useInfoClinica(pacienteId);
   const [sexo, setSexo] = useState("");
   const [selectedDiag, setSelectedDiag] = useState([]);
   const [customDiag, setCustomDiag] = useState([]);
   const [customInput, setCustomInput] = useState("");
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!info) return;
+    setSexo(info.biologicalSex ?? "");
+    setSelectedDiag(info.mainDiagnoses ?? []);
+    setCustomDiag(info.customDiagnoses ?? []);
+  }, [info]);
 
   function toggleDiag(diag) {
     setSelectedDiag((prev) =>
@@ -65,8 +75,18 @@ export function InfoClinica({ pacienteId }) {
   async function handleSave(e) {
     e.preventDefault();
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSaving(false);
+    try {
+      await salvar({
+        biologicalSex: sexo || null,
+        mainDiagnoses: selectedDiag,
+        customDiagnoses: customDiag,
+      });
+      toast.success("Informações clínicas salvas.");
+    } catch (err) {
+      toast.error(err.message || "Não foi possível salvar as informações clínicas.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -147,7 +167,7 @@ export function InfoClinica({ pacienteId }) {
           </div>
         </div>
 
-        <Button type="submit" variant="primary" fullWidth disabled={saving}>
+        <Button type="submit" variant="primary" fullWidth disabled={saving || loading}>
           <Save size={15} />
           {saving ? "Salvando..." : "Salvar informações clínicas"}
         </Button>

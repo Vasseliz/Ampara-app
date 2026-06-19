@@ -53,14 +53,13 @@ export default function Login() {
                         required
                     />
 
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
                         <button type="button" className="login__remember" onClick={() => setRemember((v) => !v)}>
                             <div className={`login__remember__box${remember ? " login__remember__box--checked" : ""}`}>
                                 {remember && <Check size={11} strokeWidth={3} />}
                             </div>
                             <span className="login__remember__text">Lembrar de mim</span>
                         </button>
-                        <Link to="/login" className="login__forgot">Esqueci a senha</Link>
                     </div>
 
                     <Button type="submit" disabled={!isValid || loading} fullWidth className="auth__submit">

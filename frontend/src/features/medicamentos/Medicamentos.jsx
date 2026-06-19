@@ -3,7 +3,7 @@ import { Loader2, Pill, TriangleAlert } from "lucide-react";
 import styles from "./Medicamentos.module.css";
 import { PageHeader } from "../../shared/molecules/PageHeader/PageHeader";
 import Button from "../../shared/atoms/button/Button";
-import { TodayMedCard } from "./components/TodayMedCard/TodayMedCard";
+import { TodayMedsCard } from "./components/TodayMedCard/TodayMedCard";
 import { AdherenceChart } from "./components/AdherenceChart/AdherenceChart";
 import { MyMedicationsList } from "./components/MedicationItem/MedicationItem";
 import { usePullToRefreshSync } from "./hooks/usePullToRefreshSync";
@@ -58,16 +58,13 @@ export function MedicamentosScreen() {
         <>
           <section className={styles.section}>
             {today.length ? (
-              today.map((medication) => (
-                <TodayMedCard
-                  key={medication.id}
-                  medication={medication}
-                  completedCount={completedToday}
-                  totalCount={today.length}
-                  disabled={takingId === medication.id}
-                  onComplete={() => markAsTaken(medication.id)}
-                />
-              ))
+              <TodayMedsCard
+                medications={today}
+                completedCount={completedToday}
+                totalCount={today.length}
+                takingId={takingId}
+                onComplete={markAsTaken}
+              />
             ) : (
               <div className={styles.emptyState}>Nenhum medicamento ativo para hoje.</div>
             )}

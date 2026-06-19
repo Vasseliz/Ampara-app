@@ -24,12 +24,12 @@ describe("Medicamentos - Registro pelo Profissional", () => {
     cy.visit("/profissional/medicamentos");
     cy.contains("Medicamentos").should("be.visible");
     cy.contains("Selecione um paciente").should("be.visible");
-    cy.get("select").should("be.visible");
+    cy.get('[data-cy="select-paciente"]').should("be.visible");
   });
 
   it("navega para medicamentos do paciente via seletor", () => {
     cy.visit("/profissional/medicamentos");
-    cy.get("select").select(pacienteId);
+    cy.escolherNoSelect("select-paciente", { valor: pacienteId });
     cy.url().should("include", `/profissional/medicamentos/${pacienteId}`);
     cy.contains("Novo medicamento").should("be.visible");
   });
@@ -55,14 +55,19 @@ describe("Medicamentos - Registro pelo Profissional", () => {
   });
 
   it("nao salva sem campos obrigatorios", () => {
+    const apiUrl = Cypress.env("apiUrl");
+    cy.intercept("POST", `${apiUrl}/medications/patients/${pacienteId}`).as("criar");
+
     cy.visit(`/profissional/medicamentos/${pacienteId}`);
     cy.contains("button", "Novo medicamento").click();
     cy.get('[role="dialog"]').should("be.visible");
 
     cy.contains("button", "Salvar").click();
 
+    // O formulario nao deve enviar e o modal permanece aberto.
     cy.get('[role="dialog"]').should("be.visible");
-    cy.contains("Informe o nome").should("be.visible");
+    cy.wait(500);
+    cy.get("@criar.all").should("have.length", 0);
   });
 
   it("edita um medicamento existente", () => {
@@ -111,10 +116,12 @@ describe("Medicamentos - Registro pelo Profissional", () => {
   });
 
   it("acessa medicamentos do paciente pela lista de pacientes", () => {
+    const { email } = Cypress.env("usuarios").paciente;
     cy.visit("/profissional/pacientes");
-    cy.contains("button", "Ver").first().click();
+    cy.contains("tr", email).contains("button", "Ver").click();
     cy.url().should("match", /\/profissional\/pacientes\/.+/);
-    cy.contains("Gerenciar medicamentos").click();
+    // Na visao geral, a aba "Medicamentos" navega para a pagina de medicamentos do paciente.
+    cy.contains("button", "Medicamentos").click();
     cy.url().should("match", /\/profissional\/medicamentos\/.+/);
   });
 });

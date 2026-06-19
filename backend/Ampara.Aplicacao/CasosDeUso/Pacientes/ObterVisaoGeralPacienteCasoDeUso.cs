@@ -48,7 +48,7 @@ public class ObterVisaoGeralPacienteCasoDeUso
         var registrosMedicamentos = await _medicamentosRepo.ListarRegistrosNoPeriodoAsync(
             pacienteId, inicioAdesao, hoje, ct);
         var notas = await _prontuarioRepo.ListarNotasAsync(profissionalId, pacienteId, null, hoje.Year, ct);
-        var adesao = CalcularAdesao(registrosMedicamentos, inicioAdesao, hoje);
+        var adesao = CalcularAdesao(registrosMedicamentos, medicamentos, inicioAdesao, hoje);
 
         return new VisaoGeralSaida(
             new PerfilResumido(perfil.PrimeiroNome, perfil.Sobrenome, perfil.Email),
@@ -66,17 +66,29 @@ public class ObterVisaoGeralPacienteCasoDeUso
 
     private static AdesaoMedicamentosResumida CalcularAdesao(
         IReadOnlyList<Ampara.Dominio.Entidades.RegistroMedicamento> registros,
+        IReadOnlyList<Ampara.Dominio.Entidades.Medicamento> medicamentos,
         DateOnly inicio,
         DateOnly fim)
     {
-        var porDia = registros.GroupBy(r => r.Data).ToDictionary(g => g.Key, g => g.ToList());
+        var ativos = medicamentos.Where(m => m.Ativo).ToList();
+        var ativosIds = ativos.Select(m => m.Id).ToHashSet();
+
+        var tomadosPorDia = registros
+            .Where(r => r.Tomado && ativosIds.Contains(r.MedicamentoId))
+            .GroupBy(r => r.Data)
+            .ToDictionary(g => g.Key, g => g.Select(r => r.MedicamentoId).Distinct().Count());
+
         var dias = new List<AdesaoDiaResumida>();
 
         for (var data = inicio; data <= fim; data = data.AddDays(1))
         {
+            var agendados = ativos.Count(m => DateOnly.FromDateTime(m.CriadoEm) <= data);
             double? valor = null;
-            if (porDia.TryGetValue(data, out var registrosDoDia) && registrosDoDia.Count > 0)
-                valor = (double)registrosDoDia.Count(r => r.Tomado) / registrosDoDia.Count;
+            if (agendados > 0)
+            {
+                var tomados = tomadosPorDia.TryGetValue(data, out var c) ? c : 0;
+                valor = (double)tomados / agendados;
+            }
 
             dias.Add(new AdesaoDiaResumida(
                 data.ToString("yyyy-MM-dd"),

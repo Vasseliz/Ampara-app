@@ -2,9 +2,6 @@ import { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
-  Zap,
-  CalendarClock,
-  Plus,
   Smile,
   Paperclip,
   Droplets,
@@ -187,7 +184,7 @@ function HabitosTab({ habits }) {
             <span className={styles.habitCell}>{h.sleepHours ?? "--"}h</span>
             <span className={styles.habitCell}>{h.sleepQuality ?? "--"}/5</span>
             <span className={styles.habitCell}>
-              {h.water != null ? `${(h.water / 1000).toFixed(1)}L` : "--"}
+              {h.water != null ? `${h.water}L` : "--"}
             </span>
           </div>
         ))}
@@ -207,14 +204,6 @@ export function VisaoGeralPaciente() {
     return `${overview.patient.firstName ?? ""} ${overview.patient.lastName ?? ""}`.trim() || overview.patient.email;
   }, [overview]);
 
-  const birthDate = overview?.patient?.birthDate ?? null;
-
-  function formatBirthDate(iso) {
-    if (!iso) return "Data de nascimento não informada";
-    const [y, m, d] = iso.split("-");
-    return `${d}/${m}/${y}`;
-  }
-
   const humorMedia = useMemo(() => {
     const mood = overview?.mood;
     if (!mood || mood.length === 0) return "--";
@@ -233,7 +222,7 @@ export function VisaoGeralPaciente() {
     const habits = overview?.habits;
     if (!habits || habits.length === 0) return "--L";
     const total = habits.reduce((acc, h) => acc + (h.water ?? 0), 0);
-    const liters = total / habits.length / 1000;
+    const liters = total / habits.length;
     return `${liters.toFixed(1)}L`;
   }, [overview]);
 
@@ -292,27 +281,7 @@ export function VisaoGeralPaciente() {
             <span className={styles.patientName}>
               {loading ? "Carregando..." : patientName}
             </span>
-            <span className={styles.patientBirth}>
-              {loading ? "" : formatBirthDate(birthDate)}
-            </span>
           </div>
-        </div>
-        <div className={styles.topBarActions}>
-          <button className={styles.actionBtn}>
-            <Zap size={15} />
-            <span>Enviar agora</span>
-          </button>
-          <button className={styles.actionBtn}>
-            <CalendarClock size={15} />
-            <span>Agendar Mensagem</span>
-          </button>
-          <button
-            className={`${styles.actionBtn} ${styles.actionBtnPrimary}`}
-            onClick={() => navigate(`/profissional/prontuario/${pacienteId}`)}
-          >
-            <Plus size={15} />
-            <span>Nova Observação</span>
-          </button>
         </div>
       </div>
 

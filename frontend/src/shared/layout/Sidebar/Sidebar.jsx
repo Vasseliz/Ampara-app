@@ -8,12 +8,11 @@ import {
   MessageCircle,
   FileText,
   Users,
-  Settings,
   LogOut,
   HeartPulse,
   X,
   Clover
-  
+
 } from "lucide-react";
 import { useAuth } from "../../../contexts/AuthContext";
 import { fetchComSessao } from "../../api/fetchComSessao";
@@ -35,10 +34,6 @@ const linksProfissional = [
   { to: "/profissional/prontuario", label: "Prontuário", Icon: FileText },
   { to: "/profissional/medicamentos", label: "Medicamentos", Icon: Pill },
   { to: "/chat", label: "Chat", Icon: MessageCircle },
-];
-
-const footerLinks = [
-  { to: "/configuracoes", label: "Configurações", Icon: Settings },
 ];
 
 const API = import.meta.env.VITE_API_URL;
@@ -115,15 +110,6 @@ export function Sidebar({ isOpen, onClose }) {
       </nav>
 
       <footer className={styles.footer}>
-        {footerLinks.map(({ to, label, Icon }) => (
-          <NavItem
-            key={to}
-            to={to}
-            label={label}
-            Icon={Icon}
-            onClick={onClose}
-          />
-        ))}
         <button
           type="button"
           className={`${styles.navItem} ${styles.logoutButton}`}
