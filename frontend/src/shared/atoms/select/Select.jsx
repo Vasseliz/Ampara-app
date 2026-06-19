@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Check } from "lucide-react";
 import "./Select.css";
 
-export function Select({ value, onChange, options = [], placeholder }) {
+export function Select({ value, onChange, options = [], placeholder, dataCy }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -28,6 +28,7 @@ export function Select({ value, onChange, options = [], placeholder }) {
     <div ref={ref} className="select">
       <button
         type="button"
+        data-cy={dataCy}
         className={`select__trigger${open ? " select__trigger--open" : ""}`}
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
@@ -50,6 +51,7 @@ export function Select({ value, onChange, options = [], placeholder }) {
               <li
                 key={opt.value}
                 role="option"
+                data-value={opt.value}
                 aria-selected={isActive}
                 className={`select__option${isActive ? " select__option--active" : ""}`}
                 onClick={() => handleSelect(opt.value)}

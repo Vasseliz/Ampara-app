@@ -18,7 +18,8 @@ const Habitos = () => {
   const [qualidade, setQualidade] = useState(1);
   const [agua, setAgua] = useState(0);
   const navigate = useNavigate();
-  const { data, loading } = useHabitosHoje();
+  const { data, loading, reload } = useHabitosHoje();
+  const [historicoKey, setHistoricoKey] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmission = async ({ done, horas, qualidade, agua }) => {
@@ -31,7 +32,12 @@ const Habitos = () => {
         agua: agua,
       });
       console.log({data,loading})
-      if (response.ok) return toast.success("Hábitos registrado com sucesso!");
+      if (response.ok) {
+        toast.success("Hábitos registrado com sucesso!");
+        await reload();
+        setHistoricoKey((k) => k + 1);
+        return;
+      }
       if (response.status === 409) {
         return toast.error("Você já registrou hábito hoje.");
 
@@ -161,7 +167,7 @@ const Habitos = () => {
           onClick={() => handleSubmission({ done, horas, qualidade, agua })}
         />
       </section>
-    {data && <HabitosHistorico />}
+    {data && <HabitosHistorico key={historicoKey} />}
     </div>
   );
 };

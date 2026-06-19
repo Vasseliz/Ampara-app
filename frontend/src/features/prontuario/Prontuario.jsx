@@ -57,6 +57,7 @@ export function Prontuario({ onBack }) {
                         <div style={{ minWidth: "200px", flex: "1 1 200px" }}>
                             <span className="prontuario__select-label">Paciente</span>
                             <Select
+                                dataCy="select-paciente"
                                 value={pacienteId || ""}
                                 onChange={handlePatientChange}
                                 options={[
@@ -76,6 +77,7 @@ export function Prontuario({ onBack }) {
                         <div style={{ minWidth: "120px" }}>
                             <span className="prontuario__select-label">Mês</span>
                         <DateFilter
+                            dataCy="select-mes"
                             value={monthFilter}
                             onChange={setMonthFilter}
                             options={MONTH_OPTIONS}
@@ -85,6 +87,7 @@ export function Prontuario({ onBack }) {
                         <div style={{ minWidth: "120px" }}>
                             <span className="prontuario__select-label">Ano</span>
                             <Select
+                                dataCy="select-ano"
                                 value={yearFilter}
                                 onChange={setYearFilter}
                                 options={YEAR_OPTIONS}

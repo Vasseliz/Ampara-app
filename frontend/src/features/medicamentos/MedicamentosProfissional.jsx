@@ -109,7 +109,6 @@ export function MedicamentosProfissional() {
   }
 
   async function handleRemove(med) {
-    if (!window.confirm(`Desativar "${med.name}"?`)) return;
     try {
       await remover(med.id);
     } catch {
@@ -133,6 +132,7 @@ export function MedicamentosProfissional() {
         <div className={styles.patientSelector}>
           <span className={styles.selectorLabel}>Paciente</span>
           <Select
+            dataCy="select-paciente"
             value={pacienteId || ""}
             onChange={handlePatientChange}
             options={[

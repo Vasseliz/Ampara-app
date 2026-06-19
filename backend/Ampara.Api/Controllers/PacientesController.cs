@@ -157,7 +157,12 @@ public class PacientesController : ControllerBase
                 sessionDate = n.DataSessao,
                 sessionType = n.TipoSessao,
                 content = n.Conteudo
-            })
+            }),
+            adherence = new
+            {
+                data = dados.Adesao.Dados.Select(d => new { day = d.Dia, date = d.Data, value = d.Valor }),
+                average = dados.Adesao.Media
+            }
         });
     }
 

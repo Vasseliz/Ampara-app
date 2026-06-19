@@ -28,7 +28,12 @@ describe("Prontuario - login e acesso", () => {
       const rotulo =
         `${paciente.firstName ?? ""} ${paciente.lastName ?? ""}`.trim() ||
         usuarios.paciente.email;
-      cy.contains(rotulo).should("exist");
+      // O Select e customizado: as opcoes so existem no DOM com o dropdown aberto.
+      cy.get('[data-cy="select-paciente"]').click();
+      cy.get('[data-cy="select-paciente"]')
+        .parent()
+        .contains('li[role="option"]', rotulo)
+        .should("exist");
     });
   });
 });

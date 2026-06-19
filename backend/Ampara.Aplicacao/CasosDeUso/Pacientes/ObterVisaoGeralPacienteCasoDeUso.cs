@@ -1,4 +1,5 @@
 using Ampara.Aplicacao.Compartilhado;
+using Ampara.Aplicacao.CasosDeUso.Medicamentos;
 using Ampara.Aplicacao.Interfaces;
 
 namespace Ampara.Aplicacao.CasosDeUso.Pacientes;
@@ -11,6 +12,7 @@ public class ObterVisaoGeralPacienteCasoDeUso
     private readonly IHumorRepositorio _humorRepo;
     private readonly IHabitosRepositorio _habitosRepo;
     private readonly IProntuarioRepositorio _prontuarioRepo;
+    private readonly ObterAdesaoCasoDeUso _adesao;
 
     public ObterVisaoGeralPacienteCasoDeUso(
         IPacientesRepositorio pacientesRepo,
@@ -18,7 +20,8 @@ public class ObterVisaoGeralPacienteCasoDeUso
         IMedicamentosRepositorio medicamentosRepo,
         IHumorRepositorio humorRepo,
         IHabitosRepositorio habitosRepo,
-        IProntuarioRepositorio prontuarioRepo)
+        IProntuarioRepositorio prontuarioRepo,
+        ObterAdesaoCasoDeUso adesao)
     {
         _pacientesRepo = pacientesRepo;
         _perfilRepo = perfilRepo;
@@ -26,6 +29,7 @@ public class ObterVisaoGeralPacienteCasoDeUso
         _humorRepo = humorRepo;
         _habitosRepo = habitosRepo;
         _prontuarioRepo = prontuarioRepo;
+        _adesao = adesao;
     }
 
     public async Task<VisaoGeralSaida> ExecutarAsync(
@@ -45,6 +49,7 @@ public class ObterVisaoGeralPacienteCasoDeUso
         var humor = await _humorRepo.ListarPorPeriodoAsync(pacienteId, inicioSemana, hoje, ct);
         var habitos = await _habitosRepo.ListarPorPeriodoAsync(pacienteId, inicioSemana, hoje, ct);
         var notas = await _prontuarioRepo.ListarNotasAsync(profissionalId, pacienteId, null, hoje.Year, ct);
+        var adesao = await _adesao.ExecutarAsync(pacienteId, ct);
 
         return new VisaoGeralSaida(
             new PerfilResumido(perfil.PrimeiroNome, perfil.Sobrenome, perfil.Email),
@@ -55,7 +60,10 @@ public class ObterVisaoGeralPacienteCasoDeUso
             habitos.Select(h => new HabitoResumido(
                 h.Data.ToString("yyyy-MM-dd"), h.Exercitou, h.HorasSono, h.QualidadeSono, h.Agua)).ToList(),
             notas.Take(3).Select(n => new NotaResumida(
-                n.Id, n.DataSessao.ToString("yyyy-MM-dd"), n.TipoSessao, n.Conteudo)).ToList()
+                n.Id, n.DataSessao.ToString("yyyy-MM-dd"), n.TipoSessao, n.Conteudo)).ToList(),
+            new AdesaoResumida(
+                adesao.Dados.Select(d => new DiaAdesaoResumido(d.Dia, d.Data, d.Valor)).ToList(),
+                adesao.MediaAdesao)
         );
     }
 }
@@ -65,7 +73,8 @@ public record VisaoGeralSaida(
     IReadOnlyList<MedicamentoResumido> Medicamentos,
     IReadOnlyList<HumorResumido> Humor,
     IReadOnlyList<HabitoResumido> Habitos,
-    IReadOnlyList<NotaResumida> UltimasNotas
+    IReadOnlyList<NotaResumida> UltimasNotas,
+    AdesaoResumida Adesao
 );
 
 public record PerfilResumido(string PrimeiroNome, string Sobrenome, string Email);
@@ -73,3 +82,5 @@ public record MedicamentoResumido(Guid Id, string Nome, string Dosagem, string H
 public record HumorResumido(string Data, int Pontuacao, string[] Fatores, string? Anotacao);
 public record HabitoResumido(string Data, bool Exercitou, int HorasSono, int QualidadeSono, int Agua);
 public record NotaResumida(Guid Id, string DataSessao, string TipoSessao, string Conteudo);
+public record AdesaoResumida(IReadOnlyList<DiaAdesaoResumido> Dados, double? Media);
+public record DiaAdesaoResumido(int Dia, string Data, double? Valor);

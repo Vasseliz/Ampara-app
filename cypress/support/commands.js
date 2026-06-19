@@ -39,6 +39,17 @@ Cypress.Commands.add("loginViaApi", (papel = "profissional") => {
   );
 });
 
+
+Cypress.Commands.add("escolherNoSelect", (dataCy, opcao = {}) => {
+  cy.get(`[data-cy="${dataCy}"]`).click();
+  const escopo = () => cy.get(`[data-cy="${dataCy}"]`).parent();
+  if (opcao.valor !== undefined) {
+    escopo().find(`li[role="option"][data-value="${opcao.valor}"]`).click();
+  } else {
+    escopo().contains('li[role="option"]', opcao.texto).click();
+  }
+});
+
 Cypress.Commands.add("loginUi", (papel = "profissional") => {
   const { email, password } = obterCredencial(papel);
   cy.visit("/login");

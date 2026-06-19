@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { fetchComSessao } from "../../../shared/api/fetchComSessao";
 
 const API = import.meta.env.VITE_API_URL;
@@ -7,7 +7,7 @@ export function useHumorHoje() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetch_ = useCallback(async () => {
+  const fetch_ = async () => {
     setLoading(true);
     try {
       const res = await fetchComSessao(`${API}/mood/today`);
@@ -21,11 +21,12 @@ export function useHumorHoje() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
+
 
   useEffect(() => {
     fetch_();
-  }, [fetch_]);
+  }, []);
 
   return { data, loading, refetch: fetch_ };
 }

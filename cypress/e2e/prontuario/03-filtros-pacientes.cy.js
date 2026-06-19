@@ -43,19 +43,11 @@ describe("Prontuario - filtros e selecao de paciente", () => {
     }
   });
 
-  function selectPorLabel(textoLabel) {
-    return cy
-      .get(".prontuario__select-label")
-      .contains(textoLabel)
-      .parent()
-      .find("select");
-  }
-
   it("filtro de mes mostra apenas notas do mes selecionado", () => {
     cy.visit(`/profissional/prontuario/${pacienteId}`);
     cy.contains(/2 nota\(s\)/).should("be.visible");
 
-    cy.get(".date-filter select").select(pad(mesAtual));
+    cy.escolherNoSelect("select-mes", { valor: pad(mesAtual) });
     cy.contains(/1 nota\(s\)/).should("be.visible");
     cy.contains(`Nota do mes ${pad(mesAtual)}`).should("be.visible");
     cy.contains(`Nota do mes ${pad(mesAntigo)}`).should("not.exist");
@@ -63,10 +55,10 @@ describe("Prontuario - filtros e selecao de paciente", () => {
 
   it('filtro "Todos os meses" mostra todas as notas do ano', () => {
     cy.visit(`/profissional/prontuario/${pacienteId}`);
-    cy.get(".date-filter select").select(pad(mesAtual));
+    cy.escolherNoSelect("select-mes", { valor: pad(mesAtual) });
     cy.contains(/1 nota\(s\)/).should("be.visible");
 
-    cy.get(".date-filter select").select("all");
+    cy.escolherNoSelect("select-mes", { valor: "all" });
     cy.contains(/2 nota\(s\)/).should("be.visible");
     cy.contains(`Nota do mes ${pad(mesAtual)}`).should("be.visible");
     cy.contains(`Nota do mes ${pad(mesAntigo)}`).should("be.visible");
@@ -76,7 +68,7 @@ describe("Prontuario - filtros e selecao de paciente", () => {
     cy.visit(`/profissional/prontuario/${pacienteId}`);
 
     const anoAntigo = String(anoAtual - 2);
-    selectPorLabel("Ano").select(anoAntigo);
+    cy.escolherNoSelect("select-ano", { valor: anoAntigo });
 
     cy.contains(/nenhuma anota[çc][ãa]o encontrada/i).should("be.visible");
   });
@@ -85,7 +77,7 @@ describe("Prontuario - filtros e selecao de paciente", () => {
     cy.visit("/profissional/prontuario");
     cy.contains(/escolha um paciente/i).should("be.visible");
 
-    selectPorLabel("Paciente").select(pacienteId);
+    cy.escolherNoSelect("select-paciente", { valor: pacienteId });
 
     cy.location("pathname").should(
       "eq",

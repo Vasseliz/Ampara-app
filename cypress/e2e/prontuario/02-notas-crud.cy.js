@@ -35,7 +35,7 @@ describe("Prontuario - CRUD de anotacoes", () => {
     cy.get('[role="dialog"]').should("be.visible");
 
     cy.get('input[type="date"]').first().type(hojeIso());
-    cy.get('[role="dialog"]').find("select").first().select("individual");
+    cy.escolherNoSelect("select-tipo-sessao", { valor: "individual" });
     cy.get('[role="dialog"]')
       .find("textarea")
       .type("Sessao de teste E2E - criacao");
@@ -88,7 +88,7 @@ describe("Prontuario - CRUD de anotacoes", () => {
       .find("textarea")
       .clear()
       .type("Conteudo editado");
-    cy.get('[role="dialog"]').find("select").first().select("grupo");
+    cy.escolherNoSelect("select-tipo-sessao", { valor: "grupo" });
     cy.contains("button", /salvar/i).click();
 
     cy.get('[role="dialog"]').should("not.exist");

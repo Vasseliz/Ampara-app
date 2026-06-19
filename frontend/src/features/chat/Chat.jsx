@@ -90,6 +90,7 @@ export default function Chat() {
             <p className="chat__state">Carregando conversas...</p>
           ) : conversas.length ? (
             <Select
+              dataCy="select-conversa"
               value={conversaAtual ? `${conversaAtual.pacienteId}|${conversaAtual.profissionalId}` : ""}
               onChange={(val) => {
                 if (!val) { setConversaAtual(null); return; }

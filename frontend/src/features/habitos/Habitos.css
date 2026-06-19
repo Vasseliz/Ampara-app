@@ -7,9 +7,11 @@
 }
 
 .habitos__container {
-  width: 900px;
-  margin: 0 auto;
-  margin-top: 2rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding-inline: 16px;
+  padding-bottom: 3rem;
   min-height: calc(100vh - 2rem);
 }
 

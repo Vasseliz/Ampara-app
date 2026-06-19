@@ -11,62 +11,64 @@
 }
 
 .hamburger {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #333333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-.closeButton {
+.hamburgerHidden {
   display: none;
 }
 
 .backdrop {
-  display: none;
+  display: block;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 149;
 }
 
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 200;
-    background: transparent;
-    border: none;
-    padding: 4px;
-    cursor: pointer;
-    color: #333333;
-  }
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 16px;
+  left: calc(280px + 12px);
+  z-index: 160;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #FFFFFF;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  color: #333333;
+}
 
-  .hamburgerHidden {
+@media (min-width: 769px) {
+  .hamburger {
     display: none;
   }
 
   .backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.35);
-    z-index: 149;
+    display: none;
   }
 
   .closeButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 16px;
-    left: calc(280px + 12px);
-    z-index: 160;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: #FFFFFF;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    color: #333333;
+    display: none;
   }
-
-
 }
