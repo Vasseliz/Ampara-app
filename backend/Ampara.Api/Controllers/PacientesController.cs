@@ -1,4 +1,5 @@
 using Ampara.Aplicacao.CasosDeUso.Pacientes;
+using Ampara.Aplicacao.CasosDeUso.InformacoesClinicas;
 using Ampara.Aplicacao.Extensoes;
 using Ampara.Api.Filtros;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ public class PacientesController : ControllerBase
     private readonly AceitarConviteCasoDeUso _aceitar;
     private readonly AceitarConvitePacienteAutenticadoCasoDeUso _aceitarAutenticado;
     private readonly ObterVisaoGeralPacienteCasoDeUso _visaoGeral;
+    private readonly ObterInformacaoClinicaCasoDeUso _obterInformacaoClinica;
+    private readonly SalvarInformacaoClinicaCasoDeUso _salvarInformacaoClinica;
 
     public PacientesController(
         ListarPacientesCasoDeUso listarPacientes,
@@ -26,7 +29,9 @@ public class PacientesController : ControllerBase
         CancelarConviteCasoDeUso cancelar,
         AceitarConviteCasoDeUso aceitar,
         AceitarConvitePacienteAutenticadoCasoDeUso aceitarAutenticado,
-        ObterVisaoGeralPacienteCasoDeUso visaoGeral)
+        ObterVisaoGeralPacienteCasoDeUso visaoGeral,
+        ObterInformacaoClinicaCasoDeUso obterInformacaoClinica,
+        SalvarInformacaoClinicaCasoDeUso salvarInformacaoClinica)
     {
         _listarPacientes = listarPacientes;
         _listarConvites = listarConvites;
@@ -36,6 +41,8 @@ public class PacientesController : ControllerBase
         _aceitar = aceitar;
         _aceitarAutenticado = aceitarAutenticado;
         _visaoGeral = visaoGeral;
+        _obterInformacaoClinica = obterInformacaoClinica;
+        _salvarInformacaoClinica = salvarInformacaoClinica;
     }
 
     [HttpGet]
@@ -151,22 +158,69 @@ public class PacientesController : ControllerBase
                 sleepQuality = h.QualidadeSono,
                 water = h.Agua
             }),
+            medicationAdherence = new
+            {
+                data = dados.AdesaoMedicamentos.Dados.Select(d => new
+                {
+                    date = d.Data,
+                    label = d.Rotulo,
+                    value = d.Valor.HasValue ? Math.Round(d.Valor.Value * 100) : (double?)null
+                }),
+                average = dados.AdesaoMedicamentos.Media.HasValue
+                    ? Math.Round(dados.AdesaoMedicamentos.Media.Value * 100)
+                    : (double?)null
+            },
             lastNotes = dados.UltimasNotas.Select(n => new
             {
                 n.Id,
                 sessionDate = n.DataSessao,
                 sessionType = n.TipoSessao,
                 content = n.Conteudo
-            }),
-            adherence = new
-            {
-                data = dados.Adesao.Dados.Select(d => new { day = d.Dia, date = d.Data, value = d.Valor }),
-                average = dados.Adesao.Media
-            }
+            })
         });
     }
+
+    [HttpGet("{pacienteId:guid}/clinical-info")]
+    [RequerProfissional]
+    public async Task<IActionResult> ObterInformacaoClinica(Guid pacienteId, CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var dados = await _obterInformacaoClinica.ExecutarAsync(profissionalId, pacienteId, ct);
+        return Ok(MapearInformacaoClinica(dados));
+    }
+
+    [HttpPut("{pacienteId:guid}/clinical-info")]
+    [RequerProfissional]
+    public async Task<IActionResult> SalvarInformacaoClinica(
+        Guid pacienteId,
+        [FromBody] CorpoInformacaoClinica corpo,
+        CancellationToken ct)
+    {
+        var profissionalId = User.IdUsuario();
+        var dados = await _salvarInformacaoClinica.ExecutarAsync(
+            profissionalId,
+            pacienteId,
+            new EntradaInformacaoClinica(
+                corpo.BiologicalSex,
+                corpo.MainDiagnoses,
+                corpo.CustomDiagnoses),
+            ct);
+        return Ok(MapearInformacaoClinica(dados));
+    }
+
+    private static object MapearInformacaoClinica(InformacaoClinicaSaida dados) => new
+    {
+        biologicalSex = dados.SexoBiologico,
+        mainDiagnoses = dados.DiagnosticosPrincipais,
+        customDiagnoses = dados.DiagnosticosPersonalizados
+    };
 
     public sealed record CorpoConvite(string Email);
 
     public sealed record CorpoAceite(string Token);
+
+    public sealed record CorpoInformacaoClinica(
+        string? BiologicalSex,
+        IReadOnlyList<string>? MainDiagnoses,
+        IReadOnlyList<string>? CustomDiagnoses);
 }
