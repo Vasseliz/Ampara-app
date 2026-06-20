@@ -56,3 +56,5 @@ cypress/downloads/
 backend/Ampara.Api/appsettings.Development.json
 appsettings.*.Local.json
 *.secrets.json
+
+.specs/
