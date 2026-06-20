@@ -20,7 +20,7 @@ const Habitos = () => {
   const navigate = useNavigate();
   const { data, loading, reload } = useHabitosHoje();
   const [historicoKey, setHistoricoKey] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
+  const [, setSubmitting] = useState(false);
 
   const handleSubmission = async ({ done, horas, qualidade, agua }) => {
     setSubmitting(true);
