@@ -2,6 +2,7 @@ using Ampara.Api.Middleware;
 using Ampara.Infra.Autenticacao.Middleware;
 using Ampara.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,7 +11,7 @@ namespace Ampara.Api.Configuracao;
 
 public static class ConfiguracaoApi
 {
-    public static IServiceCollection AdicionarApi(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AdicionarApi(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment ambiente)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -20,10 +21,21 @@ public static class ConfiguracaoApi
         var origem = configuration["Cors:AllowedOrigin"] ?? configuration["Cors:OrigemPermitida"];
         services.AddCors(op => op.AddDefaultPolicy(p =>
         {
-            p.WithOrigins(string.IsNullOrEmpty(origem) ? "http://localhost:5173" : origem)
-                .AllowCredentials()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+            if (ambiente.IsDevelopment())
+            {
+                    p.SetIsOriginAllowed(origin =>
+                        Uri.TryCreate(origin, UriKind.Absolute, out var uri) && uri.IsLoopback)
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            }
+            else
+            {
+                p.WithOrigins(string.IsNullOrEmpty(origem) ? "http://localhost:5173" : origem) // url real vai ser adiionada em breve
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            }
         }));
 
         return services;

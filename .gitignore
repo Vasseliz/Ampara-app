@@ -52,3 +52,7 @@ cypress.env.json
 cypress/videos/
 cypress/screenshots/
 cypress/downloads/
+
+backend/Ampara.Api/appsettings.Development.json
+appsettings.*.Local.json
+*.secrets.json
