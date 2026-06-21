@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: tokens.color.border,
     backgroundColor: tokens.color.surface,
+    ...tokens.shadow.floating,
   },
   input: {
     flex: 1,
@@ -62,8 +63,8 @@ const styles = StyleSheet.create({
     maxHeight: 120,
     fontSize: tokens.font.md,
     color: tokens.color.text,
-    backgroundColor: tokens.color.background,
-    borderRadius: tokens.radius.md,
+    backgroundColor: tokens.color.surfaceMuted,
+    borderRadius: tokens.radius.lg,
     paddingHorizontal: tokens.spacing.md,
     paddingTop: tokens.spacing.sm,
   },

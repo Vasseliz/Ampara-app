@@ -59,18 +59,18 @@ export function Button({
 const styles = StyleSheet.create({
   base: {
     minHeight: 48,
-    borderRadius: tokens.radius.md,
+    borderRadius: tokens.radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: tokens.spacing.lg,
   },
-  primary: { backgroundColor: tokens.color.primary },
-  ghost: { backgroundColor: 'transparent', borderWidth: 1, borderColor: tokens.color.primary },
+  primary: { backgroundColor: tokens.color.primary, ...tokens.shadow.card },
+  ghost: { backgroundColor: tokens.color.surface, borderWidth: 1, borderColor: tokens.color.borderStrong },
   blocked: { opacity: 0.5 },
   label: {
     color: tokens.color.primaryText,
     fontSize: tokens.font.md,
-    fontWeight: tokens.font.weightMedium,
+    fontWeight: tokens.font.weightBold,
   },
-  ghostLabel: { color: tokens.color.primary },
+  ghostLabel: { color: tokens.color.text },
 });

@@ -19,9 +19,10 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: tokens.color.surface,
     borderRadius: tokens.radius.lg,
-    borderWidth: 1,
+    borderWidth: StyleSheet.hairlineWidth,
     borderColor: tokens.color.border,
-    padding: tokens.spacing.lg,
+    padding: tokens.spacing.md,
     gap: tokens.spacing.sm,
+    ...tokens.shadow.card,
   },
 });

@@ -1,4 +1,4 @@
-import { decideInitialRoute, decidePatientAccess } from '../guard';
+import { decideInitialRoute, decidePatientAccess, isInvitationAcceptRoute } from '../guard';
 import type { AuthState } from '../authMachine';
 
 const patient: AuthState = { status: 'authenticated', user: { id: 'u1', role: 'patient' } };
@@ -22,6 +22,17 @@ describe('decidePatientAccess', () => {
 
   it('estado loading → ainda não decide', () => {
     expect(decidePatientAccess({ status: 'loading' })).toBe('loading');
+  });
+});
+
+describe('isInvitationAcceptRoute', () => {
+  it('reconhece o deep link público de aceite', () => {
+    expect(isInvitationAcceptRoute(['(public)', 'convites', 'aceitar'])).toBe(true);
+  });
+
+  it('não libera outras rotas públicas ou protegidas', () => {
+    expect(isInvitationAcceptRoute(['(public)', 'login'])).toBe(false);
+    expect(isInvitationAcceptRoute(['(patient)', 'convites'])).toBe(false);
   });
 });
 
