@@ -1,0 +1,29 @@
+{
+  "name": "ampara-qa-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Suíte E2E do Ampara — Fundação (seed) + Stack 1 (Playwright web + Maestro mobile) + cross-platform.",
+  "engines": { "node": ">=20 <23", "npm": ">=10" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "seed:test": "vitest run src/seed",
+    "features:test": "vitest run features",
+    "unit:test": "vitest run",
+    "e2e:web": "playwright test ./testes/",
+    "e2e:web:headed": "playwright test ./testes/ --headed",
+    "e2e:web:list": "playwright test --list",
+    "e2e:web:last-failed": "playwright test --last-failed",
+    "e2e:web:report": "playwright show-report",
+    "e2e:mobile": "maestro test mobile/flows",
+    "e2e:cross": "tsx orchestrator/runCross.ts"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.0.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^20.0.0",
+    "dotenv": "^16.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.1.0"
+  }
+}
