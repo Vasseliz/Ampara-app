@@ -56,3 +56,8 @@ cypress/downloads/
 backend/Ampara.Api/appsettings.Development.json
 appsettings.*.Local.json
 *.secrets.json
+
+.specs/
+
+# Claude Code / harness — contexto e memória local
+.claude/
