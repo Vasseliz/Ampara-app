@@ -1,5 +1,16 @@
-import { Placeholder } from '@/shared/components';
+import { useRouter } from 'expo-router';
+import { ConversationsView } from '@/features/chat/screens/ConversationsView';
 
 export default function ChatScreen() {
-  return <Placeholder title="Chat" track="Track C — Comunicação & Privacidade" />;
+  const router = useRouter();
+  return (
+    <ConversationsView
+      onOpenConversation={(conversation) =>
+        router.push({
+          pathname: '/(patient)/chat/[professionalId]',
+          params: { professionalId: conversation.profissionalId },
+        })
+      }
+    />
+  );
 }
