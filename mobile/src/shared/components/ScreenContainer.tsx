@@ -10,7 +10,7 @@ export interface ScreenContainerProps {
 
 export function ScreenContainer({ children, scroll = true, testID }: ScreenContainerProps) {
   const insets = useSafeAreaInsets();
-  const padding = { paddingTop: insets.top + tokens.spacing.md, paddingBottom: insets.bottom + tokens.spacing.md };
+  const padding = { paddingTop: insets.top + tokens.spacing.lg, paddingBottom: insets.bottom + tokens.spacing.xl };
 
   if (scroll) {
     return (
@@ -34,5 +34,5 @@ export function ScreenContainer({ children, scroll = true, testID }: ScreenConta
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: tokens.color.background },
-  content: { paddingHorizontal: tokens.spacing.lg, gap: tokens.spacing.md },
+  content: { paddingHorizontal: tokens.spacing.md, gap: tokens.spacing.lg },
 });

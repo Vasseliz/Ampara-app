@@ -59,18 +59,18 @@ export function TextField({
 }
 
 const styles = StyleSheet.create({
-  wrapper: { gap: tokens.spacing.xs },
-  label: { fontSize: tokens.font.sm, color: tokens.color.muted, fontWeight: tokens.font.weightMedium },
+  wrapper: { gap: tokens.spacing.sm },
+  label: { fontSize: tokens.font.sm, color: tokens.color.text, fontWeight: tokens.font.weightBold },
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: tokens.color.surface,
+    backgroundColor: tokens.color.surfaceMuted,
     borderWidth: 1,
     borderColor: tokens.color.border,
-    borderRadius: tokens.radius.md,
+    borderRadius: tokens.radius.lg,
     paddingHorizontal: tokens.spacing.md,
   },
   inputError: { borderColor: tokens.color.danger },
-  input: { flex: 1, minHeight: 48, fontSize: tokens.font.md, color: tokens.color.text },
+  input: { flex: 1, minHeight: 52, fontSize: tokens.font.md, color: tokens.color.text },
   error: { fontSize: tokens.font.sm, color: tokens.color.danger },
 });

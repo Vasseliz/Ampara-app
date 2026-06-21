@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, Card, ScreenContainer } from '@/shared/components';
+import { AppIcon, Button, Card, PageIntro, ScreenContainer } from '@/shared/components';
 import { tokens } from '@/shared/theme/tokens';
 import { testIDs } from '@/shared/testing/testIDs';
 import { useBiometricGate, type UseBiometricGateOptions } from '../hooks/useBiometricGate';
@@ -36,8 +36,11 @@ export function VaultView({ gateOptions }: VaultViewProps) {
       gate.level === 'credential' ? 'Desbloquear com PIN' : 'Desbloquear com biometria';
     return (
       <ScreenContainer scroll={false} testID={testIDs.vault.locked}>
-        <Card>
-          <Text style={styles.title}>Cofre bloqueado</Text>
+        <View style={styles.lockedWrap}>
+        <View style={styles.lockIcon}><AppIcon name="vault" color={tokens.color.primary} size={34} /></View>
+        <Card style={styles.lockedCard}>
+          <Text style={styles.title}>Seu Cofre está protegido</Text>
+          <Text style={styles.muted}>Desbloqueie para acessar suas notas privadas.</Text>
           <Button
             label={label}
             loading={gate.authenticating}
@@ -46,6 +49,7 @@ export function VaultView({ gateOptions }: VaultViewProps) {
             accessibilityLabel="Desbloquear o Cofre"
           />
         </Card>
+        </View>
       </ScreenContainer>
     );
   }
@@ -54,6 +58,7 @@ export function VaultView({ gateOptions }: VaultViewProps) {
 
   return (
     <ScreenContainer testID={testIDs.vault.screen}>
+      <PageIntro icon="vault" title="Cofre" subtitle="Um espaço privado para pensamentos e anotações." />
       {gate.level === 'none' ? (
         <Card testID={testIDs.vault.insecureWarning} style={styles.warning}>
           <Text style={styles.warningText}>
@@ -84,9 +89,12 @@ export function VaultView({ gateOptions }: VaultViewProps) {
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.text },
+  lockedWrap: { flex: 1, justifyContent: 'center', gap: tokens.spacing.lg },
+  lockIcon: { width: 76, height: 76, alignSelf: 'center', borderRadius: 26, alignItems: 'center', justifyContent: 'center', backgroundColor: tokens.color.primarySoft },
+  lockedCard: { padding: tokens.spacing.lg },
+  title: { fontSize: tokens.font.xl, textAlign: 'center', fontWeight: tokens.font.weightBold, color: tokens.color.textStrong },
   muted: { fontSize: tokens.font.md, color: tokens.color.muted },
   list: { gap: tokens.spacing.md },
-  warning: { backgroundColor: '#FEF3C7', borderColor: '#FCD34D' },
-  warningText: { fontSize: tokens.font.sm, color: '#92400E' },
+  warning: { backgroundColor: tokens.color.warningSoft, borderColor: '#F6C98B' },
+  warningText: { fontSize: tokens.font.sm, color: tokens.color.warning },
 });

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button, TextField } from '@/shared/components';
 import { testIDs } from '@/shared/testing/testIDs';
+import { tokens } from '@/shared/theme/tokens';
 import { isValidNoteContent, normalizeNoteContent } from '../domain/vault';
 
 export interface NoteFormProps {
@@ -20,7 +21,7 @@ export function NoteForm({ onSubmit, submitting }: NoteFormProps) {
   }
 
   return (
-    <View>
+    <View style={styles.wrap}>
       <TextField
         label="Nova nota"
         value={content}
@@ -40,3 +41,7 @@ export function NoteForm({ onSubmit, submitting }: NoteFormProps) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrap: { gap: tokens.spacing.sm, padding: tokens.spacing.md, borderRadius: tokens.radius.lg, backgroundColor: tokens.color.surface, ...tokens.shadow.card },
+});

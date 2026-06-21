@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderColor: tokens.color.border,
     backgroundColor: tokens.color.surface,
   },
-  chipActive: { backgroundColor: tokens.color.primary, borderColor: tokens.color.primary },
+  chipActive: { backgroundColor: tokens.color.primarySoft, borderColor: tokens.color.primary },
   text: { fontSize: tokens.font.sm, color: tokens.color.text },
-  textActive: { color: tokens.color.primaryText, fontWeight: tokens.font.weightMedium },
+  textActive: { color: tokens.color.primaryDark, fontWeight: tokens.font.weightBold },
 });

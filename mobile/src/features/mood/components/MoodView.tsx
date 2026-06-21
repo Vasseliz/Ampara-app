@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { Button, Card, ScreenContainer, TextField } from '@/shared/components';
+import { Button, Card, PageIntro, ScreenContainer, TextField } from '@/shared/components';
 import { tokens } from '@/shared/theme/tokens';
 import { testIDs } from '@/shared/testing/testIDs';
 import { ApiError } from '@/core/api';
@@ -45,10 +45,15 @@ export function MoodView() {
 
   return (
     <ScreenContainer testID={testIDs.mood.screen}>
+      <PageIntro
+        icon="mood"
+        title="Humor"
+        subtitle="Registre como você está e acompanhe sua evolução."
+      />
       {hasToday ? (
         <Card testID={testIDs.mood.today}>
-          <Text style={styles.title}>Humor de hoje</Text>
-          <Text style={styles.score}>{today.data?.score}/10</Text>
+          <Text style={styles.eyebrow}>HUMOR DE HOJE</Text>
+          <Text style={styles.score}>{today.data?.score}<Text style={styles.scoreMax}>/10</Text></Text>
           {today.data?.factors.length ? (
             <Text style={styles.muted}>{today.data.factors.join(', ')}</Text>
           ) : null}
@@ -88,8 +93,9 @@ export function MoodView() {
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.text },
-  score: { fontSize: tokens.font.xl, fontWeight: tokens.font.weightBold, color: tokens.color.primary },
+  eyebrow: { fontSize: 11, letterSpacing: 0.8, fontWeight: tokens.font.weightBold, color: tokens.color.muted },
+  score: { fontSize: tokens.font.xxl, fontWeight: tokens.font.weightBold, color: tokens.color.primaryDark },
+  scoreMax: { fontSize: tokens.font.md, color: tokens.color.muted },
   muted: { fontSize: tokens.font.sm, color: tokens.color.muted },
   notes: { fontSize: tokens.font.md, color: tokens.color.text },
   error: { fontSize: tokens.font.sm, color: tokens.color.danger },

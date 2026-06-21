@@ -1,5 +1,5 @@
-import { Placeholder } from '@/shared/components';
+import { InvitationsView } from '@/features/invitations/components/InvitationsView';
 
 export default function ConvitesScreen() {
-  return <Placeholder title="Convites" track="Track B — Medicamentos & Convites" />;
+  return <InvitationsView />;
 }

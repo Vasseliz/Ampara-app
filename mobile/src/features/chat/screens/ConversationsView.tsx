@@ -1,5 +1,5 @@
-import { Text } from 'react-native';
-import { ScreenContainer } from '@/shared/components';
+import { StyleSheet, Text } from 'react-native';
+import { PageIntro, ScreenContainer } from '@/shared/components';
 import { tokens } from '@/shared/theme/tokens';
 import { testIDs } from '@/shared/testing/testIDs';
 import { useConversations } from '../hooks/useConversations';
@@ -16,8 +16,9 @@ export function ConversationsView({ onOpenConversation }: ConversationsViewProps
 
   return (
     <ScreenContainer testID={testIDs.chat.conversations}>
+      <PageIntro icon="chat" title="Conversas" subtitle="Fale com os profissionais vinculados ao seu cuidado." />
       {data.length === 0 ? (
-        <Text testID={testIDs.chat.conversationsEmpty} style={{ color: tokens.color.muted }}>
+        <Text testID={testIDs.chat.conversationsEmpty} style={styles.empty}>
           Nenhuma conversa ainda.
         </Text>
       ) : (
@@ -26,3 +27,7 @@ export function ConversationsView({ onOpenConversation }: ConversationsViewProps
     </ScreenContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  empty: { color: tokens.color.muted, textAlign: 'center', paddingVertical: tokens.spacing.xxl },
+});

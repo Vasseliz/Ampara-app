@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Card } from '@/shared/components';
+import { AppIcon, Card } from '@/shared/components';
 import { tokens } from '@/shared/theme/tokens';
 import { testIDs } from '@/shared/testing/testIDs';
 import type { MoodEntry } from '../api/mood.schemas';
@@ -16,7 +16,10 @@ export interface MoodHistoryListProps {
 export function MoodHistoryList({ entries, days, onChangeDays }: MoodHistoryListProps) {
   return (
     <View style={styles.wrap} testID={testIDs.mood.history}>
-      <Text style={styles.title}>Histórico</Text>
+      <View style={styles.heading}>
+        <AppIcon name="history" color={tokens.color.primary} size={20} />
+        <Text style={styles.title}>Histórico</Text>
+      </View>
       <View style={styles.periods}>
         {MOOD_HISTORY_PERIODS.map((period) => {
           const active = period === days;
@@ -57,7 +60,8 @@ export function MoodHistoryList({ entries, days, onChangeDays }: MoodHistoryList
 
 const styles = StyleSheet.create({
   wrap: { gap: tokens.spacing.sm },
-  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.text },
+  heading: { flexDirection: 'row', alignItems: 'center', gap: tokens.spacing.sm },
+  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.textStrong },
   periods: { flexDirection: 'row', gap: tokens.spacing.sm },
   period: {
     paddingHorizontal: tokens.spacing.md,
@@ -66,9 +70,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: tokens.color.border,
   },
-  periodActive: { backgroundColor: tokens.color.primary, borderColor: tokens.color.primary },
+  periodActive: { backgroundColor: tokens.color.primarySoft, borderColor: tokens.color.primary },
   periodText: { fontSize: tokens.font.sm, color: tokens.color.text },
-  periodTextActive: { color: tokens.color.primaryText, fontWeight: tokens.font.weightMedium },
+  periodTextActive: { color: tokens.color.primaryDark, fontWeight: tokens.font.weightBold },
   entryScore: { fontSize: tokens.font.md, fontWeight: tokens.font.weightMedium, color: tokens.color.text },
   muted: { fontSize: tokens.font.sm, color: tokens.color.muted },
   notes: { fontSize: tokens.font.md, color: tokens.color.text },

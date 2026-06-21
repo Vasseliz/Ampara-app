@@ -8,6 +8,11 @@ import type { AuthState } from './authMachine';
 export type PatientAccess = 'loading' | 'allow' | 'redirect-login';
 export type InitialRoute = 'loading' | 'patient' | 'public';
 
+/** O aceite por token é público para que o deep link funcione sem sessão. */
+export function isInvitationAcceptRoute(segments: readonly string[]): boolean {
+  return segments.includes('convites') && segments.includes('aceitar');
+}
+
 export function decidePatientAccess(state: AuthState): PatientAccess {
   if (state.status === 'loading') return 'loading';
   if (state.status === 'authenticated' && state.user.role === 'patient') return 'allow';

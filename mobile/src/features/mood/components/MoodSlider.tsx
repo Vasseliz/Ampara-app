@@ -47,14 +47,14 @@ export function MoodSlider({ value, onChange }: MoodSliderProps) {
 
 const styles = StyleSheet.create({
   wrapper: { gap: tokens.spacing.sm },
-  label: { fontSize: tokens.font.sm, color: tokens.color.muted, fontWeight: tokens.font.weightMedium },
+  label: { fontSize: tokens.font.md, color: tokens.color.textStrong, fontWeight: tokens.font.weightBold, textAlign: 'center' },
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: tokens.spacing.lg },
-  step: { minWidth: 56 },
+  step: { minWidth: 54, minHeight: 44 },
   value: {
-    fontSize: tokens.font.xl,
+    fontSize: tokens.font.xxl,
     fontWeight: tokens.font.weightBold,
-    color: tokens.color.text,
-    minWidth: 40,
+    color: tokens.color.primaryDark,
+    minWidth: 48,
     textAlign: 'center',
   },
 });
