@@ -114,7 +114,7 @@ export function HabitsForm({ submitting, onSubmit }: HabitsFormProps) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { gap: tokens.spacing.md },
+  wrap: { gap: tokens.spacing.md, padding: tokens.spacing.md, borderRadius: tokens.radius.lg, backgroundColor: tokens.color.surface, ...tokens.shadow.card },
   toggle: {
     paddingHorizontal: tokens.spacing.md,
     paddingVertical: tokens.spacing.md,
@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     borderColor: tokens.color.border,
     backgroundColor: tokens.color.surface,
   },
-  toggleActive: { backgroundColor: tokens.color.primary, borderColor: tokens.color.primary },
+  toggleActive: { backgroundColor: tokens.color.primarySoft, borderColor: tokens.color.primary },
   toggleText: { fontSize: tokens.font.md, color: tokens.color.text },
-  toggleTextActive: { color: tokens.color.primaryText, fontWeight: tokens.font.weightMedium },
+  toggleTextActive: { color: tokens.color.primaryDark, fontWeight: tokens.font.weightBold },
   error: { fontSize: tokens.font.sm, color: tokens.color.danger },
 });

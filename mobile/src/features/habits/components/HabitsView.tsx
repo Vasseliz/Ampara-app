@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Card, ScreenContainer } from '@/shared/components';
+import { StyleSheet, Text, View } from 'react-native';
+import { AppIcon, Card, PageIntro, ScreenContainer } from '@/shared/components';
 import { tokens } from '@/shared/theme/tokens';
 import { testIDs } from '@/shared/testing/testIDs';
 import { temRegistroHoje } from '../domain/habits';
@@ -29,16 +29,19 @@ export function HabitsView() {
 
   return (
     <ScreenContainer testID={testIDs.habits.screen}>
+      <PageIntro
+        icon="habits"
+        title="Hábitos"
+        subtitle="Pequenos registros para acompanhar sua rotina de cuidado."
+      />
       {hasToday ? (
         <Card testID={testIDs.habits.today}>
-          <Text style={styles.title}>Hábitos de hoje</Text>
-          <Text style={styles.line}>
-            Sono: {today.data?.horasSono}h · qualidade {today.data?.qualidadeSono}/5
-          </Text>
-          <Text style={styles.line}>Água: {today.data?.agua}</Text>
-          <Text style={styles.line}>
-            {today.data?.exercitou ? 'Exercitou-se hoje' : 'Sem exercício hoje'}
-          </Text>
+          <Text style={styles.title}>Resumo de hoje</Text>
+          <View style={styles.metrics}>
+            <View style={styles.metric}><AppIcon name="sleep" color={tokens.color.primary} /><Text style={styles.metricValue}>{today.data?.horasSono}h</Text><Text style={styles.metricLabel}>Sono</Text></View>
+            <View style={styles.metric}><AppIcon name="water" color={tokens.color.primary} /><Text style={styles.metricValue}>{today.data?.agua}</Text><Text style={styles.metricLabel}>Água</Text></View>
+            <View style={styles.metric}><AppIcon name="exercise" color={tokens.color.primary} /><Text style={styles.metricValue}>{today.data?.exercitou ? 'Sim' : 'Não'}</Text><Text style={styles.metricLabel}>Exercício</Text></View>
+          </View>
           <Text style={styles.muted}>Você já registrou seus hábitos hoje.</Text>
         </Card>
       ) : (
@@ -50,7 +53,10 @@ export function HabitsView() {
 }
 
 const styles = StyleSheet.create({
-  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.text },
-  line: { fontSize: tokens.font.md, color: tokens.color.text },
+  title: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.textStrong },
+  metrics: { flexDirection: 'row', gap: tokens.spacing.sm },
+  metric: { flex: 1, alignItems: 'center', gap: 3, paddingVertical: tokens.spacing.md, borderRadius: tokens.radius.md, backgroundColor: tokens.color.primarySoft },
+  metricValue: { fontSize: tokens.font.lg, fontWeight: tokens.font.weightBold, color: tokens.color.textStrong },
+  metricLabel: { fontSize: 11, color: tokens.color.muted },
   muted: { fontSize: tokens.font.sm, color: tokens.color.muted },
 });

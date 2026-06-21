@@ -43,3 +43,10 @@ export const medicationAdherenceResponseSchema = z.object({
 });
 
 export const adherenceResponseSchema = medicationAdherenceResponseSchema;
+
+export const takeMedicationResponseSchema = z.object({
+  taken: z.boolean(),
+  takenAt: z.string().datetime({ offset: true }),
+});
+
+export type TakeMedicationResponse = z.infer<typeof takeMedicationResponseSchema>;
