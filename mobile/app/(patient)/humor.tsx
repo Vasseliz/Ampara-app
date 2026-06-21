@@ -1,5 +1,5 @@
-import { Placeholder } from '@/shared/components';
+import { MoodView } from '@/features/mood/components/MoodView';
 
 export default function HumorScreen() {
-  return <Placeholder title="Humor" track="Track A — Bem-estar" />;
+  return <MoodView />;
 }
