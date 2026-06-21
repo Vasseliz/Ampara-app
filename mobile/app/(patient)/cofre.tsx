@@ -1,5 +1,5 @@
-import { Placeholder } from '@/shared/components';
+import { VaultView } from '@/features/vault/components/VaultView';
 
 export default function CofreScreen() {
-  return <Placeholder title="Cofre" track="Track C — Comunicação & Privacidade" />;
+  return <VaultView />;
 }

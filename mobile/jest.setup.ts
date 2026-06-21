@@ -16,3 +16,27 @@ jest.mock('expo-secure-store', () => {
     }),
   };
 });
+
+// Rede de segurança para módulos que importam o nativo no topo (ex.: o adapter
+// de biometria do Cofre). Testes unitários do adapter/gate injetam seus próprios
+// fakes via `createBiometricGate`/`createLocalAuthenticationMock`.
+jest.mock('expo-local-authentication', () => ({
+  hasHardwareAsync: jest.fn(async () => true),
+  isEnrolledAsync: jest.fn(async () => true),
+  getEnrolledLevelAsync: jest.fn(async () => 3),
+  authenticateAsync: jest.fn(async () => ({ success: true })),
+}));
+
+// safe-area-context não tem frame medido no ambiente de teste: fornece insets
+// zerados e providers passthrough para telas que usam `ScreenContainer`.
+jest.mock('react-native-safe-area-context', () => {
+  const insets = { top: 0, bottom: 0, left: 0, right: 0 };
+  const frame = { x: 0, y: 0, width: 390, height: 844 };
+  return {
+    SafeAreaProvider: ({ children }: { children: unknown }) => children,
+    SafeAreaView: ({ children }: { children: unknown }) => children,
+    useSafeAreaInsets: () => insets,
+    useSafeAreaFrame: () => frame,
+    initialWindowMetrics: { insets, frame },
+  };
+});

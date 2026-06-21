@@ -58,3 +58,6 @@ appsettings.*.Local.json
 *.secrets.json
 
 .specs/
+
+# Claude Code / harness — contexto e memória local
+.claude/

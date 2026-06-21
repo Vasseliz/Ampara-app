@@ -34,6 +34,10 @@ const config: ExpoConfig = {
     'expo-router',
     'expo-secure-store',
     [
+      'expo-local-authentication',
+      { faceIDPermission: 'Usar FaceID para desbloquear o Cofre.' },
+    ],
+    [
       'expo-splash-screen',
       {
         backgroundColor: '#208AEF',

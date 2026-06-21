@@ -18,10 +18,15 @@ export function createInMemorySecureStore() {
   };
 }
 
-export function createLocalAuthenticationMock(success = true) {
+/**
+ * `level` mapeia o `getEnrolledLevelAsync` do Expo: 0 = nenhum, 1 = PIN/senha do
+ * dispositivo, 2/3 = biometria. Default 3 (biometria forte).
+ */
+export function createLocalAuthenticationMock(success = true, level = 3) {
   return {
-    hasHardwareAsync: jest.fn(async () => true),
-    isEnrolledAsync: jest.fn(async () => true),
+    hasHardwareAsync: jest.fn(async () => level >= 2),
+    isEnrolledAsync: jest.fn(async () => level >= 2),
+    getEnrolledLevelAsync: jest.fn(async () => level),
     authenticateAsync: jest.fn(async () => ({ success })),
   };
 }
