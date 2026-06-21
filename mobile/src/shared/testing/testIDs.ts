@@ -12,6 +12,8 @@ export const testIDs = {
       error: 'auth.login.error',
     },
     register: {
+      firstName: 'auth.register.firstName',
+      lastName: 'auth.register.lastName',
       email: 'auth.register.email',
       password: 'auth.register.password',
       submit: 'auth.register.submit',

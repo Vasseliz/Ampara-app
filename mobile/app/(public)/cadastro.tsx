@@ -8,11 +8,24 @@ import { useAuth } from '@/core/auth/useAuth';
 
 export default function Cadastro() {
   const { state, register } = useAuth();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const loading = state.status === 'loading';
   const error = state.status === 'error' ? state.error : null;
+
+  const canSubmit =
+    firstName.trim() !== '' &&
+    lastName.trim() !== '' &&
+    email.trim() !== '' &&
+    password !== '';
+
+  function handleSubmit() {
+    if (!canSubmit) return;
+    register({ firstName, lastName, email, password });
+  }
 
   return (
     <ScreenContainer>
@@ -23,6 +36,24 @@ export default function Cadastro() {
 
       <Toast message={error} variant="error" />
 
+      <TextField
+        label="Nome"
+        value={firstName}
+        onChangeText={setFirstName}
+        placeholder="Ana"
+        autoCapitalize="words"
+        testID={testIDs.auth.register.firstName}
+        accessibilityLabel="Nome"
+      />
+      <TextField
+        label="Sobrenome"
+        value={lastName}
+        onChangeText={setLastName}
+        placeholder="Silva"
+        autoCapitalize="words"
+        testID={testIDs.auth.register.lastName}
+        accessibilityLabel="Sobrenome"
+      />
       <TextField
         label="E-mail"
         value={email}
@@ -43,8 +74,9 @@ export default function Cadastro() {
 
       <Button
         label="Cadastrar"
-        onPress={() => register(email.trim(), password)}
+        onPress={handleSubmit}
         loading={loading}
+        disabled={!canSubmit}
         testID={testIDs.auth.register.submit}
         accessibilityLabel="Cadastrar"
       />

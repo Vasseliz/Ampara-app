@@ -60,6 +60,24 @@ export function createSupabaseAuthService(client: SupabaseClient): AuthService {
   };
 }
 
+export interface RegisterInput {
+  role: AuthRole;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  registrationId: string | null;
+}
+
+/**
+ * Cria a conta no backend (`POST /auth/register`), que cadastra o usuário externo
+ * **e** o perfil local na mesma operação — mesmo caminho do web. Evita o `403`
+ * (`SemPerfilLocal`) que ocorria ao cadastrar direto no Supabase sem perfil local.
+ */
+export async function registerAccount(client: ApiClient, input: RegisterInput): Promise<void> {
+  await client.request('/auth/register', { method: 'POST', body: input });
+}
+
 /** Resolve id e papel do usuário via API atual (`GET /auth/me`). */
 export async function fetchProfile(client: ApiClient): Promise<AuthUser> {
   const me = await client.request<{
