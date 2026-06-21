@@ -63,4 +63,5 @@ appsettings.*.Local.json
 .claude/
 
 
+.RepoHarness/
 RepoHarness/
