@@ -1,5 +1,5 @@
-import { Placeholder } from '@/shared/components';
+import { HabitsView } from '@/features/habits/components/HabitsView';
 
 export default function HabitosScreen() {
-  return <Placeholder title="Hábitos" track="Track A — Bem-estar" />;
+  return <HabitsView />;
 }
