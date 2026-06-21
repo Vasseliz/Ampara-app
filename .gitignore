@@ -61,3 +61,6 @@ appsettings.*.Local.json
 
 # Claude Code / harness — contexto e memória local
 .claude/
+
+
+RepoHarness/
