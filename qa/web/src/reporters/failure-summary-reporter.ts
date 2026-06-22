@@ -56,8 +56,8 @@ export default class FailureSummaryReporter implements Reporter {
 
   async onEnd(_result: FullResult): Promise<void> {
     try {
-      // Saídas ancoradas na raiz do processo (onde `npx playwright test` roda),
-      // não no rootDir do Playwright — que, com um único testDir, vira `testes/`.
+      // Saídas ancoradas na raiz do processo (onde `npx playwright test` roda, = qa/),
+      // não no rootDir do Playwright (web/, onde fica o playwright.config.ts).
       const repoRoot = process.cwd();
       const outDir = path.join(repoRoot, "test-results", "failure-summary");
       fs.mkdirSync(outDir, { recursive: true });
