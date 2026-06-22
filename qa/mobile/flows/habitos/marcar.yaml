@@ -1,0 +1,38 @@
+appId: com.ampara.mobile
+name: "Paciente marca um hábito do dia"
+tags:
+  - habitos
+  - mobile
+# Espelha habitos.feature → "Paciente marca um hábito do dia".
+# Preenche o formulário diário (faixas válidas: sono 0–12, qualidade 1–5, água 0–4).
+# Se já houve registro hoje, o card de hoje já está visível.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Hábitos"
+- assertVisible:
+    id: "habits.screen"
+- runFlow:
+    when:
+      visible:
+        id: "habits.form"
+    commands:
+      - tapOn:
+          id: "habits.form.exercise"
+      - tapOn:
+          id: "habits.form.sleepHours"
+      - inputText: "8"
+      - tapOn:
+          id: "habits.form.sleepQuality"
+      - inputText: "4"
+      - tapOn:
+          id: "habits.form.water"
+      - inputText: "3"
+      - hideKeyboard
+      - tapOn:
+          id: "habits.form.submit"
+- assertVisible:
+    id: "habits.today"

@@ -1,0 +1,13 @@
+appId: com.ampara.mobile
+name: "Logout encerra a sessão"
+tags:
+  - auth
+  - mobile
+# Espelha autenticacao.feature → "Logout encerra a sessão".
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow: "../../subflows/logout.yaml"

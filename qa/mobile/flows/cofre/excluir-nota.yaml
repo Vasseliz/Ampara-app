@@ -1,0 +1,36 @@
+appId: com.ampara.mobile
+name: "Paciente exclui item do cofre"
+tags:
+  - cofre
+  - mobile
+# Espelha cofre.feature → "Paciente exclui item do cofre".
+# Cria uma nota e a exclui (botão de exclusão tem id dinâmico, casado por regex).
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow:
+    file: "../../subflows/abrir-atalho.yaml"
+    env:
+      ATALHO: Cofre
+- runFlow:
+    when:
+      visible:
+        id: "vault.locked.unlock"
+    commands:
+      - tapOn:
+          id: "vault.locked.unlock"
+- assertVisible:
+    id: "vault.screen"
+- tapOn:
+    id: "vault.form.input"
+- inputText: "Nota a excluir E2E"
+- hideKeyboard
+- tapOn:
+    id: "vault.form.add"
+- assertVisible: "Nota a excluir E2E"
+- tapOn:
+    id: "vault\\.note\\..*\\.delete"
+- assertNotVisible: "Nota a excluir E2E"

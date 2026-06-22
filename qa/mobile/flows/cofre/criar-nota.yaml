@@ -1,0 +1,32 @@
+appId: com.ampara.mobile
+name: "Paciente cria item no cofre"
+tags:
+  - cofre
+  - mobile
+# Espelha cofre.feature → "Paciente cria item no cofre".
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow:
+    file: "../../subflows/abrir-atalho.yaml"
+    env:
+      ATALHO: Cofre
+- runFlow:
+    when:
+      visible:
+        id: "vault.locked.unlock"
+    commands:
+      - tapOn:
+          id: "vault.locked.unlock"
+- assertVisible:
+    id: "vault.screen"
+- tapOn:
+    id: "vault.form.input"
+- inputText: "Nota privada E2E"
+- hideKeyboard
+- tapOn:
+    id: "vault.form.add"
+- assertVisible: "Nota privada E2E"

@@ -1,0 +1,21 @@
+appId: com.ampara.mobile
+name: "Paciente vê o histórico de hábitos"
+tags:
+  - habitos
+  - mobile
+# Espelha habitos.feature → "Paciente vê o histórico de hábitos".
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Hábitos"
+- assertVisible:
+    id: "habits.screen"
+- scrollUntilVisible:
+    element:
+      id: "habits.history"
+    direction: DOWN
+- assertVisible:
+    id: "habits.history"

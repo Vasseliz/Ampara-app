@@ -1,0 +1,19 @@
+appId: com.ampara.mobile
+name: "Paciente vê a adesão do dia"
+tags:
+  - medicamentos
+  - mobile
+# Apoio a medicamentos.feature → adesão. Pré-condição (cross): medicamento prescrito.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Meds"
+- scrollUntilVisible:
+    element:
+      id: "medications.adherence"
+    direction: DOWN
+- assertVisible:
+    id: "medications.adherence"

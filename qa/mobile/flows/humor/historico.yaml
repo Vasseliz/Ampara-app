@@ -1,0 +1,21 @@
+appId: com.ampara.mobile
+name: "Paciente vê o histórico de humor"
+tags:
+  - humor
+  - mobile
+# Espelha humor.feature → "Paciente vê o histórico de humor".
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Humor"
+- assertVisible:
+    id: "mood.screen"
+- scrollUntilVisible:
+    element:
+      id: "mood.history"
+    direction: DOWN
+- assertVisible:
+    id: "mood.history"

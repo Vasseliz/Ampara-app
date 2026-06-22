@@ -1,0 +1,12 @@
+appId: com.ampara.mobile
+name: subflow-logout
+# Bloco reutilizável: sai da sessão pela home e confirma a volta ao login.
+# Pré-condição: estar na home do paciente.
+---
+- scrollUntilVisible:
+    element:
+      text: "Sair"
+    direction: DOWN
+- tapOn: "Sair"
+- assertVisible:
+    id: "auth.login.email"

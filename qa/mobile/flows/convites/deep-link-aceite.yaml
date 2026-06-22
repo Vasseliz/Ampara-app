@@ -1,0 +1,17 @@
+appId: com.ampara.mobile
+name: "Convite via deep link abre a tela de aceite"
+tags:
+  - convites
+  - mobile
+# Espelha convites.feature → "Convite via deep link abre a tela de aceite".
+# Pré-condição (cross): INVITE_TOKEN de um convite pendente.
+# A rota de aceite é pública — funciona deslogado.
+---
+- launchApp:
+    clearState: true
+- runFlow:
+    file: "../../subflows/abrir-deeplink-convite.yaml"
+    env:
+      INVITE_TOKEN: ${INVITE_TOKEN}
+- assertVisible:
+    id: "invitations.token.accept"

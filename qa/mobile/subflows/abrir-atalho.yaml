@@ -1,0 +1,9 @@
+appId: com.ampara.mobile
+name: subflow-abrir-atalho
+# Abre Cofre/Convites pelos atalhos da home (não estão na tab bar). Param: ATALHO.
+---
+- scrollUntilVisible:
+    element:
+      text: "Abrir ${ATALHO}"
+    direction: DOWN
+- tapOn: "Abrir ${ATALHO}"

@@ -1,0 +1,19 @@
+appId: com.ampara.mobile
+name: subflow-login
+# Login por UI. Credenciais vêm de -e EMAIL / -e PASSWORD (CLI ou orquestrador).
+---
+- launchApp:
+    clearState: true
+- assertVisible:
+    id: "auth.login.email"
+- tapOn:
+    id: "auth.login.email"
+- inputText: ${EMAIL}
+- tapOn:
+    id: "auth.login.password"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn:
+    id: "auth.login.submit"
+# Home do paciente (DashboardLayout) renderiza "Acesso rápido" só após autenticar.
+- assertVisible: "Acesso rápido"

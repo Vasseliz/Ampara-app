@@ -1,0 +1,23 @@
+appId: com.ampara.mobile
+name: "Login com credenciais inválidas"
+tags:
+  - auth
+  - mobile
+# Espelha autenticacao.feature → "Login com credenciais inválidas".
+# Senha incorreta → toast de erro; permanece na tela de login.
+---
+- launchApp:
+    clearState: true
+- tapOn:
+    id: "auth.login.email"
+- inputText: "ninguem@ampara.test"
+- tapOn:
+    id: "auth.login.password"
+- inputText: "senha-errada"
+- hideKeyboard
+- tapOn:
+    id: "auth.login.submit"
+- assertVisible:
+    id: "auth.login.error"
+- assertVisible:
+    id: "auth.login.submit"

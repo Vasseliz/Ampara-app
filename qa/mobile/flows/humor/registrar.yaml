@@ -1,0 +1,33 @@
+appId: com.ampara.mobile
+name: "Paciente registra o humor do dia"
+tags:
+  - humor
+  - mobile
+# Espelha humor.feature → "Paciente registra o humor do dia".
+# Form só aparece sem registro hoje; senão o card de hoje já está visível.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Humor"
+- assertVisible:
+    id: "mood.screen"
+- runFlow:
+    when:
+      visible:
+        id: "mood.form"
+    commands:
+      - tapOn:
+          id: "mood.form.score.inc"
+      - tapOn:
+          id: "mood.form.score.inc"
+      - tapOn:
+          id: "mood.form.notes"
+      - inputText: "Dia tranquilo (E2E)"
+      - hideKeyboard
+      - tapOn:
+          id: "mood.form.submit"
+- assertVisible:
+    id: "mood.today"

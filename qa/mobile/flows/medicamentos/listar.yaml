@@ -1,0 +1,15 @@
+appId: com.ampara.mobile
+name: "Paciente abre a lista de medicamentos"
+tags:
+  - medicamentos
+  - mobile
+# Apoio a medicamentos.feature: valida a navegação e a tela (lista ou estado vazio).
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Meds"
+- assertVisible:
+    id: "medications.screen"

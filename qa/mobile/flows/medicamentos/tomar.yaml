@@ -1,0 +1,19 @@
+appId: com.ampara.mobile
+name: "Paciente marca a tomada"
+tags:
+  - medicamentos
+  - mobile
+# Espelha medicamentos.feature → "Paciente marca a tomada".
+# Pré-condição (cross): paciente com medicamento prescrito (web/API/Bloco J).
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Meds"
+- assertVisible:
+    id: "medications.screen"
+- assertVisible: "Marcar como tomado"
+- tapOn: "Marcar como tomado"
+- assertVisible: "Tomado"
