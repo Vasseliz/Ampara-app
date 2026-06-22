@@ -1,0 +1,11 @@
+# Config de workspace do Maestro. Sem isto, `maestro test mobile/flows` só roda flows
+# soltos na raiz e ignora os subdiretórios de domínio. Os padrões abaixo incluem
+# todos os flows de cada domínio (os subflows ficam em mobile/subflows/, fora daqui).
+flows:
+  - "auth/*"
+  - "convites/*"
+  - "humor/*"
+  - "habitos/*"
+  - "medicamentos/*"
+  - "cofre/*"
+  - "chat/*"

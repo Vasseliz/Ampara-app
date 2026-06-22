@@ -1,0 +1,13 @@
+appId: com.ampara.mobile
+name: "Rota protegida redireciona sem sessão"
+tags:
+  - auth
+  - mobile
+# Espelha autenticacao.feature → "Rota protegida redireciona sem sessão".
+# Sem sessão, abrir o deep link de uma rota protegida (cofre) cai no login.
+---
+- launchApp:
+    clearState: true
+- openLink: "ampara://cofre"
+- assertVisible:
+    id: "auth.login.email"

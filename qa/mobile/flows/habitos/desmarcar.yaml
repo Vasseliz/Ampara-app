@@ -1,0 +1,22 @@
+appId: com.ampara.mobile
+name: "Paciente desmarca um hábito"
+tags:
+  - habitos
+  - mobile
+# Espelha habitos.feature → "Paciente desmarca um hábito".
+# Alterna o toggle de exercício (marca→desmarca). Pré-condição: form visível (sem registro hoje).
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Hábitos"
+- assertVisible:
+    id: "habits.form"
+- tapOn:
+    id: "habits.form.exercise"
+- assertVisible: "Exercitou-se hoje ✓"
+- tapOn:
+    id: "habits.form.exercise"
+- assertVisible: "Exercitou-se hoje?"

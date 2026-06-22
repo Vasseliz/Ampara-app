@@ -1,0 +1,24 @@
+appId: com.ampara.mobile
+name: "Paciente aceita convite"
+tags:
+  - convites
+  - mobile
+# Espelha convites.feature → "Paciente aceita convite".
+# Pré-condição (cross): convite PENDENTE para este paciente. O botão de aceite
+# tem id dinâmico (invitations.item.<id>.accept) — casado por regex.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow:
+    file: "../../subflows/abrir-atalho.yaml"
+    env:
+      ATALHO: Convites
+- assertVisible:
+    id: "invitations.list"
+- tapOn:
+    id: "invitations\\.item\\..*\\.accept"
+- assertVisible:
+    id: "invitations.success"

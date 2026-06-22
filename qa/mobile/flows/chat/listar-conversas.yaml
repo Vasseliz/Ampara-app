@@ -1,0 +1,15 @@
+appId: com.ampara.mobile
+name: "Listar conversas"
+tags:
+  - chat
+  - mobile
+# Espelha chat.feature → "Listar conversas".
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Chat"
+- assertVisible:
+    id: "chat.conversations"

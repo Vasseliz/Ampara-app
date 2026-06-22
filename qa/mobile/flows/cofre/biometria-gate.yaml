@@ -1,0 +1,31 @@
+appId: com.ampara.mobile
+name: "Gate de biometria protege o acesso ao cofre"
+tags:
+  - cofre
+  - mobile
+# Espelha cofre.feature → "Gate de biometria protege o acesso ao cofre".
+# Com biometria: gate bloqueado (adb -e emu finger touch 1). Sem: auto-libera com aviso.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow:
+    file: "../../subflows/abrir-atalho.yaml"
+    env:
+      ATALHO: Cofre
+- runFlow:
+    when:
+      visible:
+        id: "vault.locked"
+    commands:
+      - assertVisible:
+          id: "vault.locked.unlock"
+- runFlow:
+    when:
+      notVisible:
+        id: "vault.locked"
+    commands:
+      - assertVisible:
+          id: "vault.insecureWarning"

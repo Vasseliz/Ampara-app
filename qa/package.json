@@ -6,15 +6,16 @@
   "engines": { "node": ">=20 <23", "npm": ">=10" },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "seed:test": "vitest run src/seed",
+    "seed:test": "vitest run foundation",
     "features:test": "vitest run features",
     "unit:test": "vitest run",
-    "e2e:web": "playwright test ./testes/",
-    "e2e:web:headed": "playwright test ./testes/ --headed",
-    "e2e:web:list": "playwright test --list",
-    "e2e:web:last-failed": "playwright test --last-failed",
+    "e2e:web": "playwright test -c web/playwright.config.ts",
+    "e2e:web:headed": "playwright test -c web/playwright.config.ts --headed",
+    "e2e:web:list": "playwright test -c web/playwright.config.ts --list",
+    "e2e:web:last-failed": "playwright test -c web/playwright.config.ts --last-failed",
     "e2e:web:report": "playwright show-report",
     "e2e:mobile": "maestro test mobile/flows",
+    "e2e:mobile:report": "maestro test mobile/flows --format html-detailed --output test-results/maestro-report.html",
     "e2e:cross": "tsx orchestrator/runCross.ts"
   },
   "devDependencies": {

@@ -1,0 +1,31 @@
+appId: com.ampara.mobile
+name: "Cadastro de conta de paciente"
+tags:
+  - auth
+  - mobile
+# Espelha autenticacao.feature → "Cadastro de conta de paciente".
+# Gera um e-mail único por execução para não colidir com cadastros anteriores.
+# Após cadastrar, o app autentica e leva à home do paciente.
+---
+- evalScript: ${output.email = 'e2e+pac-mob-' + Date.now() + '@ampara.test'}
+- launchApp:
+    clearState: true
+- tapOn: "Criar uma conta"
+- assertVisible:
+    id: "auth.register.firstName"
+- tapOn:
+    id: "auth.register.firstName"
+- inputText: "Ana"
+- tapOn:
+    id: "auth.register.lastName"
+- inputText: "Paciente E2E"
+- tapOn:
+    id: "auth.register.email"
+- inputText: ${output.email}
+- tapOn:
+    id: "auth.register.password"
+- inputText: "SenhaForte123!"
+- hideKeyboard
+- tapOn:
+    id: "auth.register.submit"
+- assertVisible: "Acesso rápido"

@@ -1,0 +1,28 @@
+appId: com.ampara.mobile
+name: "Enviar mensagem"
+tags:
+  - chat
+  - mobile
+# Espelha chat.feature → "Enviar mensagem".
+# Pré-condição (cross): o paciente tem um vínculo → há uma conversa na lista
+# (o card de conversa tem id dinâmico chat.conversations.<professionalId>).
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- tapOn: "Chat"
+- assertVisible:
+    id: "chat.conversations"
+- tapOn:
+    id: "chat\\.conversations\\..+"
+- assertVisible:
+    id: "chat.input"
+- tapOn:
+    id: "chat.input"
+- inputText: "Olá, mensagem de teste E2E"
+- hideKeyboard
+- tapOn:
+    id: "chat.input.send"
+- assertVisible: "Olá, mensagem de teste E2E"

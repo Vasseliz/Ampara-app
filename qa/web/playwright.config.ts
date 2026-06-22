@@ -3,14 +3,17 @@ import dotenv from "dotenv";
 import path from "node:path";
 import { getAppEnv, resetAppEnvCache } from "./src/config/env";
 
-dotenv.config({ path: path.resolve(__dirname, ".env") });
-dotenv.config({ path: path.resolve(__dirname, ".env.local"), override: true });
+// .env e artefatos vivem na raiz do pacote qa/ (um nível acima de web/).
+const repoRoot = path.resolve(__dirname, "..");
+
+dotenv.config({ path: path.resolve(repoRoot, ".env") });
+dotenv.config({ path: path.resolve(repoRoot, ".env.local"), override: true });
 
 resetAppEnvCache();
 const env = getAppEnv();
 
 export default defineConfig({
-  testDir: "./testes",
+  testDir: "./specs",
   testMatch: ["**/*.spec.ts"],
   testIgnore: ["**/example.spec.ts", "**/exemplo.spec.ts"],
   fullyParallel: true,
@@ -20,10 +23,10 @@ export default defineConfig({
   expect: { timeout: env.timeouts.expect },
   reporter: [
     ["list"],
-    ["html", { outputFolder: "playwright-report", open: "never" }],
+    ["html", { outputFolder: path.join(repoRoot, "playwright-report"), open: "never" }],
     ["./src/reporters/failure-summary-reporter.ts"],
   ],
-  outputDir: "test-results",
+  outputDir: path.join(repoRoot, "test-results"),
   use: {
     baseURL: env.urls.base,
     headless: env.headless,

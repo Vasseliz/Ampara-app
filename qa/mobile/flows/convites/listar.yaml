@@ -1,0 +1,21 @@
+appId: com.ampara.mobile
+name: "Paciente lista convites recebidos"
+tags:
+  - convites
+  - mobile
+# Espelha convites.feature → "Paciente lista convites recebidos".
+# Pré-condição (cross): existe um convite PENDENTE para este paciente.
+---
+- runFlow:
+    file: "../../subflows/login.yaml"
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: ${PASSWORD}
+- runFlow:
+    file: "../../subflows/abrir-atalho.yaml"
+    env:
+      ATALHO: Convites
+- assertVisible:
+    id: "invitations.screen"
+- assertVisible:
+    id: "invitations.list"

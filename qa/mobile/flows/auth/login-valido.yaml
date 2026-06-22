@@ -1,0 +1,22 @@
+appId: com.ampara.mobile
+name: "Login com credenciais válidas"
+tags:
+  - auth
+  - mobile
+# Espelha autenticacao.feature → "Login com credenciais válidas".
+# Pré-condição: EMAIL/PASSWORD de um paciente já registrado.
+---
+- launchApp:
+    clearState: true
+- assertVisible:
+    id: "auth.login.email"
+- tapOn:
+    id: "auth.login.email"
+- inputText: ${EMAIL}
+- tapOn:
+    id: "auth.login.password"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn:
+    id: "auth.login.submit"
+- assertVisible: "Acesso rápido"

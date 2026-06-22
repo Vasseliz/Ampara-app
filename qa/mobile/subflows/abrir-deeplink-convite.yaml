@@ -1,0 +1,8 @@
+appId: com.ampara.mobile
+name: subflow-abrir-deeplink-convite
+# Bloco reutilizável: abre o deep link de aceite de convite.
+# Rota pública: funciona com o app fechado ou o paciente deslogado.
+---
+- openLink: "ampara://convites/aceitar?token=${INVITE_TOKEN}"
+- assertVisible:
+    id: "invitations.token.screen"
