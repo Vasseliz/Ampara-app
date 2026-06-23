@@ -9,7 +9,7 @@ export function DashboardLayout() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} data-cy="app-shell">
       <button
         className={`${styles.hamburger} ${isOpen ? styles.hamburgerHidden : ''}`}
         onClick={() => setIsOpen(true)}

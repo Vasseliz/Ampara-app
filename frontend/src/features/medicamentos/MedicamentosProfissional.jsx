@@ -200,7 +200,7 @@ export function MedicamentosProfissional() {
                     ? styles.medBadge
                     : `${styles.medBadge} ${styles.medBadgeInactive}`;
                   return (
-                    <div key={med.id} data-testid="med-item" className={itemClass}>
+                    <div key={med.id} data-cy="med-item" className={itemClass}>
                       <div className={styles.medInfo}>
                         <span className={styles.medName}>{med.name}</span>
                         <span className={styles.medMeta}>

@@ -11,7 +11,11 @@ import styles from "./Humor.module.css";
 export function Humor() {
   const { data: todayMood, loading: loadingHoje, refetch } = useHumorHoje();
   const [periodo, setPeriodo] = useState(14);
-  const { data: entries, loading: loadingHistorico } = useHistoricoHumor(periodo);
+  const {
+    data: entries,
+    loading: loadingHistorico,
+    refetch: refetchHistorico,
+  } = useHistoricoHumor(periodo);
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(payload) {
@@ -20,7 +24,7 @@ export function Humor() {
       const res = await registrarHumor(payload);
       if (res.ok) {
         toast.success("Humor registrado com sucesso!");
-        refetch();
+        await Promise.all([refetch(), refetchHistorico()]);
       } else if (res.status === 409) {
         toast.error("Você já registrou seu humor hoje.");
         refetch();

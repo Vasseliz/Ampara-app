@@ -41,7 +41,11 @@ export function HumorHistorico({ entries, loading, periodo, onPeriodoChange }) {
       {!loading && entries.length > 0 && (
         <div className={styles.list}>
           {entries.map((entry) => (
-            <Card key={entry.id} className={styles.entry}>
+            <Card
+              key={entry.id}
+              className={styles.entry}
+              data-cy="humor-history-entry"
+            >
               <div className={styles.entryHeader}>
                 <span
                   className={styles.badge}

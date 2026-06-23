@@ -56,7 +56,7 @@ const loginCompartilhado: ProfileLogin = {
     { locator: { css: "#password" }, value: "password" },
   ],
   submit: { role: "button", name: /entrar/i },
-  success: { css: "main" },
+  success: { testId: "app-shell" },
   loginIndicators: [{ css: "#password" }],
 };
 
