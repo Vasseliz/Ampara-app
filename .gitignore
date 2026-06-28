@@ -61,7 +61,14 @@ appsettings.*.Local.json
 
 # Claude Code / harness — contexto e memória local
 .claude/
+!qa/.claude/
+qa/.claude/*
+!qa/.claude/shared/
+qa/.claude/shared/*
+!qa/.claude/shared/folder-map.yaml
 
 
 .RepoHarness/
 RepoHarness/
+
+docs2/

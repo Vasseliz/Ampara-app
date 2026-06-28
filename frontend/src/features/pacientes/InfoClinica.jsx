@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Stethoscope, Plus, X, Save, Check } from "lucide-react";
 import Button from "../../shared/atoms/button/Button";
 import { Select } from "../../shared/atoms/select/Select";
@@ -38,31 +38,49 @@ export function InfoClinica({ pacienteId }) {
   const [sexo, setSexo] = useState("");
   const [selectedDiag, setSelectedDiag] = useState([]);
   const [customDiag, setCustomDiag] = useState([]);
+  const selectedDiagRef = useRef([]);
+  const customDiagRef = useRef([]);
   const [customInput, setCustomInput] = useState("");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!info) return;
     setSexo(info.biologicalSex ?? "");
-    setSelectedDiag(info.mainDiagnoses ?? []);
-    setCustomDiag(info.customDiagnoses ?? []);
+    const mainDiagnoses = info.mainDiagnoses ?? [];
+    const customDiagnoses = info.customDiagnoses ?? [];
+    selectedDiagRef.current = mainDiagnoses;
+    customDiagRef.current = customDiagnoses;
+    setSelectedDiag(mainDiagnoses);
+    setCustomDiag(customDiagnoses);
   }, [info]);
 
   function toggleDiag(diag) {
-    setSelectedDiag((prev) =>
-      prev.includes(diag) ? prev.filter((d) => d !== diag) : [...prev, diag]
-    );
+    setSelectedDiag((prev) => {
+      const next = prev.includes(diag)
+        ? prev.filter((d) => d !== diag)
+        : [...prev, diag];
+      selectedDiagRef.current = next;
+      return next;
+    });
   }
 
   function addCustomDiag() {
     const trimmed = customInput.trim();
     if (!trimmed || customDiag.includes(trimmed)) return;
-    setCustomDiag((prev) => [...prev, trimmed]);
+    setCustomDiag((prev) => {
+      const next = [...prev, trimmed];
+      customDiagRef.current = next;
+      return next;
+    });
     setCustomInput("");
   }
 
   function removeCustomDiag(diag) {
-    setCustomDiag((prev) => prev.filter((d) => d !== diag));
+    setCustomDiag((prev) => {
+      const next = prev.filter((d) => d !== diag);
+      customDiagRef.current = next;
+      return next;
+    });
   }
 
   function handleCustomKeyDown(e) {
@@ -78,8 +96,8 @@ export function InfoClinica({ pacienteId }) {
     try {
       await salvar({
         biologicalSex: sexo || null,
-        mainDiagnoses: selectedDiag,
-        customDiagnoses: customDiag,
+        mainDiagnoses: selectedDiagRef.current,
+        customDiagnoses: customDiagRef.current,
       });
       toast.success("Informações clínicas salvas.");
     } catch (err) {
@@ -132,7 +150,11 @@ export function InfoClinica({ pacienteId }) {
           {customDiag.length > 0 && (
             <div className={styles.customChips}>
               {customDiag.map((diag) => (
-                <span key={diag} className={styles.customChip}>
+                <span
+                  key={diag}
+                  className={styles.customChip}
+                  data-cy="clinical-custom-diagnosis"
+                >
                   {diag}
                   <button
                     type="button"

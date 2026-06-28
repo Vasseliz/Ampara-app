@@ -16,6 +16,8 @@ export default defineConfig({
   testDir: "./specs",
   testMatch: ["**/*.spec.ts"],
   testIgnore: ["**/example.spec.ts", "**/exemplo.spec.ts"],
+  globalSetup: "./src/global-setup.ts",
+  globalTeardown: "./src/global-teardown.ts",
   fullyParallel: true,
   retries: Number.parseInt(process.env.PW_RETRIES ?? "0", 10),
   workers: env.workers,

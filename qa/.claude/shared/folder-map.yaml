@@ -1,0 +1,29 @@
+version: 1
+web:
+  autenticacao:
+    routes: ["/login", "/cadastro"]
+    spec: "web/specs/autenticacao/autenticacao.spec.ts"
+  pacientes:
+    routes: ["/profissional/pacientes", "/profissional/pacientes/:pacienteId"]
+    spec: "web/specs/pacientes/pacientes.spec.ts"
+  prontuario:
+    routes: ["/profissional/prontuario", "/profissional/prontuario/:pacienteId"]
+    spec: "web/specs/prontuario/prontuario.spec.ts"
+  convites:
+    routes: ["/convites"]
+    spec: "web/specs/convites/convites.spec.ts"
+  medicamentos:
+    routes: ["/medicamentos", "/profissional/medicamentos/:pacienteId"]
+    spec: "web/specs/medicamentos/medicamentos.spec.ts"
+  humor:
+    routes: ["/humor", "/profissional/humor/:pacienteId"]
+    spec: "web/specs/humor/humor.spec.ts"
+  habitos:
+    routes: ["/habitos"]
+    spec: "web/specs/habitos/habitos.spec.ts"
+  cofre:
+    routes: ["/cofre"]
+    spec: "web/specs/cofre/cofre.spec.ts"
+  chat:
+    routes: ["/chat"]
+    spec: "web/specs/chat/chat.spec.ts"
